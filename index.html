@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#090405">
+<title>Matt's Game Room</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💀</text></svg>">
+<style>
+/*
+  VOICE   a late-night card room: dark, red neon, a little dangerous
+  IDEA    the neon sign over a back-room door; each game is a lit doorway
+  PICTURE three glowing game cards, each with its own symbol drawn in SVG
+  COLOUR  near-black red room, neon red lead, green and gold for the other two
+  LAYOUT  sign on top, three doors in a row, stacking on phones
+*/
+:root{color-scheme:dark;--bg:#090405;--ink:#f4eaeb;--muted:#b4959a;--neon:#ff2a3c}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;min-height:100vh;background:radial-gradient(1100px 650px at 50% -10%,#3a0c14,var(--bg) 62%);color:var(--ink);font:16px/1.55 ui-rounded,"SF Pro Rounded","Segoe UI",system-ui,Roboto,Arial,sans-serif;overflow-x:clip;display:flex;flex-direction:column}
+main{flex:1;width:min(1120px,100%);margin:0 auto;padding:clamp(28px,5vw,64px) max(4vw,16px)}
+h1{margin:0;text-align:center;font-size:clamp(34px,6vw,52px);line-height:1.05;font-weight:950;letter-spacing:.08em;text-wrap:balance}
+h1 span{color:#ff4a5a;text-shadow:0 0 14px rgba(255,42,60,.85),0 0 40px rgba(255,42,60,.4)}
+.sub{text-align:center;color:var(--muted);margin:12px auto 36px;max-width:60ch}
+.doors{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.door{--c:#ff2a3c;display:flex;flex-direction:column;gap:12px;padding:22px;border-radius:22px;background:linear-gradient(180deg,rgba(34,12,15,.95),rgba(14,5,7,.95));border:2px solid color-mix(in srgb,var(--c) 70%,#000);box-shadow:0 0 22px color-mix(in srgb,var(--c) 35%,transparent),0 24px 60px rgba(0,0,0,.55);color:inherit;text-decoration:none;transition:transform .18s,box-shadow .18s}
+.door:hover,.door:focus-visible{transform:translateY(-6px);box-shadow:0 0 34px color-mix(in srgb,var(--c) 60%,transparent),0 30px 70px rgba(0,0,0,.6);outline:none}
+.door.g{--c:#36d36a}.door.y{--c:#f0b429}
+.art{height:150px;border-radius:16px;display:grid;place-items:center;background:radial-gradient(circle at 50% 40%,color-mix(in srgb,var(--c) 28%,transparent),transparent 70%),#0d0506;border:1px solid rgba(255,255,255,.06)}
+.art svg{width:96px;height:96px;color:#fff;filter:drop-shadow(0 0 10px var(--c))}
+.door h2{margin:0;font-size:24px;letter-spacing:.04em}
+.door p{margin:0;color:var(--muted);font-size:15px}
+.meta{display:flex;flex-wrap:wrap;gap:6px}
+.meta span{font-size:12px;font-weight:800;padding:3px 9px;border-radius:999px;border:1px solid rgba(255,255,255,.14);color:#e9d9db}
+.play{margin-top:auto;align-self:flex-start;padding:11px 20px;border-radius:12px;font-weight:900;letter-spacing:.06em;background:var(--c);color:#100304;box-shadow:0 0 18px color-mix(in srgb,var(--c) 55%,transparent)}
+footer{text-align:center;color:#7d5c62;font-size:13px;padding:22px 16px 30px}
+@media(max-width:860px){.doors{grid-template-columns:1fr}.art{height:120px}}
+@media(prefers-reduced-motion:reduce){.door{transition:none}}
+</style>
+</head>
+<body>
+<main>
+  <h1>MATT'S <span>GAME ROOM</span></h1>
+  <p class="sub">Online games for 2 to 8 friends. Host a room, share the 5-letter code or pick an open room from the list. Bots can fill empty seats. This site always runs the newest version: just reload.</p>
+  <div class="doors">
+    <a class="door" href="dead-deal.html">
+      <div class="art"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M12 2C7 2 3.5 5.6 3.5 10.2c0 2.9 1.4 5.2 3.5 6.5V20c0 .6.4 1 1 1h8c.6 0 1-.4 1-1v-3.3c2.1-1.3 3.5-3.6 3.5-6.5C20.5 5.6 17 2 12 2zM6.4 11a2.2 2.2 0 1 0 4.4 0a2.2 2.2 0 1 0-4.4 0zM13.2 11a2.2 2.2 0 1 0 4.4 0a2.2 2.2 0 1 0-4.4 0zM12 13.8l-1.4 2.4h2.8zM9.6 18.2h1.1V21H9.6zM13.3 18.2h1.1V21h-1.1z"/></svg></div>
+      <h2>Dead Deal</h2>
+      <p>Sit at the table, play your cards and dodge the Deathcard. Last one standing wins.</p>
+      <div class="meta"><span>2–8 players</span><span>3D table</span><span>🎄 Festive mode</span></div>
+      <span class="play">PLAY</span>
+    </a>
+    <a class="door g" href="boxed-in.html">
+      <div class="art"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" d="M4 4h16v16H4zM4 12h8M12 4v16M12 16h8"/><circle cx="8" cy="8" r="2" fill="currentColor"/><circle cx="16" cy="18" r="1.6" fill="currentColor"/></svg></div>
+      <h2>Boxed In</h2>
+      <p>Move, then build a wall. Fence off the biggest territory before the board closes up.</p>
+      <div class="meta"><span>2–4 players</span><span>Strategy</span></div>
+      <span class="play">PLAY</span>
+    </a>
+    <a class="door y" href="dead-center.html">
+      <div class="art"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="1.8" fill="currentColor"/><path stroke="currentColor" stroke-width="2.2" stroke-linecap="round" d="M2 12h3M19 12h3M12 2v3M12 19v3"/></svg></div>
+      <h2>Dead Center</h2>
+      <p>Race to the middle square. Each turn, step or drop a wall to slow everyone else down.</p>
+      <div class="meta"><span>2–4 players</span><span>Race</span></div>
+      <span class="play">PLAY</span>
+    </a>
+  </div>
+</main>
+<footer>Made with Claude · Games connect players directly, with backup routes when a network blocks direct links.</footer>
+</body>
+</html>
