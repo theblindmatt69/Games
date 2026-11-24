@@ -5708,7 +5708,7 @@ function viewFor(G, si) {
 }
 
 const API = {
-  VERSION: '202611241959',
+  VERSION: '202611242004',
   CARDS, ORDER, KIND, BASE_CARDS, WEIGHT, MIRRORABLE, FESTIVE_CARDS, EVENTS, EVENT_KEYS,
   autoNumbers, defaultSettings, cleanSettings, newGame, act, tick, viewFor, endGame, setConnected, removeSeat,
   computeActive, effTarget, deathsInDeck, playErr,
@@ -9035,13 +9035,13 @@ window.addEventListener('beforeunload', () => { if (A.role === 'guest') Net.leav
 /* ============================== UPDATES ==============================
    The hosted copy checks version.json now and then. On the site itself a
    new version is one reload away; a downloaded copy gets a link to it. */
-const SITE = 'https://theblindmatt69.github.io/games/';
+const SITE = 'https://theblindmatt69.github.io/Games/';
 function checkUpdate() {
   if (!/^https?:/.test(SITE) || !/^\d+$/.test(String(DD.VERSION)) || !window.fetch) return;
   fetch(SITE.replace(/\/?$/, '/') + 'version.json?t=' + Date.now(), { cache: 'no-store' }).then(r => r.json()).then(j => {
     if (!j || !j.v || +j.v <= +DD.VERSION) return;
     if (A.updSnooze && Date.now() - A.updSnooze < 15 * 60000) return;
-    const here = location.href.indexOf(SITE.replace(/\/?$/, '')) === 0;
+    const here = location.href.toLowerCase().indexOf(SITE.replace(/\/?$/, '').toLowerCase()) === 0;
     const busy = A.v && A.v.phase === 'game' && game() && game().phase === 'play';
     const u = $('update');
     u.innerHTML = here

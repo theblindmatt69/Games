@@ -1,7 +1,7 @@
 # Dead Deal and friends
 
 Three online browser games you play with friends from one link:
-**https://theblindmatt69.github.io/games/**
+**https://theblindmatt69.github.io/Games/**
 
 - **Dead Deal**: a 3D card table. Play your cards, dodge the Deathcard, be the last one standing. Festive Misfortune mode included.
 - **Boxed In**: move, then build a wall. Fence off the most territory.
