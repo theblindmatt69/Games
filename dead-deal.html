@@ -253,37 +253,41 @@ input,select{font:inherit;color:inherit}
 .det .dk{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-left:6px}
 .det .dd{font-size:13px;color:#c5cde0}
 .det .why{font-size:12px;color:var(--orange);margin-top:2px}
-#hand{display:flex;align-items:flex-end;gap:0;padding:10px 14px 12px;padding-bottom:max(12px,env(safe-area-inset-bottom));overflow-x:auto;overflow-y:hidden;min-height:calc(var(--ch) + 30px);scrollbar-width:thin}
+#hand{display:flex;align-items:flex-end;gap:0;padding:0 14px 20px;padding-bottom:max(20px,env(safe-area-inset-bottom));overflow-x:auto;overflow-y:hidden;min-height:calc(var(--ch) + 30px);scrollbar-width:thin}
 #hand .hint{color:var(--dim);font-size:14px;margin:auto}
-.hand-inner{display:flex;align-items:flex-end;margin:0 auto;padding-top:16px}
+.hand-inner{display:flex;align-items:flex-end;margin:0 auto;padding-top:46px}
 
 /* ---------- cards: a color and a symbol ---------- */
-.card{--k:var(--c-support);--ink:#fff;position:relative;flex:none;width:var(--cw);height:var(--ch);border-radius:14px;display:grid;place-items:center;background:linear-gradient(170deg,color-mix(in srgb,var(--k) 88%,#fff 12%),var(--k) 45%,color-mix(in srgb,var(--k) 78%,#000 22%));border:3px solid #0b0b0d;box-shadow:inset 0 0 0 3px rgba(255,255,255,.28),0 10px 22px rgba(0,0,0,.55);transition:transform .16s cubic-bezier(.3,.7,.3,1.2), margin .2s, box-shadow .15s, filter .15s;cursor:pointer;user-select:none;-webkit-user-select:none;overflow:hidden}
-.card:after{content:"";position:absolute;inset:0;background:linear-gradient(120deg,rgba(255,255,255,.22),transparent 38%);pointer-events:none}
+.card{position:relative;flex:none;width:var(--cw);height:var(--ch);cursor:pointer;user-select:none;-webkit-user-select:none}
+.card .cf{position:absolute;inset:0;border-radius:13px;background:radial-gradient(120% 90% at 30% 15%,color-mix(in srgb,var(--k) 80%,#fff 20%),var(--k) 45%,var(--k2) 100%);border:3px solid #0b0b0d;box-shadow:inset 0 0 0 2px rgba(255,255,255,.35),inset 0 -18px 30px rgba(0,0,0,.18),0 10px 22px rgba(0,0,0,.55);color:var(--ink);overflow:hidden;transition:transform .16s cubic-bezier(.3,.7,.3,1.2),box-shadow .15s,filter .15s}
+.card .cf:before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(135deg,rgba(255,255,255,.07) 0 6px,transparent 6px 14px);pointer-events:none}
+.card .cf:after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,rgba(255,255,255,.28),transparent 34%);pointer-events:none}
 .card+.card{margin-left:var(--ov,8px)}
-.card .ca{width:64%;color:#fff;line-height:0;filter:drop-shadow(0 3px 0 rgba(0,0,0,.3));display:grid;place-items:center;font-size:calc(var(--cw) * .46)}
-.card .ca svg{width:100%;height:auto;display:block}
-.card{grid-template-rows:1fr auto;padding:12% 6% 9%}
-.card .ca{width:58%;align-self:center;justify-self:center}
-.card .cn{color:#fff;font-weight:950;font-size:calc(var(--cw) * .088);line-height:1.08;letter-spacing:.03em;text-transform:uppercase;text-align:left;justify-self:start;text-shadow:0 2px 0 rgba(0,0,0,.35);max-width:100%;word-break:keep-all;overflow-wrap:normal;hyphens:none}
-.card.k-quick .cn{color:#25282e;text-shadow:0 2px 0 rgba(255,255,255,.5)}
-.card.mini .cn{font-size:calc(var(--cw) * .12)}
-.card.k-support{--k:var(--c-support)}
-.card.k-target{--k:var(--c-target)}
-.card.k-wild{--k:var(--c-wild)}
-.card.k-death{--k:var(--c-death)}
-.card.k-quick{--k:var(--c-quick)}
-.card.k-quick .ca{color:#25282e;filter:drop-shadow(0 3px 0 rgba(255,255,255,.5))}
-.card.a-angel{--k:var(--c-angel)}
-.card.a-snowball{--k:var(--c-snow)}
-.card.a-present{background:repeating-linear-gradient(135deg,#c8202f 0 18px,#1e9a46 18px 36px)}
-#hand .card{transform:translateY(var(--lift,0)) rotate(var(--rot,0deg));transform-origin:50% 130%;translate:0 0;transition:transform .16s cubic-bezier(.3,.7,.3,1.2),translate .2s ease,margin .2s,box-shadow .15s,filter .15s}
+.card .cx{position:absolute;left:6px;top:6px;right:5px;display:flex;align-items:center;gap:3px;z-index:1}
+.card .cx .ci{flex:none;width:calc(var(--cw) * .15);height:calc(var(--cw) * .15);display:block}
+.card .cx b{font-size:calc(var(--cw) * .094);font-weight:950;letter-spacing:0;line-height:1;white-space:nowrap;overflow:hidden;text-overflow:clip;text-shadow:0 1px 0 rgba(0,0,0,.25)}
+.card .cx .qk{font-style:normal;font-size:calc(var(--cw) * .1);margin-left:auto;filter:drop-shadow(0 1px 0 rgba(0,0,0,.4))}
+.card .ci svg,.card .ca svg{width:100%;height:100%;display:block}
+.card .ca{position:absolute;left:50%;top:57%;width:56%;height:56%;transform:translate(-50%,-50%);filter:drop-shadow(0 3px 0 rgba(0,0,0,.28))}
+.card.a-cancel .cf,.card.a-mirror .cf,.card.a-snowball .cf,.card.a-angel .cf{box-shadow:inset 0 0 0 2px rgba(255,255,255,.55),inset 0 -18px 30px rgba(0,0,0,.1),0 10px 22px rgba(0,0,0,.55)}
+.card.a-present .cf{background:repeating-linear-gradient(135deg,#cf2236 0 16px,#1e9a46 16px 32px)}
+.card.a-present .ca{filter:drop-shadow(0 0 6px rgba(0,0,0,.5))}
+.card.a-inferno .cf{background:radial-gradient(120% 100% at 50% 100%,#ffd23a,#ff5a1a 45%,#a3170b)}
+.card.k-quick .cf{border-color:#2a2108;box-shadow:inset 0 0 0 2px #ffd84a,inset 0 -18px 30px rgba(0,0,0,.18),0 10px 22px rgba(0,0,0,.55)}
+.card.mini{--cw:88px;--ch:124px;cursor:default}
+.card.mini .cx .qk{display:none}
+.card.mini .cf{border-radius:9px;border-width:2px}
+.card.mini .cx{left:5px;top:4px}
+#hand .card{transform:translateY(var(--lift,0)) rotate(var(--rot,0deg));transform-origin:50% 130%;translate:0 0;transition:transform .16s ease,translate .2s ease,margin .2s}
 #hand .card:hover~.card,#hand .card.sel~.card{translate:24px 0}
 #hand .card:has(~.card:hover),#hand .card:has(~.card.sel){translate:-24px 0}
-#hand .card:hover{transform:translateY(calc(var(--lift,0px) - 34px)) rotate(calc(var(--rot,0deg) * .3)) scale(1.1);z-index:5;box-shadow:inset 0 0 0 3px rgba(255,255,255,.4),0 18px 34px rgba(0,0,0,.6),0 0 0 2px rgba(255,255,255,.7)}
-#hand .card.sel{transform:translateY(calc(var(--lift,0px) - 30px)) rotate(var(--rot,0deg)) scale(1.07);z-index:5;box-shadow:inset 0 0 0 3px rgba(255,255,255,.4),0 0 0 3px #fff,0 18px 34px rgba(0,0,0,.6)}
-#hand .card.no{filter:saturate(.45) brightness(.62)}
-#hand .card.ok.k-quick.live{box-shadow:inset 0 0 0 3px rgba(255,255,255,.4),0 0 0 3px var(--yellow),0 0 26px rgba(255,216,74,.6);animation:qpulse 1s infinite alternate}
+#hand .card:hover{z-index:5}
+#hand .card:hover .cf{transform:translateY(-34px) rotate(calc(var(--rot,0deg) * -.7)) scale(1.1);box-shadow:inset 0 0 0 2px rgba(255,255,255,.45),0 18px 34px rgba(0,0,0,.6),0 0 0 3px #fff}
+#hand .card.sel{z-index:5}
+#hand .card.sel .cf{transform:translateY(-30px) scale(1.07);box-shadow:inset 0 0 0 2px rgba(255,255,255,.45),0 0 0 3px #fff,0 18px 34px rgba(0,0,0,.6)}
+#hand .card.no .cf{filter:saturate(.55) brightness(.6)}
+#hand .card.no:hover .cf{filter:saturate(.8) brightness(.85)}
+#hand .card.ok.k-quick.live .cf{box-shadow:inset 0 0 0 2px #ffd84a,0 0 0 3px var(--yellow),0 0 26px rgba(255,216,74,.6);animation:qpulse 1s infinite alternate}
 @keyframes qpulse{to{filter:brightness(1.12)}}
 #hand .card.new{animation:newcard .9s}
 @keyframes newcard{0%{transform:translateY(-60px) scale(.6);opacity:0}60%{transform:translateY(-14px) scale(1.04)}}
@@ -382,7 +386,8 @@ input,select{font:inherit;color:inherit}
   .net span{display:none}
   .icon-btn{width:34px;height:34px;font-size:15px}
   .code-chip{padding:5px 9px;font-size:13px}
-  .card{border-radius:10px;border-width:2px}
+  .card .cf{border-radius:10px;border-width:2px}
+  .card .cx{left:5px;top:4px;gap:3px}
   .seat{width:70px}
   .seat .nm{font-size:11px;max-width:70px}
   .pile{width:52px;height:74px}
@@ -448,6 +453,15 @@ input,select{font:inherit;color:inherit}
 #scr-game.is3d .status{flex:0 1 auto;min-width:0;max-width:min(560px,70vw);padding:8px 16px;border-radius:14px;background:rgba(10,3,5,.72);border:1px solid rgba(255,60,75,.28);backdrop-filter:blur(4px);text-align:center}
 #scr-game.is3d .status .tbar{margin:5px auto 0}
 #scr-game.is3d .drawbtn{min-width:140px;padding:13px 22px;font-size:17px;letter-spacing:.08em;box-shadow:0 0 0 1px #ff8a94,0 0 24px rgba(255,42,60,.55)}
+/* wide screens: status bottom-left, Draw bottom-right, the hand in between */
+@media (min-width:900px){
+  #scr-game.is3d #bar{position:absolute;left:14px;right:14px;bottom:16px;z-index:6;justify-content:space-between;align-items:flex-end;padding:0;flex-wrap:nowrap}
+  #scr-game.is3d #bar .status{width:230px;max-width:230px;text-align:left;flex:none}
+  #scr-game.is3d #bar .status .tbar{margin:6px 0 0}
+  #scr-game.is3d #bar .react{position:absolute;left:50%;bottom:calc(var(--ch) + 64px);transform:translateX(-50%);max-width:calc(100% - 40px);flex-wrap:wrap;justify-content:center}
+  #scr-game.is3d #bar .drawbtn{margin-left:auto}
+  #scr-game.is3d #hand{padding-left:262px;padding-right:186px}
+}
 #scr-game.is3d #detail{display:none}
 #scr-game.is3d #hand{position:relative;z-index:4;pointer-events:none;background:linear-gradient(0deg,rgba(6,1,2,.78),rgba(6,1,2,.35) 60%,transparent);overflow:visible}
 #scr-game.is3d #hand .card,#scr-game.is3d #hand .hint{pointer-events:auto}
@@ -485,7 +499,10 @@ input,select{font:inherit;color:inherit}
 .hp{font-size:12px;font-weight:800;padding:3px 10px;border-radius:999px;background:rgba(8,2,4,.7);border:1px solid rgba(255,255,255,.14)}
 .hp.chain{border-color:#8a6c10;color:#ffe08a}
 .hp.peace{border-color:#b08a50;color:#ffe2b0}
-#scr-game:not(.is3d) #hud .signs{transform:scale(.82);transform-origin:top center}
+/* 2D table: its centre already shows the deck and death chance, so only the festive countdown stays up top */
+#scr-game:not(.is3d) #hud{left:auto;right:10px;top:8px;align-items:flex-end}
+#scr-game:not(.is3d) #hud .sign:not(.fest),#scr-game:not(.is3d) #hud .pills{display:none}
+#scr-game:not(.is3d) #hud .signs{transform:scale(.82);transform-origin:top right}
 #scr-game:not(.is3d) #stackbar{top:92px}
 #viewbar{position:absolute;right:10px;top:70px;z-index:5;display:flex;flex-direction:column;gap:6px}
 .vb{width:38px;height:38px;border-radius:12px;background:rgba(10,3,5,.7);border:1px solid rgba(255,255,255,.16);font-size:17px;display:grid;place-items:center}
@@ -4670,6 +4687,29 @@ const D = {
   cards: [{ f: 'M7 3.5h11a1.5 1.5 0 0 1 1.5 1.5v14a1.5 1.5 0 0 1-1.5 1.5H7A1.5 1.5 0 0 1 5.5 19V5A1.5 1.5 0 0 1 7 3.5zM9 6.5v11h7v-11z' }, { f: 'M3 6.5h1.6v13.8c0 .8.6 1.4 1.4 1.4h10.6v1.6H5.6A2.6 2.6 0 0 1 3 20.7z' }],
   dcard: [{ f: 'M6 2h12a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zM12 6.5c-2.6 0-4.4 1.9-4.4 4.3 0 1.5.7 2.7 1.8 3.4v1.6c0 .4.3.7.7.7h3.8c.4 0 .7-.3.7-.7v-1.6c1.1-.7 1.8-1.9 1.8-3.4 0-2.4-1.8-4.3-4.4-4.3z' + circ(10.3, 11, 1.1) + circ(13.7, 11, 1.1) }],
 };
+// every card has its own color: [main, darker edge, ink for the icon and name]
+const STYLE = {
+  death:    ['#1a1a1e', '#060607', '#ff4a5a'],
+  angel:    ['#f4c430', '#c48a0c', '#3a2600'],
+  attack:   ['#e0303f', '#9c1422', '#ffffff'],
+  skip:     ['#13a89e', '#0a6c66', '#ffffff'],
+  reverse:  ['#f57c1f', '#b8520a', '#ffffff'],
+  bottom:   ['#9a6534', '#5e3a1a', '#ffffff'],
+  future:   ['#2f62dc', '#1a3a96', '#ffffff'],
+  steal:    ['#aa34c8', '#6c1784', '#ffffff'],
+  cancel:   ['#f2f3f6', '#b9bec8', '#c8102e'],
+  chain:    ['#5f6c80', '#363e4b', '#ffffff'],
+  inferno:  ['#ff5a1a', '#a3170b', '#fff3c4'],
+  shuffle:  ['#6cae28', '#3f6f12', '#ffffff'],
+  mirror:   ['#53cce0', '#1d8597', '#05313a'],
+  redirect: ['#5a49d8', '#33268f', '#ffffff'],
+  peek:     ['#e64a92', '#a11e5e', '#ffffff'],
+  hook:     ['#1d7a94', '#0e4656', '#ffffff'],
+  present:  ['#cf2236', '#1e9a46', '#ffffff'],
+  snowball: ['#a9e0ff', '#4aa3d6', '#0b3a5a'],
+};
+const SHORT = { present: 'Present', death: 'Deathcard' };
+function style(t) { return STYLE[t] || ['#555', '#333', '#fff']; }
 function svg(t, cls) {
   const parts = D[t];
   if (!parts) return '';
@@ -4692,7 +4732,7 @@ function draw(g, t, x, y, size, color) {
   g.restore();
   return true;
 }
-return { svg, draw, has: t => !!D[t] };
+return { svg, draw, has: t => !!D[t], style, STYLE, SHORT };
 })();
 window.DDIcons = DDIcons;
 
@@ -5713,7 +5753,7 @@ function viewFor(G, si) {
 }
 
 const API = {
-  VERSION: '202611251659',
+  VERSION: '202611251728',
   CARDS, ORDER, KIND, BASE_CARDS, WEIGHT, MIRRORABLE, FESTIVE_CARDS, EVENTS, EVENT_KEYS,
   autoNumbers, defaultSettings, cleanSettings, newGame, act, tick, viewFor, endGame, setConnected, removeSeat,
   computeActive, effTarget, deathsInDeck, playErr,
@@ -5788,37 +5828,35 @@ function cardColor(t) {
 function cardFaceTex(t) {
   const key = 'f:' + t;
   if (texCache.has(key)) return texCache.get(key);
-  const C = DD.CARDS[t] || { e: '?', k: 'support' };
+  const C = DD.CARDS[t] || { e: '?', k: 'support', n: '?' };
+  const [bg, edge, ink] = window.DDIcons ? DDIcons.style(t) : ['#555', '#333', '#fff'];
   const c = canvas(256, 358), g = c.getContext('2d');
-  const col = cardColor(t);
-  rr(g, 0, 0, 256, 358, 26); g.fillStyle = '#0d0d0f'; g.fill();
-  rr(g, 8, 8, 240, 342, 20);
+  rr(g, 0, 0, 256, 358, 26); g.fillStyle = '#0b0b0d'; g.fill();
+  g.save(); rr(g, 7, 7, 242, 344, 20); g.clip();
   if (t === 'present') {
-    g.save(); g.clip();
-    for (let i = -8; i < 20; i++) { g.fillStyle = i % 2 ? '#1e9a46' : '#c8202f'; g.beginPath(); g.moveTo(i * 36, 0); g.lineTo(i * 36 + 36, 0); g.lineTo(i * 36 + 36 - 200, 358); g.lineTo(i * 36 - 200, 358); g.fill(); }
-    g.restore();
+    for (let i = -8; i < 20; i++) { g.fillStyle = i % 2 ? '#1e9a46' : '#cf2236'; g.beginPath(); g.moveTo(i * 36, 0); g.lineTo(i * 36 + 36, 0); g.lineTo(i * 36 + 36 - 200, 358); g.lineTo(i * 36 - 200, 358); g.fill(); }
   } else {
-    const gr = g.createLinearGradient(0, 0, 0, 358);
-    gr.addColorStop(0, col); gr.addColorStop(1, shade(col, -0.18));
-    g.fillStyle = gr; g.fill();
+    const gr = g.createRadialGradient(77, 54, 10, 110, 150, 300);
+    gr.addColorStop(0, shade(bg, 0.22)); gr.addColorStop(0.45, bg); gr.addColorStop(1, edge);
+    g.fillStyle = gr; g.fillRect(0, 0, 256, 358);
+    g.strokeStyle = 'rgba(255,255,255,.08)'; g.lineWidth = 6;
+    for (let i = -20; i < 30; i++) { g.beginPath(); g.moveTo(i * 20, 0); g.lineTo(i * 20 + 358, 358); g.stroke(); }
   }
-  g.lineWidth = 4; g.strokeStyle = 'rgba(255,255,255,.35)'; rr(g, 20, 20, 216, 318, 14); g.stroke();
-  const dark = C.k === 'quick';
-  // name along the bottom, shrunk to fit
-  const nm = (C.n || '').toUpperCase();
-  let fs = 34;
+  g.restore();
+  g.lineWidth = 5; g.strokeStyle = C.k === 'quick' ? '#ffd84a' : 'rgba(255,255,255,.4)'; rr(g, 12, 12, 232, 334, 16); g.stroke();
+  // corner label: small icon + name
+  const nm = ((window.DDIcons && DDIcons.SHORT[t]) || C.n || '').toUpperCase();
+  if (window.DDIcons && DDIcons.has(t)) DDIcons.draw(g, t, 44, 46, 36, ink);
+  let fs = 30;
   g.font = `900 ${fs}px ${UI_FONT}`;
-  while (fs > 18 && g.measureText(nm).width > 212) { fs -= 2; g.font = `900 ${fs}px ${UI_FONT}`; }
-  g.textAlign = 'center'; g.textBaseline = 'middle';
-  g.fillStyle = dark ? 'rgba(255,255,255,.6)' : 'rgba(0,0,0,.35)'; g.fillText(nm, 128, 310);
-  g.fillStyle = dark ? '#25282e' : '#ffffff'; g.fillText(nm, 128, 307);
+  while (fs > 16 && g.measureText(nm).width > 180) { fs -= 2; g.font = `900 ${fs}px ${UI_FONT}`; }
+  g.textAlign = 'left'; g.textBaseline = 'middle'; g.fillStyle = ink; g.fillText(nm, 68, 48);
+  if (C.k === 'quick') { g.font = `26px ${EMOJI_FONT}`; g.textAlign = 'right'; g.fillText('⚡', 236, 48); }
+  // big icon
   if (window.DDIcons && DDIcons.has(t)) {
-    DDIcons.draw(g, t, 128, 160, 150, dark ? 'rgba(255,255,255,.5)' : 'rgba(0,0,0,.3)');
-    DDIcons.draw(g, t, 128, 153, 150, dark ? '#25282e' : '#ffffff');
-  } else {
-    silhouette(g, C.e, 128, 182, 132, 'rgba(0,0,0,.28)');
-    silhouette(g, C.e, 128, 176, 132, dark ? '#24272d' : '#ffffff');
-  }
+    DDIcons.draw(g, t, 128, 212, 150, 'rgba(0,0,0,.28)');
+    DDIcons.draw(g, t, 128, 205, 150, ink);
+  } else silhouette(g, C.e, 128, 205, 130, ink);
   const tex = toTex(c); texCache.set(key, tex); return tex;
 }
 function shade(hex, f) {
@@ -6022,12 +6060,13 @@ function hangLamp(G, warm, top) {
   const inner = new THREE.Mesh(new THREE.ConeGeometry(0.6, 0.4, 40, 1, true), warm ? neonMat(1.7, 1.3, 0.8) : neonMat(1.6, 0.7, 0.45)); inner.material.side = THREE.BackSide;
   const bulb = new THREE.Mesh(new THREE.SphereGeometry(0.11, 20, 12), warm ? neonMat(6, 4.6, 3) : neonMat(6, 3.2, 2));
   bulb.position.y = -0.14;
-  const len = Math.max(0.2, top - 2.6 - 0.2);
+  const LY = Math.min(3.15, top - 0.5);
+  const len = Math.max(0.2, top - LY - 0.2);
   const cord = new THREE.Mesh(new THREE.CylinderGeometry(0.012, 0.012, len, 6), new THREE.MeshBasicMaterial({ color: 0x050505 }));
   cord.position.y = 0.2 + len / 2;
-  lamp.add(shadeM, inner, bulb, cord); lamp.position.y = 2.6; G.add(lamp);
+  lamp.add(shadeM, inner, bulb, cord); lamp.position.y = LY; G.add(lamp);
   const spot = new THREE.SpotLight(warm ? 0xffd9b4 : 0xffc4aa, warm ? 15 : 13, 8, 1.05, 0.75, 1.25);
-  spot.position.set(0, 2.45, 0); spot.target.position.set(0, TOP_Y, 0);
+  spot.position.set(0, LY - 0.15, 0); spot.target.position.set(0, TOP_Y, 0);
   spot.castShadow = true; spot.shadow.mapSize.set(1024, 1024); spot.shadow.bias = -0.0004; spot.shadow.radius = 4;
   G.add(spot, spot.target);
 }
@@ -6671,11 +6710,11 @@ function fx(e) {
 function angelPillar(i) {
   const p = seatWorld(i, 0.2);
   const m = new THREE.Mesh(new THREE.CylinderGeometry(0.45, 0.45, 4, 24, 1, true), new THREE.MeshBasicMaterial({ transparent: true, opacity: 0, blending: THREE.AdditiveBlending, depthWrite: false, side: THREE.DoubleSide }));
-  m.material.color.setRGB(2.4, 1.9, 0.6);
+  m.material.color.setRGB(1.3, 1.0, 0.35);
   m.position.copy(p); m.position.y = 2; R.fx.add(m);
-  flashLight(p.clone().add(new THREE.Vector3(0, 1.2, 0)), 0xffd060, 40, 1400);
+  flashLight(p.clone().add(new THREE.Vector3(0, 1.2, 0)), 0xffd060, 16, 1400);
   burst(p.clone().add(new THREE.Vector3(0, 0.8, 0)), 30, [3, 2.5, 0.8], 1, 1.4, 1.5);
-  anim(1500, f => { m.material.opacity = Math.sin(Math.PI * f) * 0.35; m.scale.set(1 - f * 0.4, 1, 1 - f * 0.4); }, () => { R.fx.remove(m); });
+  anim(1500, f => { m.material.opacity = Math.sin(Math.PI * f) * 0.2; m.scale.set(1 - f * 0.4, 1, 1 - f * 0.4); }, () => { R.fx.remove(m); });
 }
 function spinRing() {
   const g = new THREE.Group();
@@ -8366,7 +8405,12 @@ const isHost = () => A.role === 'host';
 function avatarHTML(av, color, size) { return `<span class="avatar" style="${size ? `--av:${size}px;` : ''}--c:${esc(color)}">${esc(av)}</span>`; }
 function cardHTML(t, extra, attrs) {
   const C = CARDS[t];
-  return `<div class="card k-${C.k} a-${t} ${extra || ''}" data-t="${t}" ${attrs || ''}><div class="ca">${window.DDIcons && DDIcons.has(t) ? DDIcons.svg(t) : C.e}</div><div class="cn">${esc(C.n)}</div></div>`;
+  const [bg, edge, ink] = DDIcons.style(t);
+  const name = (DDIcons.SHORT[t] || C.n).toUpperCase();
+  const ico = DDIcons.has(t) ? DDIcons.svg(t) : esc(C.e);
+  const st = `--k:${bg};--k2:${edge};--ink:${ink}`;
+  const quick = C.k === 'quick' ? '<i class="qk" title="Quick Play: you can play it on anyone\'s turn">⚡</i>' : '';
+  return `<div class="card k-${C.k} a-${t} ${extra || ''}" data-t="${t}" ${attrs || ''}><div class="cf" style="${st}"><div class="cx"><span class="ci">${ico}</span><b>${esc(name)}</b>${quick}</div><div class="ca">${ico}</div></div></div>`;
 }
 /* hover a card to read it (tap on phones) */
 function tipHTML(t, c) {
@@ -8385,7 +8429,8 @@ function showTip(el) {
   setHTML(tip, tipHTML(t, c));
   tip.classList.remove('hidden');
   const r = el.getBoundingClientRect(), tw = tip.offsetWidth, th = tip.offsetHeight;
-  let x = r.left + r.width / 2 - tw / 2, y = r.top - th - 14;
+  const lift = el.closest('#hand') ? 44 : 0;
+  let x = r.left + r.width / 2 - tw / 2, y = r.top - lift - th - 10;
   x = Math.max(8, Math.min(innerWidth - tw - 8, x));
   if (y < 8) y = Math.min(innerHeight - th - 8, r.bottom + 10);
   tip.style.left = x + 'px'; tip.style.top = y + 'px';
@@ -8789,7 +8834,7 @@ function renderBar(g) {
     s1 = `🎄 Festive Misfortune: ${E.e || ''} ${esc(E.n || '')}`; s2 = 'Everything waits until the surprise is unwrapped…';
   } else if (g.cur === me) {
     s1 = `🎯 Your turn${g.turnsLeft > 1 ? ` · ${g.turnsLeft} turns to take` : ''}`;
-    s2 = mine.snow ? "❄️ You're snowed in: you can only draw this turn." : `Play any cards you want, then draw${T3 && T3.active ? ' (or click the deck)' : ''} to end your turn.`;
+    s2 = mine.snow ? "❄️ You're snowed in: you can only draw this turn." : 'Play cards, then draw to end your turn.';
     timer = true;
   } else { s1 = `${curName}'s turn${g.turnsLeft > 1 ? ` (×${g.turnsLeft})` : ''}`; s2 = g.seats[g.cur].bot ? 'The bot is thinking…' : 'Watch out for attacks!'; timer = true; }
   const tbar = timer && g.turnTotal > 0 && g.phase === 'play' ? `<div class="tbar"><i data-timer="turn"></i></div>` : '';
@@ -8811,13 +8856,14 @@ function renderHand(g) {
     A.newType = null;
   }
   const cw = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--cw')) || 100;
-  const avail = (el.clientWidth || 600) - (T3 && T3.active ? (innerWidth < 640 ? 130 : 90) : 30);
+  const pcs = getComputedStyle(el);
+  const avail = (el.clientWidth || 600) - (parseFloat(pcs.paddingLeft) || 0) - (parseFloat(pcs.paddingRight) || 0) - (T3 && T3.active ? (innerWidth < 640 ? 100 : 40) : 10);
   // cards overlap by default; hovering one lifts it and nudges the rest aside (see CSS)
   let ov = -(cw * 0.42);
   if (hand.length > 1 && hand.length * cw + (hand.length - 1) * ov > avail) ov = Math.max(-(cw - 22), (avail - hand.length * cw) / (hand.length - 1));
   const live = !!g.stack, N = hand.length, spread = Math.min(5, 30 / Math.max(1, N));
   const html = `<div class="hand-inner" style="--ov:${ov.toFixed(1)}px">` + hand.map((c, j) => {
-    const off = j - (N - 1) / 2, rot = off * spread, lift = Math.min(24, off * off * Math.min(2.2, 16 / N));
+    const off = j - (N - 1) / 2, rot = off * spread, lift = Math.min(innerWidth < 640 ? 8 : 14, off * off * Math.min(2, 14 / N));
     const cls = [c.ok ? 'ok' : 'no', c.id === A.sel ? 'sel' : '', live ? 'live' : '', c.id === newId ? 'new' : ''].join(' ');
     return cardHTML(c.t, cls, `data-act="hc" data-id="${c.id}" style="--rot:${rot.toFixed(2)}deg;--lift:${lift.toFixed(1)}px"`);
   }).join('') + '</div>';
