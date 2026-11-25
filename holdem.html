@@ -1217,7 +1217,7 @@ function viewFor(G, si) {
 }
 
 const API = {
-  VERSION: '202611251715', MAX_SEATS, RANKS, SUITS, CHIPS, BLINDS, TURN_TIMES, UPS,
+  VERSION: '202611251912', MAX_SEATS, RANKS, SUITS, CHIPS, BLINDS, TURN_TIMES, UPS,
   defaultSettings, cleanSettings, cleanAction, newGame, act, tick, viewFor, setConnected, removeSeat, endGame,
   eval7, handName, best5, equity, pots, options, cardStr, rankOf, suitOf, botMove,
 };
@@ -1956,8 +1956,12 @@ const Room = (() => {
       return;
     }
     if (R.phase === 'game' && R.G && R.G.phase !== 'over') {
-      const away = R.members.find(x => !x.bot && !x.host && !x.conn && !x.spec &&
-        ((dev && x.dev === dev) || x.name.toLowerCase() === p.name.toLowerCase()) &&
+      // a seat counts as yours if it's away and has your device or name, or if it still looks
+      // connected but has your device AND name: a killed tab or dropped wifi takes a few
+      // seconds to notice, and reopening right away shouldn't turn you into a spectator
+      const same = x => x.name.toLowerCase() === p.name.toLowerCase();
+      const away = R.members.find(x => !x.bot && !x.host && !x.spec &&
+        (x.conn ? (dev && x.dev === dev && same(x)) : ((dev && x.dev === dev) || same(x))) &&
         seatOf(x.cid) >= 0 && R.G.seats[seatOf(x.cid)].alive);
       if (away) return request(L, c, dev, p, 'reclaim', away.cid);
     }
