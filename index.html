@@ -24,7 +24,9 @@ h1 span{color:#ff4a5a;text-shadow:0 0 14px rgba(255,42,60,.85),0 0 40px rgba(255
 .doors{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
 .door{--c:#ff2a3c;display:flex;flex-direction:column;gap:12px;padding:22px;border-radius:22px;background:linear-gradient(180deg,rgba(34,12,15,.95),rgba(14,5,7,.95));border:2px solid color-mix(in srgb,var(--c) 70%,#000);box-shadow:0 0 22px color-mix(in srgb,var(--c) 35%,transparent),0 24px 60px rgba(0,0,0,.55);color:inherit;text-decoration:none;transition:transform .18s,box-shadow .18s}
 .door:hover,.door:focus-visible{transform:translateY(-6px);box-shadow:0 0 34px color-mix(in srgb,var(--c) 60%,transparent),0 30px 70px rgba(0,0,0,.6);outline:none}
-.door.g{--c:#36d36a}.door.y{--c:#f0b429}.door.p{--c:#2ec4a6}
+.door.g{--c:#36d36a}.door.y{--c:#f0b429}
+.door.h{--c:#c86bff}
+.door.wide{grid-column:1/-1}.door.p{--c:#2ec4a6}
 .art{height:150px;border-radius:16px;display:grid;place-items:center;background:radial-gradient(circle at 50% 40%,color-mix(in srgb,var(--c) 28%,transparent),transparent 70%),#0d0506;border:1px solid rgba(255,255,255,.06)}
 .art svg{width:96px;height:96px;color:#fff;filter:drop-shadow(0 0 10px var(--c))}
 .door h2{margin:0;font-size:24px;letter-spacing:.04em}
@@ -43,7 +45,7 @@ footer{text-align:center;color:#7d5c62;font-size:13px;padding:22px 16px 30px}
 <body>
 <main>
   <h1>MATT'S <span>GAME ROOM</span></h1>
-  <p class="sub">Online games for 2 to 8 friends: cards, poker and strategy. Host a room, share the 5-letter code or pick an open room from the list. Bots can fill empty seats. This site always runs the newest version: just reload.</p>
+  <p class="sub">Online games for 2 to 8 friends: cards, poker and strategy, plus an idle game for when you're on your own. Host a room, share the 5-letter code or pick an open room from the list. Bots can fill empty seats. This site always runs the newest version: just reload.</p>
   <p class="live" id="live"></p>
   <div class="doors">
     <a class="door" href="dead-deal.html">
@@ -76,6 +78,14 @@ footer{text-align:center;color:#7d5c62;font-size:13px;padding:22px 16px 30px}
       <p>Race to the middle square. Each turn, step or drop a wall to slow everyone else down.</p>
       <div class="meta"><span>2–4 players</span><span>Race</span></div>
       <div class="ver" data-f="dead-center-version.json">Version …</div>
+      <span class="play">PLAY</span>
+    </a>
+    <a class="door h wide" href="house-edge.html">
+      <div class="art"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="5.2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-dasharray="2.2 1.9"/><path fill="currentColor" d="M12 8.6l1.1 2.3 2.5.3-1.8 1.7.5 2.5-2.3-1.2-2.3 1.2.5-2.5-1.8-1.7 2.5-.3z"/><path stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M12 1.8v2.4M12 19.8v2.4M1.8 12h2.4M19.8 12h2.4M4.8 4.8l1.7 1.7M17.5 17.5l1.7 1.7M19.2 4.8l-1.7 1.7M6.5 17.5l-1.7 1.7"/></svg></div>
+      <h2>House Edge</h2>
+      <p>An idle casino tycoon. Deal hands, buy tables and slot machines, and grow a back room into a Moon Casino. It keeps earning while you're away.</p>
+      <div class="meta"><span>1 player</span><span>Idle</span><span>Saves on this device</span></div>
+      <div class="ver" data-f="house-edge-version.json">Version …</div>
       <span class="play">PLAY</span>
     </a>
   </div>

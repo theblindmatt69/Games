@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>House Edge · Idle Casino</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎰</text></svg>">
+<style>
+:root{--bg:#0b0710;--panel:#160f1e;--panel2:#1e1528;--line:#2e2240;--text:#f3ecf8;--muted:#a597b6;--gold:#ffcc4d;--gold2:#e09b14;--pink:#ff3d81;--green:#2fd17a;--red:#ff5b6b;--felt:#0f5d3c}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-tap-highlight-color:transparent}
+body{background:radial-gradient(1200px 600px at 20% -10%,#3a1846 0%,transparent 60%),radial-gradient(900px 500px at 110% 10%,#2a1206 0%,transparent 55%),var(--bg);overflow-x:hidden}
+button{font:inherit;color:inherit;cursor:pointer}
+.hidden{display:none!important}
+
+/* header */
+#top{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:12px;padding:10px 16px;background:rgba(11,7,16,.86);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.back{color:var(--muted);text-decoration:none;font-size:20px;width:34px;height:34px;display:grid;place-items:center;border-radius:10px;border:1px solid var(--line)}
+.back:hover{color:var(--text);border-color:#4a3a60}
+.brand{font-weight:900;letter-spacing:.14em;font-size:18px}
+.brand b{color:var(--gold);text-shadow:0 0 18px rgba(255,204,77,.55)}
+.tools{margin-left:auto;display:flex;gap:8px}
+.ib{width:38px;height:38px;border-radius:11px;border:1px solid var(--line);background:var(--panel);font-size:17px}
+.ib:hover{border-color:#4a3a60}
+
+/* layout */
+#app{display:grid;grid-template-columns:minmax(300px,400px) minmax(0,1fr);gap:18px;max-width:1240px;margin:0 auto;padding:18px 16px 60px}
+#bank{position:sticky;top:76px;align-self:start;background:linear-gradient(180deg,var(--panel2),var(--panel));border:1px solid var(--line);border-radius:20px;padding:22px 20px 16px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.35)}
+.chips{display:flex;align-items:center;justify-content:center;gap:10px;font-size:clamp(30px,4.2vw,42px);font-weight:900;letter-spacing:-.01em;font-variant-numeric:tabular-nums}
+.chipico{width:.9em;height:.9em;border-radius:50%;background:repeating-conic-gradient(var(--gold) 0 30deg,#fff4cf 30deg 45deg);box-shadow:inset 0 0 0 .12em #b87708,0 0 16px rgba(255,204,77,.5);flex:none}
+.cps{color:var(--muted);margin-top:4px;font-size:14px;font-variant-numeric:tabular-nums}
+.cps #cps{color:var(--text);font-weight:800}
+.frz{display:inline-block;margin-left:6px;padding:2px 8px;border-radius:99px;background:var(--pink);color:#fff;font-weight:800;font-size:12px;animation:pulse 1s infinite alternate}
+@keyframes pulse{from{box-shadow:0 0 0 0 rgba(255,61,129,.6)}to{box-shadow:0 0 0 6px rgba(255,61,129,0)}}
+
+/* the deal button */
+#deal{position:relative;display:block;margin:22px auto 10px;width:min(240px,70vw);aspect-ratio:1/1.08;border:0;background:radial-gradient(closest-side,#13744c,var(--felt) 70%,#0a3d28);border-radius:24px;box-shadow:inset 0 0 0 3px #1f8a5c,inset 0 0 40px rgba(0,0,0,.45),0 14px 40px rgba(0,0,0,.45);transition:transform .08s;user-select:none;touch-action:manipulation}
+#deal:active{transform:scale(.97)}
+#deal .stack{position:absolute;left:50%;top:44%;width:42%;aspect-ratio:5/7;translate:-50% -50%}
+#deal .stack i{position:absolute;inset:0;border-radius:10px;background:#f8f4ea;box-shadow:0 2px 6px rgba(0,0,0,.4);border:1px solid #d9d2c0}
+#deal .stack i:nth-child(1){rotate:-9deg;translate:-8px 4px}
+#deal .stack i:nth-child(2){rotate:7deg;translate:7px 2px}
+#deal .stack i.top{display:grid;place-items:center;font-weight:900;color:#151515}
+#deal .pip{position:absolute;left:8px;top:5px;font-size:15px}
+#deal .suit{font-size:42px;line-height:1}
+#deal.hit .stack i.top{animation:flip .28s ease-out}
+@keyframes flip{0%{transform:rotateY(0) translateY(0)}45%{transform:rotateY(90deg) translateY(-10px)}100%{transform:rotateY(0) translateY(0)}}
+#deal .dlabel{position:absolute;left:0;right:0;bottom:14%;font-weight:900;letter-spacing:.16em;font-size:13px;color:#d8ffe9;text-shadow:0 1px 0 rgba(0,0,0,.4)}
+#deal .dval{position:absolute;left:0;right:0;bottom:6%;font-size:12px;color:#9be7bf;font-variant-numeric:tabular-nums}
+.pop{position:fixed;z-index:30;pointer-events:none;font-weight:900;color:var(--gold);text-shadow:0 2px 0 rgba(0,0,0,.5);animation:rise .9s ease-out forwards;font-variant-numeric:tabular-nums}
+@keyframes rise{from{opacity:1;transform:translate(-50%,0) scale(1)}to{opacity:0;transform:translate(-50%,-70px) scale(1.15)}}
+.perks{display:flex;justify-content:center;gap:10px;margin-top:6px}
+.perks span{padding:5px 11px;border-radius:99px;background:rgba(255,255,255,.05);border:1px solid var(--line);font-size:13px;font-weight:700}
+.ticker{margin-top:14px;height:38px;overflow:hidden;border-top:1px solid var(--line);padding-top:10px;color:var(--muted);font-size:12.5px;font-style:italic}
+.ticker span{display:block;animation:tick .5s ease-out}
+@keyframes tick{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+/* shop */
+#shop{min-width:0}
+.tabs{display:flex;gap:6px;overflow-x:auto;padding-bottom:2px;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tabs button{flex:none;padding:9px 14px;border-radius:12px;border:1px solid var(--line);background:var(--panel);font-weight:700;font-size:14px;color:var(--muted)}
+.tabs button.on{color:var(--text);background:var(--panel2);border-color:#5a4475;box-shadow:inset 0 -2px 0 var(--gold)}
+.tabs b{display:inline-block;min-width:20px;padding:1px 6px;margin-left:4px;border-radius:99px;background:var(--pink);color:#fff;font-size:11px}
+.pane{margin-top:12px}
+.buybar{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px;color:var(--muted);font-size:13px;flex-wrap:wrap}
+.seg{display:flex;border:1px solid var(--line);border-radius:11px;overflow:hidden;background:var(--panel)}
+.seg button{border:0;background:none;padding:7px 12px;font-weight:700;font-size:13px;color:var(--muted)}
+.seg button.on{background:var(--gold);color:#2a1a00}
+.btn{border:1px solid #4a3a60;background:var(--panel2);border-radius:11px;padding:9px 14px;font-weight:800}
+.btn.small{padding:7px 12px;font-size:13px}
+.btn.gold{background:linear-gradient(180deg,var(--gold),var(--gold2));color:#2a1a00;border-color:#b87708}
+.btn.danger{color:var(--red);border-color:#6a2a35}
+.btn:disabled{opacity:.45;cursor:default}
+
+/* table rows */
+.gen{display:grid;grid-template-columns:52px minmax(0,1fr) auto;align-items:center;gap:12px;padding:12px 14px;margin-bottom:8px;border-radius:16px;background:var(--panel);border:1px solid var(--line);transition:border-color .15s,background .15s}
+.gen.can{border-color:#5f4a20;background:linear-gradient(90deg,rgba(255,204,77,.07),transparent 60%),var(--panel)}
+.gen .ico{width:52px;height:52px;border-radius:14px;display:grid;place-items:center;font-size:28px;background:rgba(255,255,255,.05);border:1px solid var(--line);position:relative}
+.gen .own{position:absolute;right:-6px;bottom:-6px;min-width:24px;padding:1px 6px;border-radius:99px;background:var(--gold);color:#2a1a00;font-size:12px;font-weight:900;text-align:center;font-variant-numeric:tabular-nums}
+.gen .nm{font-weight:800;font-size:15px}
+.gen .rt{color:var(--muted);font-size:12.5px;margin-top:2px;font-variant-numeric:tabular-nums}
+.gen .rt b{color:var(--green)}
+.gen .bar{height:6px;border-radius:99px;background:rgba(255,255,255,.07);margin-top:7px;overflow:hidden}
+.gen .bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--pink),var(--gold));border-radius:inherit;transition:width .2s}
+.gen .ms{font-size:11px;color:var(--muted);margin-top:3px}
+.gen .buy{min-width:118px;padding:9px 12px;border-radius:12px;border:1px solid #4a3a60;background:var(--panel2);text-align:center;line-height:1.2}
+.gen .buy small{display:block;font-size:11px;color:var(--muted);font-weight:700}
+.gen .buy span{font-weight:900;font-variant-numeric:tabular-nums}
+.gen.can .buy{background:linear-gradient(180deg,var(--gold),var(--gold2));color:#2a1a00;border-color:#b87708}
+.gen.can .buy small{color:#5a3c00}
+.gen .buy:disabled{cursor:default}
+.gen.locked{opacity:.75}
+.gen.locked .ico{filter:grayscale(1) brightness(.5)}
+
+/* upgrades */
+#ups{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:8px}
+.up{display:flex;flex-direction:column;gap:4px;text-align:left;padding:12px;border-radius:14px;background:var(--panel);border:1px solid var(--line)}
+.up .un{font-weight:800}
+.up .ud{color:var(--muted);font-size:12.5px;flex:1}
+.up .uc{font-weight:900;font-variant-numeric:tabular-nums;margin-top:4px}
+.up .uk{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.up.can{border-color:#5f4a20;background:linear-gradient(180deg,rgba(255,204,77,.09),transparent),var(--panel)}
+.up.can .uc{color:var(--gold)}
+.up:not(.can){opacity:.7;cursor:default}
+.empty{color:var(--muted);padding:26px;text-align:center;border:1px dashed var(--line);border-radius:14px}
+.done-ups{margin-top:14px;color:var(--muted);font-size:12.5px}
+.done-ups span{display:inline-block;margin:3px 4px 0 0;padding:3px 8px;border-radius:99px;background:rgba(255,255,255,.04);border:1px solid var(--line)}
+
+/* sell, trophies, stats */
+.card{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:20px}
+.card h2{margin:0 0 6px;font-size:20px}
+.card p{color:var(--muted);margin:6px 0;line-height:1.5}
+.big{font-size:34px;font-weight:900;color:var(--gold);font-variant-numeric:tabular-nums}
+.sellgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0}
+.sellgrid div{background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:14px;padding:12px;text-align:center}
+.sellgrid small{display:block;color:var(--muted);font-size:12px;margin-bottom:3px}
+.sellgrid b{font-size:20px;font-variant-numeric:tabular-nums}
+.hint{font-size:13px;padding:10px 12px;border-radius:12px;background:rgba(47,209,122,.08);border:1px solid rgba(47,209,122,.3);color:#bdf5d6}
+.hint.wait{background:rgba(255,204,77,.07);border-color:rgba(255,204,77,.3);color:#ffe7a8}
+#achs{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:8px}
+.ach{padding:10px 12px;border-radius:13px;background:var(--panel);border:1px solid var(--line)}
+.ach b{display:block;font-size:13.5px}
+.ach small{color:var(--muted);font-size:12px}
+.ach.got{border-color:#5f4a20;background:linear-gradient(180deg,rgba(255,204,77,.1),transparent),var(--panel)}
+.ach:not(.got){opacity:.55}
+.ach:not(.got) b::before{content:'🔒 '}
+.ach.got b::before{content:'🏆 '}
+.stats{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px}
+.stats div{padding:12px 14px;border-radius:13px;background:var(--panel);border:1px solid var(--line)}
+.stats small{display:block;color:var(--muted);font-size:12px}
+.stats b{font-size:17px;font-variant-numeric:tabular-nums}
+
+/* lucky chip */
+#luckyLayer{position:fixed;inset:0;pointer-events:none;z-index:25}
+.lucky{position:absolute;width:64px;height:64px;border-radius:50%;border:0;pointer-events:auto;background:repeating-conic-gradient(#ffdf6b 0 22.5deg,#fff7d6 22.5deg 45deg);box-shadow:inset 0 0 0 6px #d18a00,inset 0 0 0 11px #ffe9a3,0 0 30px 8px rgba(255,204,77,.65);animation:spin 3s linear infinite,bob 1.4s ease-in-out infinite alternate,appear .35s ease-out;display:grid;place-items:center;font-size:24px}
+.lucky::after{content:'🍀';filter:drop-shadow(0 1px 0 rgba(0,0,0,.3))}
+.lucky.going{animation:spin 3s linear infinite,fade .6s forwards}
+@keyframes spin{to{rotate:360deg}}
+@keyframes bob{from{translate:0 -4px}to{translate:0 6px}}
+@keyframes appear{from{scale:.2;opacity:0}to{scale:1;opacity:1}}
+@keyframes fade{to{opacity:0;scale:.6}}
+
+/* toasts, modal */
+#toasts{position:fixed;right:18px;bottom:18px;z-index:40;display:flex;flex-direction:column;align-items:flex-end;gap:6px;pointer-events:none;width:min(92vw,340px)}
+.toast{padding:9px 14px;border-radius:13px;font-size:13px!important;background:#231933;border:1px solid #5a4475;box-shadow:0 10px 30px rgba(0,0,0,.45);font-weight:700;font-size:14px;animation:tin .25s ease-out;text-align:center}
+.toast.gold{border-color:#b87708;background:linear-gradient(180deg,#3a2a08,#231933)}
+.toast.bye{opacity:0;transition:opacity .4s}
+@keyframes tin{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+#modal{position:fixed;inset:0;z-index:50;display:grid;place-items:center;background:rgba(5,3,8,.7);backdrop-filter:blur(4px);padding:16px}
+.mbox{width:min(440px,100%);background:var(--panel2);border:1px solid #4a3a60;border-radius:20px;padding:22px;box-shadow:0 30px 80px rgba(0,0,0,.6);text-align:center}
+.mbox h2{margin:0 0 8px}
+.mbox p{color:var(--muted);line-height:1.5;margin:8px 0}
+.mbox .row{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:14px}
+.mbox textarea{width:100%;height:90px;margin-top:8px;border-radius:12px;border:1px solid var(--line);background:#0e0914;color:var(--text);padding:10px;font:12px ui-monospace,Menlo,monospace;resize:vertical}
+.mrow{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 0;border-top:1px solid var(--line);text-align:left}
+
+/* version tag */
+.vertag{position:fixed;left:10px;bottom:8px;z-index:5;font-size:11px;color:rgba(255,255,255,.4)}
+.vertag .vnew,.mver .vnew{font:inherit;font-weight:700;color:var(--gold);background:none;border:0;padding:0;cursor:pointer;text-decoration:underline}
+
+@media(max-width:820px){
+  #app{grid-template-columns:1fr;padding:12px 10px 60px;gap:12px}
+  #bank{position:sticky;top:58px;z-index:10;display:grid;grid-template-columns:1fr auto;grid-template-areas:"c d" "s d" "p d";align-items:center;text-align:left;padding:12px 14px;border-radius:16px}
+  .chips{grid-area:c;justify-content:flex-start;font-size:28px}
+  .cps{grid-area:s;font-size:12.5px}
+  .perks{grid-area:p;justify-content:flex-start;margin-top:8px}
+  .perks span{font-size:12px;padding:3px 9px}
+  #deal{grid-area:d;width:104px;margin:0;border-radius:18px}
+  #deal .dlabel{font-size:9px;letter-spacing:.1em;bottom:11%}
+  #deal .dval{display:none}
+  #deal .suit{font-size:22px}
+  #deal .pip{font-size:10px;left:5px;top:3px}
+  .ticker{display:none}
+  .gen{grid-template-columns:44px minmax(0,1fr) auto;padding:10px;gap:10px}
+  .gen .ico{width:44px;height:44px;font-size:23px}
+  .gen .buy{min-width:96px;padding:8px}
+  #top{padding:8px 10px}
+  .sellgrid{grid-template-columns:1fr}
+  .vertag{position:static;text-align:center;padding:4px 0 10px}
+  #toasts{right:50%;translate:50% 0;align-items:center;bottom:12px}
+}
+
+</style>
+</head>
+<body>
+<header id="top">
+  <a class="back" href="index.html" title="Back to the game room">←</a>
+  <div class="brand">HOUSE <b>EDGE</b></div>
+  <div class="tools">
+    <button class="ib" id="bSound" data-act="sound" title="Sound">🔊</button>
+    <button class="ib" data-act="settings" title="Settings and saves">⚙️</button>
+  </div>
+</header>
+<main id="app">
+  <section id="bank">
+    <div class="chips"><span class="chipico" aria-hidden="true"></span><span id="chips">0</span></div>
+    <div class="cps"><span id="cps">0</span> chips per second <span id="frenzy" class="frz hidden"></span></div>
+    <button id="deal" data-act="deal" aria-label="Deal a hand">
+      <span class="stack"><i></i><i></i><i class="top"><span class="pip">A</span><span class="suit">♠</span></i></span>
+      <span class="dlabel">DEAL A HAND</span>
+      <span class="dval" id="dval">+1</span>
+    </button>
+    <div class="perks"><span id="stars" title="Stars from selling your casino">⭐ 0</span><span id="trophies" title="Trophies">🏆 0</span></div>
+    <div class="ticker"><span id="ticker"></span></div>
+  </section>
+  <section id="shop">
+    <nav class="tabs" id="tabs">
+      <button data-act="tab" data-tab="tables" class="on">🎲 Tables</button>
+      <button data-act="tab" data-tab="upgrades">⬆️ Upgrades <b id="upCount" class="hidden"></b></button>
+      <button data-act="tab" data-tab="sell" id="tabSell">⭐ Sell</button>
+      <button data-act="tab" data-tab="trophies">🏆 Trophies</button>
+      <button data-act="tab" data-tab="stats">📊 Stats</button>
+    </nav>
+    <div class="pane" id="p-tables">
+      <div class="buybar"><span>Buy amount</span><div class="seg" id="buyseg"></div></div>
+      <div id="gens"></div>
+    </div>
+    <div class="pane hidden" id="p-upgrades">
+      <div class="buybar"><span id="upNote">Upgrades show up as your casino grows.</span><button class="btn small" data-act="buyall" id="buyAll">Buy all I can afford</button></div>
+      <div id="ups"></div>
+      <div class="done-ups" id="doneUps"></div>
+    </div>
+    <div class="pane hidden" id="p-sell"><div id="sell"></div></div>
+    <div class="pane hidden" id="p-trophies"><div id="achs"></div></div>
+    <div class="pane hidden" id="p-stats"><div id="stats"></div></div>
+  </section>
+</main>
+<div id="luckyLayer"></div>
+<div id="toasts"></div>
+<div id="modal" class="hidden"></div>
+<div class="vertag" id="verTag"></div>
+<script>
+/* House Edge: the game's rules and numbers. No DOM in here, so the pacing
+   simulation (test/sim.js) runs the exact same code the page does. */
+const Idle = (() => {
+  const SUF = ['', 'K', 'M', 'B', 'T', 'Qa', 'Qi', 'Sx', 'Sp', 'Oc', 'No', 'Dc', 'UDc', 'DDc', 'TDc', 'QaDc', 'QiDc', 'SxDc', 'SpDc', 'OcDc', 'NoDc', 'Vg'];
+  // the casino's money-makers, cheapest first: [id, name, icon, base cost, chips/sec each]
+  const GENS = [
+    ['table', 'Card Table', '🃏', 15, 0.3],
+    ['slots', 'Slot Machine', '🎰', 110, 2],
+    ['black', 'Blackjack Pit', '🂡', 1200, 13],
+    ['roul', 'Roulette Wheel', '🎡', 13000, 80],
+    ['poker', 'Poker Room', '♠️', 140000, 500],
+    ['craps', 'Craps Den', '🎲', 1.5e6, 3300],
+    ['vip', 'VIP Lounge', '🍸', 2.1e7, 30000],
+    ['high', 'High-Roller Suite', '💎', 3.3e8, 300000],
+    ['roof', 'Rooftop Casino', '🌃', 5.1e9, 3e6],
+    ['boat', 'Floating Casino', '🛳️', 7.5e10, 2.9e7],
+    ['moon', 'Moon Casino', '🌕', 1.2e12, 3e8],
+  ].map(([id, n, e, c, p], i) => ({ id, n, e, c, p, i }));
+  const GROW = 1.15;
+  // owning this many of one kind doubles what each of them makes
+  const MILESTONES = [25, 50, 100, 150, 200, 250, 300, 350, 400, 500, 600, 700, 800, 900, 1000];
+  const OFFLINE_CAP = 12 * 3600;          // seconds of offline earnings, at most
+  const STAR_BONUS = 0.04;                // each ⭐ adds 4% to everything
+
+  /* --------------------------------- upgrades --------------------------------- */
+  const UPG = [];
+  const GEN_UP = [   // [owned needed, cost × base cost, name ideas per kind]
+    [1, 10], [5, 50], [25, 500], [50, 5e4], [100, 5e6], [150, 5e8], [200, 5e10], [250, 5e13], [300, 5e16], [350, 5e19], [400, 5e22], [450, 5e25], [500, 5e28],
+  ];
+  const GEN_NAMES = {
+    table: ['Felt Tops', 'Sharp Dealers', 'Weighted Chairs', 'Marked Cards', 'Silk Gloves', 'Mirrored Ceilings', 'Golden Decks', 'Card Cannons', 'Quantum Shuffle', 'Card Factory', 'Dealer Academy', 'Infinite Felt', 'Table Dimension'],
+    slots: ['Shinier Buttons', 'Louder Bells', 'Bigger Levers', 'Free Spin Trap', 'Jackpot Lights', 'Hypno Reels', 'Diamond Cherries', 'Infinite Reels', 'Slot Singularity', 'Slot Skyscraper', 'Neon Overdrive', 'Reel Galaxy', 'Slot Multiverse'],
+    black: ['Six-Deck Shoe', 'Comfy Stools', 'Dealer Bust Bias', 'Insurance Pitch', 'Split Tables', 'Ace Magnets', 'Velvet Ropes', 'Blackjack Robots', 'Twenty-One Plus', 'Blackjack Arena', 'Ace Factory', 'Perfect Pair', 'Blackjack Forever'],
+    roul: ['Double Zero', 'Lucky Paint', 'Slippery Ball', 'Wheel Tilt', 'Spin Shows', 'Golden Wheels', 'Triple Zero', 'Gravity Wheel', 'Wheel of Fortune', 'Roulette Tower', 'Spinning Stadium', 'Endless Wheel', 'Wheel Cosmos'],
+    poker: ['Rake Bump', 'Pro Dealers', 'Tournament Nights', 'High Stakes Room', 'Streaming Deals', 'World Series', 'Poker Palace', 'Mind-Reading Felt', 'Royal Flush Fund', 'Poker Planet', 'All-In Academy', 'Bluff Engine', 'Ultimate Flush'],
+    craps: ['Loaded Dice', 'Big Red Table', 'Hot Shooters', 'Bubble Craps', 'Dice Cannons', 'Golden Dice', 'Craps Coliseum', 'Probability Engine', 'Dice of Destiny', 'Dice Rain', 'Snake Eyes Inc.', 'Seven Heaven', 'Dice Dimension'],
+    vip: ['Velvet Couches', 'Champagne Tower', 'Private Butlers', 'Members Only', 'Celebrity Night', 'Gold Cards', 'Diamond Bar', 'Secret Floor', 'The Inner Circle', 'Platinum Wing', 'Royal Treatment', 'Velvet Galaxy', 'VIP Infinity'],
+    high: ['Whale Watching', 'Private Jets', 'Suite Upgrades', 'Unlimited Credit', 'Penthouse Games', 'Gold Plating', 'Island Getaways', 'Billionaire Club', 'Infinite Bankroll', 'Whale Kingdom', 'Golden Island', 'Infinite Credit', 'Highest Roller'],
+    roof: ['Sky Bar', 'Helipad', 'Fireworks', 'Glass Floor', 'Laser Show', 'Cloud Tables', 'Weather Control', 'Orbital View', 'Sky Kingdom', 'Cloud Kingdom', 'Stratosphere Bar', 'Aurora Tables', 'Sky Empire II'],
+    boat: ['Ocean Views', 'Bigger Hull', 'Captain Croupier', 'Island Hopping', 'Submarine Room', 'Pirate Nights', 'Mega Yacht', 'Floating City', 'Sea Empire', 'Casino Fleet', 'Ocean Kingdom', 'Atlantis Tables', 'Seven Seas Empire'],
+    moon: ['Low-G Dice', 'Crater Lounge', 'Rocket Valet', 'Earthrise Bar', 'Lunar Slots', 'Space Whales', 'Dark Side VIP', 'Mars Expansion', 'Galactic House', 'Moon Base Alpha', 'Lunar Empire', 'Solar Casino', 'Cosmic House'],
+  };
+  for (const g of GENS) {
+    GEN_UP.forEach(([need, k], t) => UPG.push({ id: `${g.id}${t}`, kind: 'gen', gen: g.i, need, cost: g.c * k, mult: 2, n: GEN_NAMES[g.id][t], d: `${g.n}s make twice as much` }));
+  }
+  const ALL = [['Neon Signs', 5e4], ['Free Drinks', 5e6], ['Valet Parking', 5e8], ['Loyalty Cards', 5e10], ['Celebrity Guests', 5e12], ['Fireworks Show', 5e14], ['Casino Theme Song', 5e16], ['Your Face on Money', 5e18], ['Casino Holiday', 5e20], ['Own the Strip', 5e22], ['Buy the City', 5e24], ['Print Your Own Chips', 5e26], ['Casino Planet', 5e28], ['Casino Galaxy', 5e30], ['The House Always Wins', 5e33]];
+  ALL.forEach(([n, c], k) => UPG.push({ id: `all${k}`, kind: 'all', cost: c, mult: 1.5, n, d: 'Everything makes 50% more' }));
+  const CLICK = [['Quick Hands', 100, 'x', 2], ['Steady Hands', 600, 'x', 2], ['Card Sharp', 2e4, 'pct', 0.01], ['Card Counter', 2e6, 'pct', 0.01], ['Sleight of Hand', 2e8, 'pct', 0.01], ['Golden Fingers', 2e10, 'pct', 0.01], ['Dealer of Legends', 2e12, 'pct', 0.01], ['The Hand of Fate', 2e14, 'pct', 0.01]];
+  CLICK.forEach(([n, c, how, v], k) => UPG.push({ id: `clk${k}`, kind: 'click', cost: c, how, v, n, d: how === 'x' ? 'Dealing a hand earns twice as much' : 'Each deal also earns 1% of your chips per second' }));
+  const LUCK = [['Lucky Charm', 7.7e4, 'often', 'Lucky chips show up 30% more often'], ['Horseshoe', 7.7e6, 'long', 'Hot Streaks last twice as long'], ['Four-Leaf Clover', 7.7e8, 'stay', 'Lucky chips stay on screen twice as long'], ['Rabbit Foot', 7.7e10, 'often', 'Lucky chips show up 30% more often'], ['Shooting Star', 7.7e12, 'big', 'Jackpots pay twice as much']];
+  LUCK.forEach(([n, c, how, d], k) => UPG.push({ id: `luck${k}`, kind: 'luck', cost: c, how, n, d }));
+  UPG.sort((a, b) => a.cost - b.cost);
+  const UPG_BY = Object.fromEntries(UPG.map(u => [u.id, u]));
+
+  /* ------------------------------- achievements ------------------------------- */
+  const ACH = [];
+  for (const g of GENS) for (const [n, tag] of [[1, 'First'], [50, 'Fifty'], [100, 'A hundred'], [200, 'Two hundred']]) ACH.push({ id: `own_${g.id}_${n}`, n: `${tag} ${g.n.toLowerCase()}${n > 1 ? 's' : ''}`, d: `Own ${n} ${g.n}${n > 1 ? 's' : ''}`, t: S => S.owned[g.i] >= n });
+  for (const [v, n] of [[1e3, 'Pocket Change'], [1e6, 'Millionaire'], [1e9, 'Billionaire'], [1e12, 'Trillionaire'], [1e15, 'Quadrillionaire'], [1e18, 'Beyond Money'], [1e21, 'Economy Breaker']]) ACH.push({ id: `earn_${v}`, n, d: `Earn ${fmt(v)} chips in total`, t: S => S.earnedAll >= v });
+  for (const [v, n] of [[10, 'Warm Up'], [100, 'Fast Fingers'], [1000, 'Dealing Machine'], [10000, 'Carpal Tunnel']]) ACH.push({ id: `clk_${v}`, n, d: `Deal ${v.toLocaleString('en')} hands by hand`, t: S => S.clicks >= v });
+  for (const [v, n] of [[1, 'Feeling Lucky'], [10, 'Lucky Streak'], [50, 'Lady Luck'], [200, 'Luck Is A Skill']]) ACH.push({ id: `luck_${v}`, n, d: `Catch ${v} lucky chip${v > 1 ? 's' : ''}`, t: S => S.lucky >= v });
+  for (const [v, n] of [[1, 'Under New Management'], [5, 'Serial Entrepreneur'], [20, 'Casino Flipper']]) ACH.push({ id: `pre_${v}`, n, d: `Sell your casino ${v} time${v > 1 ? 's' : ''}`, t: S => S.prestiges >= v });
+  for (const [v, n] of [[10, 'Shopper'], [40, 'Big Spender'], [100, 'Completionist?']]) ACH.push({ id: `upg_${v}`, n, d: `Buy ${v} upgrades in one run`, t: S => S.upg.length >= v });
+  const ACH_BONUS = 0.01;                  // each achievement adds 1%
+
+  /* ---------------------------------- state ---------------------------------- */
+  function fresh(keep) {
+    return Object.assign({
+      v: 1, chips: 0, earnedRun: 0, earnedAll: 0, clicks: 0, lucky: 0, prestiges: 0, stars: 0,
+      owned: GENS.map(() => 0), upg: [], ach: [], frenzyUntil: 0, last: Date.now(), started: Date.now(), runStarted: Date.now(),
+      best: 0, playSec: 0, buy: '1', sound: true, music: false, seen: 0,
+    }, keep || {});
+  }
+  function load(o) {
+    const S = fresh();
+    if (!o || typeof o !== 'object') return S;
+    for (const k of Object.keys(S)) if (o[k] !== undefined && typeof o[k] === typeof S[k]) S[k] = o[k];
+    S.owned = GENS.map((g, i) => Math.max(0, Math.floor(+((o.owned || [])[i]) || 0)));
+    S.upg = (Array.isArray(o.upg) ? o.upg : []).filter(id => UPG_BY[id]);
+    S.ach = (Array.isArray(o.ach) ? o.ach : []).filter(id => ACH.some(a => a.id === id));
+    for (const k of ['chips', 'earnedRun', 'earnedAll', 'stars']) if (!isFinite(S[k]) || S[k] < 0) S[k] = 0;
+    return S;
+  }
+
+  /* --------------------------------- numbers --------------------------------- */
+  const has = (S, id) => S.upg.indexOf(id) >= 0;
+  // past the list, every 100 more keeps doubling: milestones never run out
+  function milestones(n) { let k = 0; for (const m of MILESTONES) if (n >= m) k++; if (n >= 1100) k += Math.floor((n - 1000) / 100); return k; }
+  function nextMilestone(n) { for (const m of MILESTONES) if (n < m) return m; return Math.floor(n / 100) * 100 + 100; }
+  function globalMult(S) {
+    let m = 1 + S.stars * STAR_BONUS;
+    m *= 1 + S.ach.length * ACH_BONUS;
+    for (const id of S.upg) { const u = UPG_BY[id]; if (u.kind === 'all') m *= u.mult; }
+    return m;
+  }
+  function genMult(S, i) {
+    let m = Math.pow(2, milestones(S.owned[i]));
+    for (const id of S.upg) { const u = UPG_BY[id]; if (u.kind === 'gen' && u.gen === i) m *= u.mult; }
+    return m;
+  }
+  const frenzy = (S, now) => (S.frenzyUntil > (now || Date.now()) ? 7 : 1);
+  function genRate(S, i, gm) { return GENS[i].p * S.owned[i] * genMult(S, i) * (gm == null ? globalMult(S) : gm); }
+  function baseCps(S) { const gm = globalMult(S); let t = 0; for (let i = 0; i < GENS.length; i++) t += genRate(S, i, gm); return t; }
+  function cps(S, now) { return baseCps(S) * frenzy(S, now); }
+  function clickValue(S, now) {
+    let x = 1, pct = 0;
+    for (const id of S.upg) { const u = UPG_BY[id]; if (u.kind === 'click') { if (u.how === 'x') x *= u.v; else pct += u.v; } }
+    return (x + pct * baseCps(S)) * globalMult(S) * frenzy(S, now);
+  }
+  const unitCost = (S, i) => GENS[i].c * Math.pow(GROW, S.owned[i]);
+  function costN(S, i, n) { const c0 = unitCost(S, i); return n <= 0 ? 0 : c0 * (Math.pow(GROW, n) - 1) / (GROW - 1); }
+  function maxN(S, i, chips) {
+    const c0 = unitCost(S, i), have = chips == null ? S.chips : chips;
+    if (have < c0) return 0;
+    return Math.max(1, Math.floor(Math.log(have * (GROW - 1) / c0 + 1) / Math.log(GROW)));
+  }
+  // how many to buy for the current buy mode ('1', '10', '100', 'next', 'max')
+  function buyCount(S, i, mode) {
+    mode = mode || S.buy;
+    if (mode === 'max') return Math.max(1, maxN(S, i));
+    if (mode === 'next') return nextMilestone(S.owned[i]) - S.owned[i];
+    return +mode || 1;
+  }
+  function earn(S, x) { S.chips += x; S.earnedRun += x; S.earnedAll += x; }
+
+  /* --------------------------------- actions --------------------------------- */
+  function buyGen(S, i, n) {
+    n = n || 1;
+    const c = costN(S, i, n);
+    if (c > S.chips * (1 + 1e-9)) return false;
+    S.chips = Math.max(0, S.chips - c); S.owned[i] += n;
+    return true;
+  }
+  function upgVisible(S, u) {
+    if (has(S, u.id)) return false;
+    if (u.kind === 'gen') return S.owned[u.gen] >= u.need;
+    return S.earnedRun >= u.cost * 0.1;
+  }
+  function buyUpg(S, id) {
+    const u = UPG_BY[id];
+    if (!u || has(S, id) || !upgVisible(S, u) || S.chips < u.cost) return false;
+    S.chips -= u.cost; S.upg.push(id);
+    return true;
+  }
+  function deal(S, now) { const v = clickValue(S, now); earn(S, v); S.clicks++; return v; }
+  function tick(S, dt, now) {
+    const c = cps(S, now);
+    earn(S, c * dt);
+    S.playSec += dt;
+    if (c > S.best) S.best = c;
+  }
+  function luckCount(S, how) { return S.upg.filter(id => UPG_BY[id].kind === 'luck' && UPG_BY[id].how === how).length; }
+  // seconds until the next lucky chip, and how long it stays
+  function luckyGap(S) { return (70 + Math.random() * 110) / Math.pow(1.3, luckCount(S, 'often')); }
+  function luckyStay(S) { return 11 * Math.pow(2, luckCount(S, 'stay')); }
+  function catchLucky(S, now) {
+    now = now || Date.now();
+    S.lucky++;
+    if (Math.random() < 0.55) {
+      const sec = 30 * Math.pow(2, luckCount(S, 'long'));
+      S.frenzyUntil = Math.max(S.frenzyUntil, now) + sec * 1000;
+      return { kind: 'frenzy', sec };
+    }
+    // a jackpot: 15 minutes of income, but never more than 15% of the chips you're holding plus a bit
+    const big = Math.pow(2, luckCount(S, 'big'));
+    const amt = Math.max(13, Math.min(baseCps(S) * 900, S.chips * 0.15 + baseCps(S) * 30) * big);
+    earn(S, amt);
+    return { kind: 'jackpot', amt };
+  }
+  function offline(S, now) {
+    now = now || Date.now();
+    const away = Math.max(0, (now - S.last) / 1000), sec = Math.min(OFFLINE_CAP, away);
+    S.last = now;
+    if (sec < 30) return null;
+    const amt = baseCps(S) * sec;
+    earn(S, amt);
+    return { sec, away, amt, capped: away > OFFLINE_CAP };
+  }
+  function newAch(S) {
+    const got = [];
+    for (const a of ACH) if (S.ach.indexOf(a.id) < 0 && a.t(S)) { S.ach.push(a.id); got.push(a); }
+    return got;
+  }
+
+  /* --------------------------------- prestige --------------------------------- */
+  // stars you've earned in total, from everything you've ever made
+  // grows with the number of digits you've earned, so selling keeps paying off without running away:
+  // 1B → 10, 1T → 160, 1Qa → 490, 1Qi → 1,000
+  const starsFor = all => (all < 1e9 ? 0 : Math.floor(10 * Math.pow(Math.log10(all / 1e8), 2)));
+  const pendingStars = S => Math.max(0, starsFor(S.earnedAll) - S.stars);
+  function sell(S) {
+    const add = pendingStars(S);
+    if (add < 1) return 0;
+    const keep = { stars: S.stars + add, earnedAll: S.earnedAll, clicks: S.clicks, lucky: S.lucky, prestiges: S.prestiges + 1, ach: S.ach.slice(), started: S.started, best: S.best, playSec: S.playSec, buy: S.buy, sound: S.sound, music: S.music, seen: S.seen };
+    Object.assign(S, fresh(keep));
+    S.chips = 15 * (1 + S.stars * STAR_BONUS);     // a small bankroll so a new run starts moving right away
+    return add;
+  }
+
+  /* ------------------------------ number format ------------------------------ */
+  function fmt(x, dp) {
+    if (!isFinite(x)) return '∞';
+    if (x < 0) return '-' + fmt(-x, dp);
+    if (x < 1000) return x < 10 && dp !== 0 ? (Math.floor(x * 10) / 10).toFixed(x % 1 ? 1 : 0) : Math.floor(x).toLocaleString('en');
+    const k = Math.floor(Math.log10(x) / 3);
+    if (k >= SUF.length) return x.toExponential(2).replace('+', '');
+    const v = x / Math.pow(1000, k);
+    return (v >= 100 ? v.toFixed(1) : v >= 10 ? v.toFixed(2) : v.toFixed(3)).replace(/\.?0+$/, '') + SUF[k];
+  }
+  function fmtTime(sec) {
+    sec = Math.floor(sec);
+    const d = Math.floor(sec / 86400), h = Math.floor(sec % 86400 / 3600), m = Math.floor(sec % 3600 / 60), s = sec % 60;
+    if (d) return `${d}d ${h}h`;
+    if (h) return `${h}h ${m}m`;
+    if (m) return `${m}m ${s}s`;
+    return `${s}s`;
+  }
+
+  return { GENS, UPG, UPG_BY, ACH, MILESTONES, OFFLINE_CAP, STAR_BONUS, ACH_BONUS, fresh, load, has, milestones, nextMilestone, globalMult, genMult, genRate, baseCps, cps, clickValue, unitCost, costN, maxN, buyCount, buyGen, upgVisible, buyUpg, deal, tick, luckyGap, luckyStay, catchLucky, offline, newAch, starsFor, pendingStars, sell, fmt, fmtTime, earn, frenzy };
+})();
+if (typeof module !== 'undefined') module.exports = Idle;
+
+</script>
+<script>
+/* Version tag: when this copy was built, in your own time zone, shown on the home screen
+   and in the menu, so you can tell whether the newest push has reached you yet.
+   build.py stamps 202611252034 (UTC, YYYYMMDDHHMM) and house-edge-version.json (the version file that
+   sits next to the page on the site). Every couple of minutes it checks that file and
+   offers a reload when a newer version is live. */
+const BuildVer = (() => {
+  const B = '202611252034', FILE = 'house-edge-version.json';
+  const parse = b => { const m = /^(\d{4})(\d\d)(\d\d)(\d\d)(\d\d)$/.exec(String(b || '')); return m ? new Date(Date.UTC(+m[1], +m[2] - 1, +m[3], +m[4], +m[5])) : null; };
+  const fmt = d => d.toLocaleString(undefined, { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' });
+  const mine = parse(B);
+  let newer = null;
+  const label = () => mine ? 'Version ' + fmt(mine) : 'Version: test build';
+  const newHTML = () => newer ? ` · <button type="button" class="vnew" onclick="location.reload()">🔄 ${fmt(newer)} is out: reload</button>` : '';
+  function paint() {
+    const el = document.getElementById('verTag');
+    if (!el) return;
+    el.title = 'Build ' + B;
+    el.innerHTML = label() + newHTML();
+    for (const m of document.querySelectorAll('.mver')) m.innerHTML = label() + newHTML();
+  }
+  function check() {
+    if (!/^https?:$/.test(location.protocol) || !mine || !window.fetch || document.hidden) return;
+    fetch(FILE + '?t=' + Date.now(), { cache: 'no-store' }).then(r => r.ok ? r.json() : null).then(j => {
+      const d = j && parse(j.v);
+      if (d && d > mine && (!newer || d > newer)) { newer = d; paint(); }
+    }).catch(() => { /* offline or a downloaded copy: just show the label */ });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', paint); else paint();
+  setTimeout(check, 2500);
+  setInterval(check, 120000);
+  document.addEventListener('visibilitychange', () => { if (!document.hidden) check(); });
+  return { B, label, html: () => `<div class="mver" title="Build ${B}">${label()}${newHTML()}</div>` };
+})();
+window.BuildVer = BuildVer;
+
+</script>
+<script>
+/* House Edge: the page. Rules and numbers live in logic.js (Idle). */
+(() => {
+  const I = Idle, $ = id => document.getElementById(id), fmt = I.fmt;
+  const KEY = 'houseedge-save-v1';
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
+
+  /* ------------------------------ save / load ------------------------------ */
+  function readSave() { try { return I.load(JSON.parse(localStorage.getItem(KEY) || 'null')); } catch (e) { return I.fresh(); } }
+  function save() { try { S.last = Date.now(); localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) { /* private mode: play without saving */ } }
+  const enc = o => btoa(unescape(encodeURIComponent(JSON.stringify(o))));
+  const dec = s => JSON.parse(decodeURIComponent(escape(atob(String(s).trim()))));
+  let S = readSave();
+  const away = I.offline(S);
+
+  /* --------------------------------- sound --------------------------------- */
+  const Snd = (() => {
+    let ctx = null;
+    function ac() {
+      if (!S.sound) return null;
+      if (!ctx) { try { ctx = new (window.AudioContext || window.webkitAudioContext)(); } catch (e) { return null; } }
+      if (ctx.state === 'suspended') ctx.resume();
+      return ctx;
+    }
+    function tone(f, d, type, vol, at) {
+      const c = ac(); if (!c) return;
+      const t = c.currentTime + (at || 0), o = c.createOscillator(), g = c.createGain();
+      o.type = type || 'triangle'; o.frequency.setValueAtTime(f, t);
+      g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(vol || 0.12, t + 0.008); g.gain.exponentialRampToValueAtTime(0.0001, t + d);
+      o.connect(g).connect(c.destination); o.start(t); o.stop(t + d + 0.02);
+    }
+    function snap() {
+      const c = ac(); if (!c) return;
+      const n = Math.floor(c.sampleRate * 0.05), b = c.createBuffer(1, n, c.sampleRate), d = b.getChannelData(0);
+      for (let i = 0; i < n; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / n, 3);
+      const s = c.createBufferSource(), f = c.createBiquadFilter(), g = c.createGain();
+      f.type = 'bandpass'; f.frequency.value = 2400 + Math.random() * 600; g.gain.value = 0.35;
+      s.buffer = b; s.connect(f).connect(g).connect(c.destination); s.start();
+    }
+    return {
+      deal: snap,
+      buy() { tone(1320, 0.07, 'triangle', 0.08); tone(1760, 0.09, 'triangle', 0.07, 0.05); },
+      up() { tone(660, 0.1, 'square', 0.04); tone(990, 0.12, 'square', 0.04, 0.07); tone(1320, 0.16, 'square', 0.04, 0.14); },
+      lucky() { [784, 988, 1175, 1568].forEach((f, k) => tone(f, 0.22, 'sine', 0.09, k * 0.07)); },
+      ach() { tone(523, 0.12, 'sine', 0.08); tone(784, 0.2, 'sine', 0.08, 0.1); },
+    };
+  })();
+
+  /* --------------------------------- toasts --------------------------------- */
+  function toast(html, cls, ms) {
+    const t = document.createElement('div');
+    t.className = 'toast ' + (cls || ''); t.innerHTML = html;
+    $('toasts').appendChild(t);
+    while ($('toasts').children.length > 3) $('toasts').firstChild.remove();
+    setTimeout(() => { t.classList.add('bye'); setTimeout(() => t.remove(), 450); }, ms || 3200);
+  }
+  function pop(x, y, text) {
+    const p = document.createElement('div');
+    p.className = 'pop'; p.textContent = text;
+    p.style.left = x + 'px'; p.style.top = (y - 20) + 'px';
+    document.body.appendChild(p);
+    setTimeout(() => p.remove(), 950);
+  }
+
+  /* ---------------------------------- modal ---------------------------------- */
+  function modal(html) { $('modal').innerHTML = `<div class="mbox">${html}</div>`; $('modal').classList.remove('hidden'); }
+  function closeModal() { $('modal').classList.add('hidden'); $('modal').innerHTML = ''; }
+  $('modal').addEventListener('click', e => { if (e.target.id === 'modal') closeModal(); });
+
+  /* --------------------------------- tables --------------------------------- */
+  let rows = [], rowKey = '';
+  function shownGens() {
+    let hi = -1;
+    S.owned.forEach((n, i) => { if (n > 0) hi = i; });
+    return Math.min(I.GENS.length, hi + 3);    // what you own, the next one, and a mystery one
+  }
+  function buildGens() {
+    const n = shownGens(), key = n + '|' + S.buy;
+    if (key === rowKey) return;
+    rowKey = key;
+    const box = $('gens'); box.innerHTML = '';
+    rows = [];
+    for (let i = 0; i < n; i++) {
+      const g = I.GENS[i], mystery = i === n - 1 && S.owned[i] === 0 && i > 0 && S.owned[i - 1] === 0;
+      const el = document.createElement('div');
+      el.className = 'gen' + (mystery ? ' locked' : '');
+      el.innerHTML = `<div class="ico">${mystery ? '❔' : g.e}<span class="own">0</span></div>
+        <div class="info"><div class="nm">${mystery ? '???' : esc(g.n)}</div><div class="rt"></div><div class="bar"><i></i></div><div class="ms"></div></div>
+        <button class="buy" data-act="buy" data-i="${i}"><small></small><span></span></button>`;
+      box.appendChild(el);
+      rows.push({ i, el, mystery, own: el.querySelector('.own'), rt: el.querySelector('.rt'), bar: el.querySelector('.bar i'), ms: el.querySelector('.ms'), buy: el.querySelector('.buy'), small: el.querySelector('.buy small'), cost: el.querySelector('.buy span') });
+    }
+  }
+  function drawGens(total) {
+    buildGens();
+    const gm = I.globalMult(S), fz = I.frenzy(S);
+    for (const r of rows) {
+      const i = r.i, g = I.GENS[i], own = S.owned[i];
+      const n = Math.max(1, S.buy === 'max' ? I.maxN(S, i) || 1 : I.buyCount(S, i));
+      const cost = I.costN(S, i, n), can = cost <= S.chips;
+      // the mystery table reveals itself once you can afford one
+      const mys = S.owned[i] === 0 && i > 0 && S.owned[i - 1] === 0 && S.chips < I.unitCost(S, i);
+      if (mys !== r.mystery) {
+        r.mystery = mys;
+        r.el.classList.toggle('locked', mys);
+        r.el.querySelector('.ico').firstChild.textContent = mys ? '❔' : g.e;
+        r.el.querySelector('.nm').textContent = mys ? '???' : g.n;
+      }
+      r.el.classList.toggle('can', can);
+      r.own.textContent = own;
+      r.own.style.visibility = own ? '' : 'hidden';
+      const each = g.p * I.genMult(S, i) * gm * fz, all = each * own;
+      if (r.mystery) r.rt.textContent = 'Keep growing to find out';
+      else r.rt.innerHTML = own ? `Makes <b>${fmt(all)}/s</b>${total > 0 ? ` · ${Math.round(100 * all / total)}% of your income` : ''}` : `Each one makes <b>${fmt(each)}/s</b>`;
+      const nm = I.nextMilestone(own), prev = [0].concat(I.MILESTONES).filter(m => m <= own).pop() || Math.floor(own / 100) * 100;
+      r.bar.style.width = Math.min(100, 100 * (own - prev) / Math.max(1, nm - prev)).toFixed(1) + '%';
+      r.ms.textContent = `${nm - own} more to double it (at ${nm})`;
+      r.small.textContent = `Buy ×${n}`;
+      r.cost.textContent = fmt(cost);
+      r.buy.disabled = !can;
+    }
+  }
+  function drawBuySeg() {
+    $('buyseg').innerHTML = [['1', '×1'], ['10', '×10'], ['100', '×100'], ['next', 'Next ×2'], ['max', 'Max']].map(o => `<button class="${S.buy === o[0] ? 'on' : ''}" data-act="mode" data-v="${o[0]}">${o[1]}</button>`).join('');
+  }
+
+  /* -------------------------------- upgrades -------------------------------- */
+  let upKey = '', upEls = [];
+  const kindLabel = u => u.kind === 'gen' ? `${I.GENS[u.gen].e} ${I.GENS[u.gen].n}` : u.kind === 'all' ? '✨ Everything' : u.kind === 'click' ? '🃏 Dealing' : '🍀 Luck';
+  function visibleUps() { return I.UPG.filter(u => I.upgVisible(S, u)).slice(0, 40); }
+  function drawUps() {
+    const list = visibleUps(), key = list.map(u => u.id).join(',');
+    if (key !== upKey) {
+      upKey = key;
+      $('ups').innerHTML = list.length ? list.map(u => `<button class="up" data-act="upg" data-id="${u.id}"><span class="uk">${esc(kindLabel(u))}</span><span class="un">${esc(u.n)}</span><span class="ud">${esc(u.d)}</span><span class="uc">${fmt(u.cost)}</span></button>`).join('') : '<div class="empty">No upgrades right now. Buy more tables to unlock some.</div>';
+      upEls = [...$('ups').querySelectorAll('.up')].map(el => ({ el, u: I.UPG_BY[el.dataset.id] }));
+      const done = S.upg.map(id => I.UPG_BY[id].n);
+      $('doneUps').innerHTML = done.length ? `<div>Bought this run (${done.length}):</div>${done.map(n => `<span>${esc(n)}</span>`).join('')}` : '';
+    }
+    let can = 0;
+    for (const x of upEls) { const ok = S.chips >= x.u.cost; x.el.classList.toggle('can', ok); if (ok) can++; }
+    $('upCount').textContent = can; $('upCount').classList.toggle('hidden', !can);
+    $('buyAll').disabled = !can;
+  }
+
+  /* ---------------------------------- sell ---------------------------------- */
+  function drawSell() {
+    const pend = I.pendingStars(S), now = 1 + S.stars * I.STAR_BONUS, after = 1 + (S.stars + pend) * I.STAR_BONUS;
+    const need = 1e9;
+    let hint;
+    if (S.earnedAll < need) hint = `<div class="hint wait">Your first ⭐ comes once you've earned ${fmt(need)} chips in total. You're at ${fmt(S.earnedAll)}.</div>`;
+    else if (pend < 1) hint = `<div class="hint wait">Keep earning: the next ⭐ is on its way.</div>`;
+    else if (after / now >= 2) hint = `<div class="hint">Good time to sell: it more than doubles your income. 🚀</div>`;
+    else hint = `<div class="hint wait">Selling now gives ×${(after / now).toFixed(2)} income. Most people wait until it at least doubles.</div>`;
+    $('sell').innerHTML = `<div class="card"><h2>⭐ Sell the casino</h2>
+      <p>Sell everything and start over with a better reputation. Each ⭐ star adds ${Math.round(I.STAR_BONUS * 100)}% to everything you make, forever. Stars, trophies and stats stay. Chips, tables and upgrades reset.</p>
+      <div class="sellgrid"><div><small>Stars now</small><b>⭐ ${fmt(S.stars, 0)}</b></div><div><small>You'd get</small><b style="color:var(--gold)">+${fmt(pend, 0)}</b></div><div><small>Income</small><b>×${fmt(now)} → ×${fmt(after)}</b></div></div>
+      ${hint}
+      <div class="row" style="display:flex;justify-content:center;margin-top:14px"><button class="btn gold" data-act="sell" ${pend >= 1 ? '' : 'disabled'}>Sell for +${fmt(pend, 0)} ⭐</button></div></div>`;
+  }
+
+  /* ----------------------------- trophies & stats ----------------------------- */
+  let achN = -1;
+  function drawAchs() {
+    if (achN === S.ach.length) return;
+    achN = S.ach.length;
+    $('achs').innerHTML = I.ACH.map(a => `<div class="ach ${S.ach.indexOf(a.id) >= 0 ? 'got' : ''}"><b>${esc(a.n)}</b><small>${esc(a.d)}</small></div>`).join('');
+  }
+  function drawStats() {
+    const rows2 = [
+      ['Chips earned this run', fmt(S.earnedRun)], ['Chips earned ever', fmt(S.earnedAll)], ['Best income', fmt(S.best) + '/s'],
+      ['Hands dealt', S.clicks.toLocaleString('en')], ['Lucky chips caught', S.lucky.toLocaleString('en')], ['Times sold', S.prestiges],
+      ['Tables owned', S.owned.reduce((a, b) => a + b, 0).toLocaleString('en')], ['Upgrades this run', `${S.upg.length} / ${I.UPG.length}`],
+      ['Trophies', `${S.ach.length} / ${I.ACH.length} (+${S.ach.length}% income)`], ['Star bonus', `+${fmt(S.stars * I.STAR_BONUS * 100)}%`],
+      ['This run', I.fmtTime((Date.now() - S.runStarted) / 1000)], ['Time played', I.fmtTime(S.playSec)],
+    ];
+    $('stats').innerHTML = `<div class="stats">${rows2.map(r => `<div><small>${r[0]}</small><b>${r[1]}</b></div>`).join('')}</div>`;
+  }
+
+  /* --------------------------------- ticker --------------------------------- */
+  const NEWS = [
+    () => 'Local man insists the house doesn\'t always win. Loses house.',
+    () => 'Study finds 9 out of 10 slot machines "just love the sound of coins."',
+    () => `Experts baffled as casino makes ${fmt(I.cps(S))} chips a second. "We're baffled," say experts.`,
+    () => 'Dealer caught smiling. Management says it was "a reflex."',
+    () => 'Casino carpet voted ugliest in the world for the third year running. Owners "honored."',
+    () => 'Man wins jackpot, spends it all at the buffet. Calls it "a balanced investment."',
+    () => 'Breaking: dice still refusing to land on 7 for anyone named Steve.',
+    () => 'Roulette wheel files complaint about constant spinning. Complaint spins too.',
+    () => `Tourists flock to see the famous ${S.owned.reduce((a, b) => a + b, 0)} tables. "Very tables," says one.`,
+    () => 'Poker player bluffs so hard he convinces himself. Folds his own winning hand.',
+    () => 'Area grandma counts cards, gets banned, opens her own casino across the street.',
+    () => 'Lucky chip spotted bouncing around the casino. Witnesses describe it as "shiny."',
+    () => 'Clocks banned from the casino floor. Time itself reportedly "a little offended."',
+    () => S.stars ? `Rumor: the owner has sold this place ${S.prestiges} time${S.prestiges === 1 ? '' : 's'} and keeps buying it back.` : 'Rumor: new owner has "no idea what they\'re doing." Owner agrees.',
+  ];
+  let newsAt = 0, newsK = Math.floor(Math.random() * NEWS.length);
+  function drawNews(now) {
+    if (now < newsAt) return;
+    newsAt = now + 9000;
+    newsK = (newsK + 1 + Math.floor(Math.random() * 3)) % NEWS.length;
+    $('ticker').outerHTML = `<span id="ticker">📰 ${esc(NEWS[newsK]())}</span>`;
+  }
+
+  /* ------------------------------- lucky chips ------------------------------- */
+  let luckyAt = Date.now() + 25000 + Math.random() * 20000, luckyEl = null;
+  function spawnLucky(now) {
+    if (luckyEl || document.hidden) { if (document.hidden) luckyAt = now + 5000; return; }
+    const b = document.createElement('button');
+    b.className = 'lucky'; b.dataset.act = 'lucky'; b.title = 'Lucky chip! Click it';
+    const W = innerWidth, H = innerHeight;
+    b.style.left = Math.round(W * (0.08 + Math.random() * 0.78)) + 'px';
+    b.style.top = Math.round(H * (0.18 + Math.random() * 0.6)) + 'px';
+    $('luckyLayer').appendChild(b);
+    luckyEl = b;
+    const stay = I.luckyStay(S) * 1000;
+    b._t = setTimeout(() => { if (luckyEl === b) { b.classList.add('going'); setTimeout(() => b.remove(), 600); luckyEl = null; } }, stay);
+    luckyAt = now + stay + I.luckyGap(S) * 1000;
+  }
+  function catchLucky(b) {
+    if (!b || b !== luckyEl) return;
+    clearTimeout(b._t); luckyEl = null;
+    const r = b.getBoundingClientRect();
+    b.classList.add('going'); setTimeout(() => b.remove(), 600);
+    const res = I.catchLucky(S);
+    Snd.lucky();
+    if (res.kind === 'frenzy') toast(`🍀 <b>Hot Streak!</b> Everything makes ×7 for ${res.sec} seconds`, 'gold', 4200);
+    else { toast(`🍀 <b>Jackpot!</b> +${fmt(res.amt)} chips`, 'gold', 4200); pop(r.left + r.width / 2, r.top, '+' + fmt(res.amt)); }
+  }
+
+  /* --------------------------------- actions --------------------------------- */
+  const H = {
+    deal(el, e) {
+      const v = I.deal(S);
+      Snd.deal();
+      const d = $('deal'); d.classList.remove('hit'); void d.offsetWidth; d.classList.add('hit');
+      const r = d.getBoundingClientRect();
+      const x = e && e.clientX ? e.clientX : r.left + r.width / 2, y = e && e.clientY ? e.clientY : r.top + r.height / 3;
+      pop(x, y, '+' + fmt(v));
+      draw();
+    },
+    buy(el) {
+      const i = +el.dataset.i;
+      let n = S.buy === 'max' ? I.maxN(S, i) : I.buyCount(S, i);
+      if (n < 1) return;
+      if (I.buyGen(S, i, n)) { Snd.buy(); if (S.owned[i] === n && n > 0) toast(`${I.GENS[i].e} <b>${esc(I.GENS[i].n)}</b> unlocked!`, 'gold'); draw(); }
+    },
+    mode(el) { S.buy = el.dataset.v; drawBuySeg(); rowKey = ''; draw(); },
+    upg(el) { if (I.buyUpg(S, el.dataset.id)) { Snd.up(); toast(`⬆️ <b>${esc(I.UPG_BY[el.dataset.id].n)}</b>: ${esc(I.UPG_BY[el.dataset.id].d)}`); draw(); } },
+    buyall() {
+      let k = 0;
+      for (const u of I.UPG) if (I.upgVisible(S, u) && S.chips >= u.cost && I.buyUpg(S, u.id)) k++;
+      if (k) { Snd.up(); toast(`⬆️ Bought ${k} upgrade${k > 1 ? 's' : ''}`); draw(); }
+    },
+    tab(el) {
+      tab = el.dataset.tab;
+      for (const b of $('tabs').children) b.classList.toggle('on', b.dataset.tab === tab);
+      for (const p of ['tables', 'upgrades', 'sell', 'trophies', 'stats']) $('p-' + p).classList.toggle('hidden', p !== tab);
+      draw(true);
+    },
+    lucky(el) { catchLucky(el); },
+    sell() {
+      const pend = I.pendingStars(S);
+      if (pend < 1) return;
+      const now = 1 + S.stars * I.STAR_BONUS, after = 1 + (S.stars + pend) * I.STAR_BONUS;
+      modal(`<h2>⭐ Sell the casino?</h2><p>You get <b style="color:var(--gold)">+${fmt(pend, 0)} stars</b> and your income goes from ×${fmt(now)} to <b>×${fmt(after)}</b>.</p><p>Chips, tables and upgrades start over. Stars, trophies and stats stay.</p><div class="row"><button class="btn gold" data-act="sellyes">Sell it</button><button class="btn" data-act="close">Not yet</button></div>`);
+    },
+    sellyes() {
+      const add = I.sell(S);
+      closeModal(); rowKey = ''; upKey = '';
+      if (add) { Snd.lucky(); toast(`⭐ Sold! +${fmt(add, 0)} stars. Your new casino makes ×${fmt(1 + S.stars * I.STAR_BONUS)} as much.`, 'gold', 5000); }
+      save(); H.tab({ dataset: { tab: 'tables' } });
+    },
+    sound() { S.sound = !S.sound; $('bSound').textContent = S.sound ? '🔊' : '🔇'; if (S.sound) Snd.buy(); if (!$('modal').classList.contains('hidden')) H.settings(); },
+    settings() {
+      modal(`<h2>⚙️ Settings</h2>
+        <div class="mrow"><span>Sound effects</span><button class="btn small" data-act="sound">${S.sound ? '🔊 On' : '🔇 Off'}</button></div>
+        <div class="mrow"><span>Back up your save<br><small style="color:var(--muted)">Copy this somewhere safe, or move it to another device</small></span><button class="btn small" data-act="export">Export</button></div>
+        <div class="mrow"><span>Load a saved game</span><button class="btn small" data-act="import">Import</button></div>
+        <div class="mrow"><span>Start completely over</span><button class="btn small danger" data-act="reset">Reset</button></div>
+        <div class="mver">${BuildVer.label()}</div>
+        <div class="row"><button class="btn" data-act="close">Done</button></div>`);
+    },
+    export() {
+      save();
+      modal(`<h2>📤 Your save</h2><p>Copy this text and keep it somewhere safe.</p><textarea id="saveTxt" readonly>${enc(S)}</textarea><div class="row"><button class="btn gold" data-act="copysave">Copy</button><button class="btn" data-act="settings">Back</button></div>`);
+      setTimeout(() => { const t = $('saveTxt'); if (t) t.select(); }, 30);
+    },
+    async copysave() {
+      const t = $('saveTxt');
+      try { await navigator.clipboard.writeText(t.value); toast('📋 Save copied'); } catch (e) { t.select(); document.execCommand('copy'); toast('📋 Save copied'); }
+    },
+    import() { modal(`<h2>📥 Load a save</h2><p>Paste a save you exported. This replaces your current game.</p><textarea id="saveIn" placeholder="Paste your save here"></textarea><div class="row"><button class="btn gold" data-act="loadsave">Load it</button><button class="btn" data-act="settings">Back</button></div>`); },
+    loadsave() {
+      try {
+        const o = dec($('saveIn').value);
+        if (!o || !Array.isArray(o.owned)) throw new Error('bad');
+        S = I.load(o); S.last = Date.now(); rowKey = ''; upKey = ''; achN = -1;
+        save(); closeModal(); drawBuySeg(); draw(true); toast('✅ Save loaded');
+      } catch (e) { toast("❌ That doesn't look like a House Edge save", '', 3500); }
+    },
+    reset() { modal(`<h2>Start completely over?</h2><p>This wipes everything: chips, tables, stars, trophies and stats. There's no undo.</p><div class="row"><button class="btn danger" data-act="resetyes">Wipe it all</button><button class="btn" data-act="settings">Keep playing</button></div>`); },
+    resetyes() { S = I.fresh(); rowKey = ''; upKey = ''; achN = -1; save(); closeModal(); drawBuySeg(); H.tab({ dataset: { tab: 'tables' } }); toast('Fresh start. Deal a hand to begin. 🃏'); },
+    close() { closeModal(); },
+  };
+  let tab = 'tables';
+  document.addEventListener('click', e => {
+    const el = e.target.closest('[data-act]');
+    if (!el || el.disabled) return;
+    const f = H[el.dataset.act];
+    if (f) { e.preventDefault(); f(el, e); }
+  });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeModal();
+  });
+
+  /* ---------------------------------- loop ---------------------------------- */
+  function draw(full) {
+    const total = I.cps(S);
+    $('chips').textContent = fmt(S.chips);
+    $('cps').textContent = fmt(total);
+    const fz = S.frenzyUntil - Date.now();
+    $('frenzy').classList.toggle('hidden', fz <= 0);
+    if (fz > 0) $('frenzy').textContent = `🔥 ×7 · ${Math.ceil(fz / 1000)}s`;
+    $('dval').textContent = '+' + fmt(I.clickValue(S)) + ' per deal';
+    $('stars').textContent = `⭐ ${fmt(S.stars, 0)}${S.stars ? ` · +${fmt(S.stars * I.STAR_BONUS * 100)}%` : ''}`;
+    $('trophies').textContent = `🏆 ${S.ach.length}/${I.ACH.length}`;
+    $('tabSell').innerHTML = I.pendingStars(S) >= 1 ? `⭐ Sell <b>+${fmt(I.pendingStars(S), 0)}</b>` : '⭐ Sell';
+    if (tab === 'tables') drawGens(total);
+    drawUps();
+    if (tab === 'sell' && (full || tick % 10 === 0)) drawSell();
+    if (tab === 'trophies') drawAchs();
+    if (tab === 'stats' && (full || tick % 10 === 0)) drawStats();
+    document.title = `${fmt(S.chips)} chips · House Edge`;
+  }
+  let tick = 0;
+  function loop() {
+    const now = Date.now();
+    const dt = (now - S.last) / 1000;
+    S.last = now;
+    if (dt > 30) {
+      // the tab slept for a while: count it like time away
+      const sec = Math.min(I.OFFLINE_CAP, dt), amt = I.baseCps(S) * sec;
+      I.earn(S, amt);
+      if (amt > 0) toast(`💤 While you were away (${I.fmtTime(sec)}): +${fmt(amt)} chips`, 'gold', 5000);
+    } else if (dt > 0) I.tick(S, dt, now);
+    tick++;
+    if (now >= luckyAt) spawnLucky(now);
+    if (tick % 10 === 0) {
+      for (const a of I.newAch(S)) { Snd.ach(); toast(`🏆 <b>${esc(a.n)}</b>: ${esc(a.d)} (+1% income)`, 'gold', 4000); }
+      drawNews(now);
+    }
+    if (tick % 100 === 0) save();
+    draw();
+  }
+
+  /* ---------------------------------- start ---------------------------------- */
+  $('bSound').textContent = S.sound ? '🔊' : '🔇';
+  drawBuySeg();
+  draw(true);
+  drawNews(Date.now());
+  setInterval(loop, 100);
+  document.addEventListener('visibilitychange', () => { if (document.hidden) save(); });
+  window.addEventListener('pagehide', save);
+  if (away && away.amt > 0) {
+    modal(`<h2>💤 Welcome back!</h2><p>You were away for <b>${I.fmtTime(away.away)}</b>.</p><p>Your casino kept running and made</p><div class="big">+${fmt(away.amt)}</div>${away.capped ? `<p><small>Away earnings stop after ${I.OFFLINE_CAP / 3600} hours.</small></p>` : ''}<div class="row"><button class="btn gold" data-act="close">Collect</button></div>`);
+  } else if (!S.clicks && !S.earnedAll) {
+    toast('🃏 Deal a hand to earn your first chips, then buy a Card Table.', 'gold', 6000);
+  }
+  window.__idle = { get S() { return S; }, set S(v) { S = v; }, I, save, H };
+})();
+
+</script>
+</body>
+</html>
