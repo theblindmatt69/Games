@@ -287,8 +287,10 @@ input,select{font:inherit;color:inherit}
 #hand .card.sel .cf{transform:translateY(-30px) scale(1.07);box-shadow:inset 0 0 0 2px rgba(255,255,255,.45),0 0 0 3px #fff,0 18px 34px rgba(0,0,0,.6)}
 #hand .card.no .cf{filter:saturate(.55) brightness(.6)}
 #hand .card.no:hover .cf{filter:saturate(.8) brightness(.85)}
-#hand .card.ok.k-quick.live .cf{box-shadow:inset 0 0 0 2px #ffd84a,0 0 0 3px var(--yellow),0 0 26px rgba(255,216,74,.6);animation:qpulse 1s infinite alternate}
-@keyframes qpulse{to{filter:brightness(1.12)}}
+/* reaction window: the cards you can answer with light up and rise a little */
+#hand .card.ok.live .cf{transform:translateY(-14px);box-shadow:inset 0 0 0 2px #ffd84a,0 0 0 3px var(--yellow),0 0 28px rgba(255,216,74,.75);animation:qpulse .8s infinite alternate}
+#hand .card.ok.live:hover .cf{transform:translateY(-34px) scale(1.1)}
+@keyframes qpulse{to{filter:brightness(1.15);box-shadow:inset 0 0 0 2px #ffd84a,0 0 0 3px var(--yellow),0 0 40px rgba(255,216,74,.95)}}
 #hand .card.new{animation:newcard .9s}
 @keyframes newcard{0%{transform:translateY(-60px) scale(.6);opacity:0}60%{transform:translateY(-14px) scale(1.04)}}
 .card.mini{--cw:74px;--ch:104px;border-radius:10px;border-width:2px;cursor:default}
@@ -554,6 +556,20 @@ input,select{font:inherit;color:inherit}
   .fcard .fn{font-size:18px}
   #modal.soft{padding-top:70px}
 }
+
+/* the Draw button keeps one spot */
+.drawslot{display:block;width:132px;flex:none}
+#bar .drawbtn{flex:none}
+@media (max-width:899px){
+  #scr-game.is3d #bar{flex-wrap:nowrap;justify-content:space-between}
+  #scr-game.is3d #bar .status{flex:1 1 auto;min-width:0;max-width:none;text-align:left}
+  #bar{flex-wrap:nowrap}
+  #bar .status{flex:1 1 auto;min-width:0}
+  #bar .status .s2{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .drawslot{width:96px}
+}
+#center{z-index:2}
+.pile.deck.can{position:relative;z-index:3;pointer-events:auto;cursor:pointer;box-shadow:0 0 0 3px var(--yellow),0 0 26px rgba(255,216,74,.55);animation:qpulse 1s infinite alternate}
 
 </style>
 </head>
@@ -5753,7 +5769,7 @@ function viewFor(G, si) {
 }
 
 const API = {
-  VERSION: '202611251728',
+  VERSION: '202611251803',
   CARDS, ORDER, KIND, BASE_CARDS, WEIGHT, MIRRORABLE, FESTIVE_CARDS, EVENTS, EVENT_KEYS,
   autoNumbers, defaultSettings, cleanSettings, newGame, act, tick, viewFor, endGame, setConnected, removeSeat,
   computeActive, effTarget, deathsInDeck, playErr,
@@ -8784,7 +8800,7 @@ function renderCenter(g) {
   const top = g.discard.length ? g.discard[g.discard.length - 1] : null;
   const chains = Object.keys(g.chains).map(t => `<span class="chainb">⛓️ ${CARDS[t].e} ${CARDS[t].n} · ${g.chains[t]}</span>`).join('');
   setHTML($('center'), `<div class="piles">
-    <div class="pile deck" id="pile-deck"><span class="dn">${g.deck}</span><span class="dl">DECK</span></div>
+    <div class="pile deck ${canDrawNow() ? 'can' : ''}" id="pile-deck" ${canDrawNow() ? 'data-act="draw" title="Click to draw"' : ''}><span class="dn">${g.deck}</span><span class="dl">${canDrawNow() ? 'DRAW' : 'DECK'}</span></div>
     <div class="meter" title="Chance the next card is a Deathcard"><span class="sk">💀</span><div class="bar"><i style="height:${Math.min(100, pct)}%"></i></div><span class="pc">${pct}%</span><span class="pl">${g.deaths} in deck</span></div>
     <div class="pile disc" id="pile-disc">${top ? cardHTML(top, 'mini') : '<span style="font-size:10px;color:rgba(255,255,255,.35);letter-spacing:.1em">DISCARD</span>'}</div>
   </div><div class="infol"><span class="dir"><span class="ic">${g.dir > 0 ? '↻' : '↺'}</span> ${g.dir > 0 ? 'Clockwise' : 'Counter-clockwise'}</span>${chains}</div>`);
@@ -8828,7 +8844,7 @@ function renderBar(g) {
   } else if (g.stack) {
     const top = g.stack.items[g.stack.items.length - 1];
     s1 = top.by === me ? '⚡ Waiting to see if anyone answers…' : `⚡ ${esc(seatName(top.by))} played ${cname(top.t)}`;
-    s2 = myQuick(g).length ? 'React now with a ⚡ card, or let it happen.' : 'Reaction window: Quick Play cards only.';
+    s2 = myQuick(g).length ? 'Your glowing cards can answer it. Click one, or let it happen.' : 'Reaction window: Quick Play cards only.';
   } else if (g.fest && g.fest.pending) {
     const E = DD.EVENTS[g.fest.pending.ev] || {};
     s1 = `🎄 Festive Misfortune: ${E.e || ''} ${esc(E.n || '')}`; s2 = 'Everything waits until the surprise is unwrapped…';
@@ -8838,11 +8854,10 @@ function renderBar(g) {
     timer = true;
   } else { s1 = `${curName}'s turn${g.turnsLeft > 1 ? ` (×${g.turnsLeft})` : ''}`; s2 = g.seats[g.cur].bot ? 'The bot is thinking…' : 'Watch out for attacks!'; timer = true; }
   const tbar = timer && g.turnTotal > 0 && g.phase === 'play' ? `<div class="tbar"><i data-timer="turn"></i></div>` : '';
-  const q = myQuick(g);
-  const react = q.length ? `<div class="react"><span class="rl">⚡ React</span>${q.map(c => `<button data-act="quick" data-id="${c.id}">${CARDS[c.t].e} ${CARDS[c.t].n}</button>`).join('')}</div>` : '';
+  // the Draw button never moves: it's always there while you're in the game, just greyed out when you can't draw
   const canDraw = canDrawNow();
-  const draw = mine && mine.alive && g.phase === 'play' && !react ? `<button class="btn primary drawbtn" data-act="draw" ${canDraw ? '' : 'disabled'}>Draw 🂠</button>` : '';
-  setHTML($('bar'), `<div class="status"><div class="s1">${s1}</div><div class="s2">${s2}</div>${tbar}</div>${react}${draw}`);
+  const draw = mine && mine.alive && g.phase === 'play' ? `<button class="btn primary drawbtn" data-act="draw" ${canDraw ? '' : 'disabled'} title="Draw a card (or click the deck)">Draw 🂠</button>` : '<span class="drawslot"></span>';
+  setHTML($('bar'), `<div class="status"><div class="s1">${s1}</div><div class="s2">${s2}</div>${tbar}</div>${draw}`);
 }
 function renderHand(g) {
   const el = $('hand');
@@ -9333,7 +9348,8 @@ const H = {
   draw: () => { act({ a: 'draw' }); A.sel = null; hideTip(); },
   hc: el => {
     const id = +el.dataset.id;
-    if (!A.touch || A.sel === id) { tryPlay(id); return; }
+    const gg = game(), hc = gg && gg.hand.find(c => c.id === id);
+    if (!A.touch || A.sel === id || (gg && gg.stack && hc && hc.ok)) { tryPlay(id); return; }
     A.sel = id; renderGame();                     // phones: first tap reads the card, second tap plays it
     const nel = document.querySelector(`#hand [data-id="${id}"]`);
     if (nel) showTip(nel);
