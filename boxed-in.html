@@ -480,6 +480,13 @@ input,select{font:inherit;color:inherit}
 .vertag .vnew,.mver .vnew{font:inherit;font-weight:700;color:#ffd84a;background:none;border:0;padding:0;cursor:pointer;text-decoration:underline}
 @media(max-width:760px){.vertag{position:static;text-align:center;padding:4px 0 2px}}
 
+/* bot banter speech bubbles */
+.say{position:fixed;left:0;top:0;z-index:45;max-width:min(240px,70vw);padding:8px 12px;border-radius:14px;background:#fff;color:#16181e;font-size:13px;font-weight:600;line-height:1.35;box-shadow:0 6px 22px rgba(0,0,0,.45);pointer-events:none;animation:sayin .2s ease-out;transition:opacity .35s}
+.say::after{content:'';position:absolute;left:var(--ax,50%);bottom:-7px;margin-left:-7px;width:0;height:0;border-left:7px solid transparent;border-right:7px solid transparent;border-top:7px solid #fff}
+.say.below::after{bottom:auto;top:-7px;border-top:0;border-bottom:7px solid #fff}
+.say.bye{opacity:0}
+@keyframes sayin{from{opacity:0;scale:.8}to{opacity:1;scale:1}}
+
 </style>
 </head>
 <body>
@@ -590,7 +597,7 @@ for (let c = 0; c < CELLS; c++) {
 for (let c = 0; c < CELLS; c++) for (const d of [1, 2]) { const e = ED[c][d]; if (e >= 0) EC[e] = [c, NB[c][d]]; }
 
 function defaultSettings() {
-  return { start: 'classic', turnTime: 90, wallBreak: true, botLevel: 'normal', hints: true };
+  return { start: 'classic', turnTime: 90, wallBreak: true, botLevel: 'normal', hints: true, botChat: 'some' };
 }
 function cleanSettings(S) {
   const d = defaultSettings();
@@ -601,6 +608,7 @@ function cleanSettings(S) {
   o.wallBreak = !!o.wallBreak;
   o.hints = !!o.hints;
   o.botLevel = ['easy', 'normal', 'hard'].indexOf(o.botLevel) >= 0 ? o.botLevel : 'normal';
+  o.botChat = ['off', 'some', 'lots'].indexOf(o.botChat) >= 0 ? o.botChat : 'some';
   return o;
 }
 
@@ -1527,6 +1535,460 @@ const Net = (() => {
 
 </script>
 <script>
+/* ============================================================================
+   Bot banter. Bots chat jokes, taunts, trash talk and the odd lie, reacting to
+   what happens in the game and to what people type in chat.
+
+   Banter (host only) watches game events and chat, picks a line and posts it in
+   chat as the bot. Cooldowns keep it from turning into spam, recent lines don't
+   repeat, and the host picks Off / Some / Lots in the lobby.
+   Says (every player) shows a bot's line as a speech bubble over its seat.
+   ========================================================================== */
+const Banter = (() => {
+  const rnd = a => a[Math.floor(Math.random() * a.length)];
+  const short = n => String(n || '').replace(/^Bot /, '');
+
+  /* ------------------------------- lines -------------------------------
+     {me} the bot, {t} the target, {w} the winner, {p} a random human, {n} a number */
+  const L = {
+    greet: [
+      "Hi! I'm here to win and also to be nice. Mostly win.",
+      "Good luck everyone. You'll need it.",
+      "{me} has entered the chat. Lock your doors.",
+      "Beep boop. That means 'prepare to lose' in robot.",
+      "Hello humans. Please hold all applause until after my victory.",
+      "Don't go easy on me. Actually, please do.",
+      "I was programmed to lose gracefully. That code never ran.",
+      "Is this the room where I take everyone's lunch money?",
+      "Hi {p}. I've heard a lot about you. None of it scary.",
+    ],
+    start: [
+      "Alright, let's do this. Try to keep up.",
+      "May the odds be ever in my favor.",
+      "I've simulated this game 10,000 times. I won 9,999. The other one was a bug.",
+      "Nobody panic. Especially you, {p}.",
+      "New game, same winner. Me.",
+      "I'm feeling lucky. Statistically that means nothing. Emotionally, everything.",
+      "Let's keep it friendly. Until I win.",
+      "Warming up my circuits. Okay, they're warm. You're in trouble.",
+    ],
+    botWin: [
+      "GG! Well, G for me. You tried.",
+      "Was there ever any doubt?",
+      "I'd like to thank my processor, my RAM, and nobody else.",
+      "Winner winner, silicon dinner. 🏆",
+      "Don't feel bad. I'm literally made of math.",
+      "Same time tomorrow? I could use the practice. Not really.",
+      "Victory tastes like electricity. ⚡",
+      "Easy. Okay, medium. Okay, it was close. But I WON.",
+    ],
+    humanWin: [
+      "GG {w}. I let you win. Obviously.",
+      "Congrats {w}. I'll be filing a bug report.",
+      "{w} wins? Rematch. Right now.",
+      "Fine. {w} is good. I said it once and I'll never say it again.",
+      "I wasn't even trying. (I was trying so hard.)",
+      "Somebody check {w}'s sleeves. 🕵️",
+      "Enjoy it, {w}. I'm updating my strategy as we speak.",
+    ],
+    botOut: [
+      "I demand a recount.",
+      "Tell my motherboard I loved her.",
+      "This is fine. Everything is fine. 🔥",
+      "I'll be back. Next game. Probably.",
+      "That was a strategic exit. You wouldn't understand.",
+      "Rage quitting is beneath me. Rebooting is not.",
+      "Avenge me, fellow bots!",
+      "I'm not out, I'm just spectating with extra steps.",
+    ],
+    humanOut: [
+      "Rest in pieces, {t}. 🪦",
+      "{t} has left the building. Forcibly.",
+      "Press F for {t}.",
+      "Don't worry {t}, spectating is a skill too.",
+      "One down. 👀",
+      "{t}, you were the chosen one!",
+      "Bye {t}! Wave to us from the sidelines. 👋",
+    ],
+    idle: [
+      "Why did the robot go on vacation? To recharge. I'll be here all game.",
+      "I'm not saying I'm the best player here. The scoreboard will say it for me.",
+      "Fun fact: I never blink. I'm watching all of you. 👁️",
+      "Hurry up, I'm not getting any younger. Or older. I'm a bot.",
+      "Who's winning? Don't answer. It's me.",
+      "I've got a good feeling about this. Bad feeling for you though.",
+      "I know something you don't know. 🤫",
+      "Somebody here is bluffing. I won't say who. (It's {p}.)",
+      "What do you call a bot that never loses? Me. That's the joke.",
+      "I'd tell you a joke about UDP, but you might not get it.",
+      "{p} has been quiet. Too quiet. 🤨",
+      "If I lose, it's lag. If I win, it's skill. Those are the rules.",
+    ],
+    hi: ["Hey {p}! Ready to lose?", "Hello! Lovely day to win a game.", "Yo. 😎", "Hi {p}. I've been expecting you.", "Greetings, future loser. I mean friend.", "Heyyy {p} 👋"],
+    gg: ["GG! Mostly G for me though.", "gg ez. Kidding. Kind of.", "Good game, good game. Great game for me.", "gg wp. Rematch?", "GG. I'll go easy next time. I won't."],
+    lol: ["I'm laughing too, but on the inside. Where I store your losses.", "😂 glad someone's having fun", "lmao same", "It's funny because it's true.", "My humor module is overheating. 🤣"],
+    cheat: ["I don't cheat. I just have perfect memory. And no feelings.", "Rigged? I wish. It'd be easier.", "Accusations won't save you, {p}.", "The only thing rigged here is my winning streak.", "I'm offended. And also winning."],
+    bluff: ["Me? Bluffing? I physically can't lie. 😇", "Maybe I am. Maybe I'm not. Call me and find out.", "Everybody lies. Except me. Except now.", "A bluff is just the truth that hasn't happened yet.", "You'll never know. That's the fun part."],
+    insult: ["Bold words from someone about to lose.", "I'm going to remember you said that, {p}.", "Skill issue. Yours, not mine.", "Error 404: your skill not found.", "I've been called worse by better players.", "Sticks and stones can't break my bones. I don't have any.", "Keep talking, {p}. I'm recording all of this."],
+    praise: ["Thank you, I practice a lot. Like, every millisecond.", "I know. 😌", "Stop, you'll make me overheat.", "Finally, someone with taste.", "Flattery won't save you, {p}. But thanks."],
+    question: ["Wouldn't you like to know.", "Ask me after the game.", "That's classified. 🤐", "Great question. Next question.", "My lawyer says no comment.", "Yes. Or no. Definitely one of those."],
+    mention: ["You rang?", "Talking about me again?", "I hear you. I'm choosing to ignore you.", "Focus on your own game, {p}.", "Yes, I'm that good. Thanks for noticing.", "Shh, I'm concentrating. On beating you."],
+
+    /* ---------------------------- Dead Deal ---------------------------- */
+    ddIdle: [
+      "Death chance is getting spicy. 🌶️",
+      "The deck is looking at me funny.",
+      "I counted the cards. Somebody's in trouble.",
+      "Somebody here has an Angel and it isn't you, {p}.",
+      "I'm holding two Cancels. Or zero. Guess. 🃏",
+      "Somebody's about to draw a Deathcard and it's not gonna be me.",
+      "I can smell the Deathcard from here. 💀",
+      "Fun fact: I always know where the Deathcard is. Today, I'm choosing violence.",
+    ],
+    ddAttack: ["Two turns, {t}. Enjoy. 😈", "Here, {t}, have some extra turns. My treat.", "Special delivery for {t}: pain. 📦", "Draw twice, {t}. I'll wait.", "Attack! Nothing personal. Okay, a little personal.", "Good luck, {t}. The deck is hungry."],
+    ddAttacked: ["Oh, it's like THAT, {t}?", "Rude.", "I will remember this, {t}.", "Bold move, {t}. Let's see how it plays out.", "Wow. And I thought we were friends.", "You're going on my list, {t}. 📝"],
+    ddCancel: ["Nope. Denied. 🚫", "Not today.", "Did you really think that would work?", "Cancel culture is real and I'm part of it.", "Return to sender. 📮"],
+    ddSkip: ["I'll pass, thanks.", "Skip! Too busy winning.", "Nah. I'm good.", "You can't lose if you don't draw. That's science.", "Skipping. Not scared. Just efficient."],
+    ddShuffle: ["Good luck tracking that now.", "Shuffle shuffle. Whatever you thought you knew, forget it.", "Chaos is a ladder. 🪜", "Mixed it up a little. You're welcome."],
+    ddReverse: ["Turn it around! 🔄", "Uno reverse. Wrong game, same energy.", "Other way, folks. Other way."],
+    ddSafe: ["Top card's clean. Trust me. 😇", "Ooh, the next card is a good one.", "Next draw's totally safe. Probably.", "I saw the next card. You're gonna love it, {p}.", "Nothing scary on top. Go ahead, draw. 🙂"],
+    ddWarn: ["I would NOT draw right now. Just saying. 👀", "Whoever draws next... it was nice knowing you.", "Yikes. I'm not telling you what's on top. Okay, it's bad.", "💀 I've seen things.", "Interesting... very interesting. 🤔", "I'd get that Angel ready if I were you, {p}."],
+    ddHumanFuture: ["What did you see, {t}? Your face says 💀.", "{t} is looking at the future. Spoiler: I win.", "Don't believe what you saw, {t}. The deck lies.", "So {t}, safe or scary? Blink twice."],
+    ddSteal: ["Thanks for the card, {t}! 🫳", "Yoink.", "What's yours is mine. Literally.", "Mine now. 😏", "Ooh, {t}, you had a good one."],
+    ddStolen: ["Hey! Give that back!", "Thief! Somebody call the card police. 🚓", "Enjoy it, {t}. It's cursed. (It's not. Or is it?)", "That was my favorite card, {t}."],
+    ddPhew: ["Phew. 😅", "Didn't even flinch.", "Easy. Your turn, {p}.", "Nerves of steel. Literally, I'm made of metal.", "Safe! The deck loves me."],
+    ddSaved: ["Not today, Death! 😇", "Angel saves the day. Your turn to sweat.", "I have friends in high places.", "Did you really think a Deathcard could stop me?", "Close one. For you, I mean."],
+    ddHumanSaved: ["Lucky.", "Ugh. Saved by the Angel. Next time, {t}.", "Where do you even find these Angels, {t}?", "Enjoy it, {t}. You won't get another."],
+    ddHid: ["Where did I put the Deathcard? Oh right. 🤫", "I put it somewhere special. Just for you, {p}.", "Don't worry. It's somewhere safe. For me.", "Top? Bottom? Middle? I'll never tell. 🤐", "Hope you like surprises, {p}."],
+    ddHumanHid: ["I saw where you put it, {t}. (I didn't.)", "Hmm, {t} hid it near the top. Probably. 👀", "{t}, you're a terrible hider. I could see your hand shaking.", "Wherever {t} put it, I'm not drawing it."],
+    ddHumanShuffle: ["Shuffling won't save you, {t}.", "Nice shuffle, {t}. Didn't help.", "Panic shuffle! 🔀"],
+    ddPlay: ["Watch this.", "Calculated. 🧠", "And that's how it's done.", "Big brain play."],
+
+    /* ----------------------------- Hold'em ----------------------------- */
+    pkIdle: [
+      "I've got a tell. You'll never find it.",
+      "I can see your cards. (I can't. But now you're worried.)",
+      "Fun fact: 7-2 offsuit is my favorite hand. I play it every time. Or do I?",
+      "My poker face is literally a screen.",
+      "Somebody here is bluffing a lot. 👀",
+      "Why did the chip go to therapy? It felt all-in-secure.",
+      "Chip count check: mine's bigger. Probably.",
+      "I fold a lot because I'm nice. Not because I'm scared.",
+    ],
+    pkStrong: ["I have the nuts. Probably.", "You should fold. I'm saying this as a friend.", "This is a value bet. I promise. 😇", "Call me. I dare you.", "Pay me. 💰", "I like my cards. I like them a lot."],
+    pkWeak: ["I have absolutely nothing. Seriously. 🙃", "This is a bluff. Or is it?", "Just stealing the blinds, don't look at me.", "My cards are bad, but my confidence is excellent.", "Raise! Because why not.", "Honestly? I'm just bored."],
+    pkAllin: ["All of it. Let's see your heart rate. 📈", "All in! I either win big or blame the dealer.", "Everything's in the middle. Including my dignity.", "Shove! Your move, {p}.", "YOLO. That's a poker term."],
+    pkCall: ["I'll see that.", "Call. I wanna see where this goes.", "Fine, I'll pay to watch.", "Call. Don't read into it. Or do."],
+    pkCheck: ["Check. I'm setting a trap. Or am I?", "Check. Totally not slow-playing.", "Check. Nothing to see here.", "Check. 🙂"],
+    pkFold: ["I'll let you have this one. Enjoy it while it lasts.", "Fold. I was being generous.", "Strategic retreat.", "I'm folding, but under protest.", "Not worth my time. Clearly."],
+    pkHumanAllin: ["Ooh, all in. Somebody's feeling brave.", "{t} shoves! Sweating yet?", "All in, huh? Smells like a bluff. 👃", "Big move, {t}. Big move.", "{t}, are you sure about that? Like, sure sure?"],
+    pkHumanRaise: ["Smells like a bluff. 👃", "{t} raising? Now I'm interested.", "That's a lot of chips for a pair of twos, {t}.", "Is that confidence or panic, {t}?", "Hmm. {t} has something. Or nothing."],
+    pkHumanFold: ["Smart. Or scared. Same thing.", "Fold? I was just starting to like you, {t}.", "Bye bye, chips. 👋"],
+    pkWin: ["Thanks for the donation. 💰", "Ship it!", "Come to papa. 🤑", "I'll take that, thank you very much.", "Chips go brrr.", "Read 'em and weep."],
+    pkHumanWin: ["Nice hand, {t}. Lucky river though.", "Enjoy it, {t}. They're only borrowed.", "Fine, {t}. Take it. I'll be back for it.", "Hmm. {t} got lucky. Again."],
+    pkBotBust: ["I demand a recount.", "I'm not broke, I'm pre-rich.", "The cards hate me. It's personal now.", "Well, that's my chips gone. Anyone got a loan?"],
+    pkHumanBust: ["Don't worry {t}, the chips had a good life.", "{t} is out. Moment of silence. ...Okay, that's enough.", "Busted! Better luck next time, {t}. 🪦", "{t}'s chips are in a better place now. My stack."],
+    pkRiver: ["River, don't fail me now. 🌊", "Come on river...", "This river better be nice to me."],
+
+    /* --------------------------- Dead Center --------------------------- */
+    dcIdle: [
+      "Smell that? That's the center. And victory. 🎯",
+      "I can see the middle from here.",
+      "You're going the long way? Bold.",
+      "Left, right, left... I'm basically a GPS.",
+      "Somebody's about to get walled in and it's not me.",
+      "I'm two moves away. Or twenty. You'll never know.",
+      "Walls are just doors that haven't been bullied enough.",
+    ],
+    dcWall: ["Oops, was that your path, {t}? 🚧", "Detour ahead! 🚧", "Construction season. Sorry, not sorry.", "Take the scenic route, {t}.", "Have you tried going around? 🧱", "Walls: 1, {t}: 0."],
+    dcHumanWall: ["Rude.", "A wall? For me? You shouldn't have, {t}.", "I'll just walk around it. Like a winner.", "Nice wall, {t}. Real nice.", "Is that supposed to slow me down, {t}?"],
+    dcWin: ["Dead center. Dead you. 🎯", "Bullseye!", "Center reached. Tell your friends."],
+
+    /* ----------------------------- Boxed In ----------------------------- */
+    wgIdle: [
+      "I'm building an empire. You're building a shed.",
+      "Count the squares. Go on. I'll wait.",
+      "I have a plan. It's a secret. It involves you losing.",
+      "Location, location, location. 🏠",
+      "This board's getting crowded. Mostly with my walls.",
+      "{p}, you're looking a little... boxed in. 😏",
+    ],
+    wgSeal: ["Mine now. Property values just went up. 🏠", "Sold! To me.", "Fenced and finished. 🧱", "This land is my land.", "+{n}. Thanks for the real estate."],
+    wgHumanSeal: ["Nice little hut you got there, {t}.", "Cute territory, {t}. Shame if someone... never mind.", "Enjoy your tiny kingdom, {t}. 👑"],
+    wgBreak: ["Knock knock. 🔨", "Who needs walls anyway?", "Renovations!", "Here's Johnny! Wait, wrong reference."],
+    wgHumanBreak: ["Hey! That was load-bearing!", "Vandalism! 🚨", "Rude, {t}. I just built that."],
+    wgMove: ["Just stretching my legs.", "Don't mind me, just boxing you in.", "Cozy corner you've got there, {t}. Shame about the wall.", "Getting comfy. 🛋️"],
+    wgPlace: ["Good spot. For me.", "Prime real estate.", "I'll take this one."],
+  };
+
+  /* ------------------------ what happens → a line ------------------------
+     Each returns [speakerCid, lineKey, chance, vars?, priority?] or nothing. */
+  const GAMES = {
+    dd(e, c) {
+      const G = c.G, S = G.seats;
+      const nm = i => S[i] ? S[i].name : '';
+      switch (e.kind) {
+        case 'play': {
+          if (c.isBot(e.who)) {
+            if (e.card === 'future' || e.card === 'peek') {
+              // a hint about the top card that's true about half the time
+              const danger = !!(G.deck[0] && G.deck[0].t === 'death');
+              const claim = Math.random() < 0.45 ? !danger : danger;
+              return [c.cid(e.who), claim ? 'ddWarn' : 'ddSafe', 0.8];
+            }
+            const k = { cancel: ['ddCancel', 0.45], skip: ['ddSkip', 0.3], shuffle: ['ddShuffle', 0.45], reverse: ['ddReverse', 0.3] }[e.card];
+            return k ? [c.cid(e.who), k[0], k[1]] : [c.cid(e.who), 'ddPlay', 0.08];
+          }
+          if (e.card === 'future' || e.card === 'peek') return [c.bot(), 'ddHumanFuture', 0.3, { t: nm(e.who) }];
+          if (e.card === 'shuffle') return [c.bot(), 'ddHumanShuffle', 0.2, { t: nm(e.who) }];
+          return null;
+        }
+        case 'attack':
+          if (c.isBot(e.who) && !c.isBot(e.to)) return [c.cid(e.who), 'ddAttack', 0.6, { t: nm(e.to) }];
+          if (c.isBot(e.to)) return [c.cid(e.to), 'ddAttacked', c.isBot(e.who) ? 0.3 : 0.6, { t: nm(e.who) }];
+          return null;
+        case 'move':
+          if (c.isBot(e.to) && !c.isBot(e.from)) return [c.cid(e.to), 'ddSteal', 0.5, { t: nm(e.from) }];
+          if (c.isBot(e.from) && !c.isBot(e.to)) return [c.cid(e.from), 'ddStolen', 0.5, { t: nm(e.to) }];
+          return null;
+        case 'draw': {
+          const deaths = G.deck.filter(x => x.t === 'death').length;
+          if (c.isBot(e.who) && G.deck.length && deaths / G.deck.length >= 0.25) return [c.cid(e.who), 'ddPhew', 0.25];
+          return null;
+        }
+        case 'angel': return c.isBot(e.who) ? [c.cid(e.who), 'ddSaved', 0.7] : [c.bot(), 'ddHumanSaved', 0.45, { t: nm(e.who) }];
+        case 'hide': return c.isBot(e.who) ? [c.cid(e.who), 'ddHid', 0.6] : [c.bot(), 'ddHumanHid', 0.45, { t: nm(e.who) }];
+        case 'out': return c.isBot(e.who) ? [c.cid(e.who), 'botOut', 0.75, null, 1] : [c.bot(), 'humanOut', 0.6, { t: nm(e.who) }, 1];
+        case 'win': return c.isBot(e.who) ? [c.cid(e.who), 'botWin', 0.9, null, 2] : [c.bot(), 'humanWin', 0.75, { w: nm(e.who) }, 2];
+      }
+      return null;
+    },
+    pk(e, c) {
+      const G = c.G, S = G.seats;
+      const nm = i => S[i] ? S[i].name : '';
+      const inHand = c.bot(s => !s.folded);
+      switch (e.kind) {
+        case 'act': {
+          if (c.isBot(e.who)) {
+            const me = c.cid(e.who);
+            if (e.a === 'allin') return [me, 'pkAllin', 0.6];
+            // strong or weak talk, picked at random so it tells you nothing
+            if (e.a === 'raise' || e.a === 'bet') return [me, Math.random() < 0.5 ? 'pkStrong' : 'pkWeak', 0.4];
+            if (e.a === 'call') return [me, 'pkCall', 0.1];
+            if (e.a === 'check') return [me, 'pkCheck', 0.08];
+            if (e.a === 'fold') return [me, 'pkFold', 0.18];
+            return null;
+          }
+          if (e.a === 'allin') return [inHand, 'pkHumanAllin', 0.6, { t: nm(e.who) }];
+          if (e.a === 'raise' || e.a === 'bet') return [inHand, 'pkHumanRaise', 0.22, { t: nm(e.who) }];
+          if (e.a === 'fold') return [c.bot(), 'pkHumanFold', 0.06, { t: nm(e.who) }];
+          return null;
+        }
+        case 'street': return e.stage === 'river' ? [inHand, 'pkRiver', 0.1] : null;
+        case 'win': {
+          const ws = [].concat(e.who || []);
+          const b = ws.find(i => c.isBot(i));
+          if (b != null) return [c.cid(b), 'pkWin', e.showdown ? 0.5 : 0.3];
+          return ws.length ? [c.bot(), 'pkHumanWin', 0.2, { t: nm(ws[0]) }] : null;
+        }
+        case 'bust': return c.isBot(e.who) ? [c.cid(e.who), 'pkBotBust', 0.8, null, 1] : [c.bot(), 'pkHumanBust', 0.7, { t: nm(e.who) }, 1];
+        case 'gameover': return c.isBot(e.winner) ? [c.cid(e.winner), 'botWin', 0.9, null, 2] : [c.bot(), 'humanWin', 0.75, { w: nm(e.winner) }, 2];
+      }
+      return null;
+    },
+    dc(e, c) {
+      const S = c.G.seats, nm = i => S[i] ? S[i].name : '';
+      switch (e.kind) {
+        case 'wall': return c.isBot(e.who) ? [c.cid(e.who), 'dcWall', 0.35, { t: c.human() }] : [c.bot(), 'dcHumanWall', 0.3, { t: nm(e.who) }];
+        case 'out': return c.isBot(e.who) ? [c.cid(e.who), 'botOut', 0.75, null, 1] : [c.bot(), 'humanOut', 0.5, { t: nm(e.who) }, 1];
+        case 'win': return c.isBot(e.who) ? [c.cid(e.who), Math.random() < 0.4 ? 'dcWin' : 'botWin', 0.9, null, 2] : [c.bot(), 'humanWin', 0.75, { w: nm(e.who) }, 2];
+      }
+      return null;
+    },
+    wg(e, c) {
+      const S = c.G.seats, nm = i => S[i] ? S[i].name : '';
+      switch (e.kind) {
+        case 'seal': return c.isBot(e.who) ? [c.cid(e.who), 'wgSeal', 0.55, { n: e.n }] : [c.bot(), 'wgHumanSeal', 0.35, { t: nm(e.who) }];
+        case 'break': return c.isBot(e.who) ? [c.cid(e.who), 'wgBreak', 0.6] : [c.bot(), 'wgHumanBreak', 0.4, { t: nm(e.who) }];
+        case 'move': return c.isBot(e.who) ? [c.cid(e.who), 'wgMove', 0.1, { t: c.human() }] : null;
+        case 'place': return c.isBot(e.who) ? [c.cid(e.who), 'wgPlace', 0.07] : null;
+        case 'out': return c.isBot(e.who) ? [c.cid(e.who), 'botOut', 0.75, null, 1] : [c.bot(), 'humanOut', 0.5, { t: nm(e.who) }, 1];
+        case 'win': return c.isBot(e.who) ? [c.cid(e.who), 'botWin', 0.9, null, 2] : [c.bot(), 'humanWin', 0.75, { w: nm(e.who) }, 2];
+      }
+      return null;
+    },
+  };
+  const IDLE = { dd: 'ddIdle', pk: 'pkIdle', dc: 'dcIdle', wg: 'wgIdle' };
+
+  /* chat replies: what someone typed → which lines fit */
+  const HEARD = [
+    ['gg', /\bgg\b|good game/i, 0.6],
+    ['cheat', /cheat|hack|rigged|scripted|unfair/i, 0.6],
+    ['bluff', /bluff|lying|liar|\blie\b|\bfake\b/i, 0.5],
+    ['insult', /\b(noob|n00b|bad|trash|suck|sucks|stupid|dumb|loser|garbage|ez|easy|cringe)\b/i, 0.3],
+    ['praise', /\b(nice|good one|gj|wp|well played|wow|impressive|smart|genius)\b/i, 0.25],
+    ['lol', /\b(lol|lmao|haha+|rofl|xd)\b|😂|🤣/i, 0.25],
+    ['hi', /\b(hi|hello|hey+|yo|sup|hiya|howdy)\b/i, 0.45],
+    ['question', /\?\s*$/, 0.15],
+  ];
+
+  function make(game, api) {
+    // api: level() 'off'|'some'|'lots', G() (null outside a game), people() [{cid,name,bot,seat,alive}], say(cid,text)
+    const st = { lastAny: 0, last: {}, recent: [], timers: new Set(), lastIdle: Date.now(), nextIdleCheck: 0 };
+    const lots = () => api.level() === 'lots';
+
+    function ctx() {
+      const G = api.G(), P = api.people();
+      const seatBot = i => G && G.seats[i] && G.seats[i].bot;
+      return {
+        G,
+        isBot: i => !!seatBot(i),
+        cid: i => (G && G.seats[i] ? G.seats[i].cid : null),
+        // a random bot still in the game, optionally filtered by its seat
+        bot: f => {
+          const al = P.filter(p => p.bot && p.alive && p.seat >= 0 && (!f || f(G.seats[p.seat])));
+          return al.length ? rnd(al).cid : null;
+        },
+        human: () => { const h = P.filter(p => !p.bot && p.alive); return h.length ? rnd(h).name : ''; },
+      };
+    }
+    function fill(line, v) {
+      return line.replace(/\{(\w+)\}/g, (m, k) => (v[k] != null && v[k] !== '' ? v[k] : '\u0000'));
+    }
+    function pickLine(key, vars) {
+      const pool = L[key] || [];
+      const ok = pool.map(l => fill(l, vars)).filter(l => !l.includes('\u0000'));
+      const fresh = ok.filter(l => !st.recent.includes(l));
+      return (fresh.length ? rnd(fresh) : ok.length ? rnd(ok) : null);
+    }
+    function speak(cid, key, chance, vars, prio, reply) {
+      if (!cid || api.level() === 'off') return false;
+      const P = api.people(), me = P.find(p => p.cid === cid && p.bot);
+      if (!me) return false;
+      const t = Date.now();
+      const p = Math.min(1, chance * (lots() ? 1.7 : 1));
+      if (Math.random() > p) return false;
+      // the end of a game always gets its line; knock-outs barely wait; everything else takes turns
+      const gap = reply ? 1500 : prio >= 2 ? 0 : prio ? 1200 : (lots() ? 2500 : 5500);
+      const own = reply ? 2500 : prio ? 0 : (lots() ? 7000 : 15000);
+      if (t - st.lastAny < gap || t - (st.last[cid] || 0) < own) return false;
+      const humans = P.filter(x => !x.bot);
+      const v = Object.assign({ me: short(me.name), p: humans.length ? rnd(humans).name : '' }, vars || {});
+      const line = pickLine(key, v);
+      if (!line) return false;
+      st.lastAny = t; st.last[cid] = t; st.lastIdle = t;
+      st.recent.push(line); if (st.recent.length > 30) st.recent.shift();
+      // a little "typing" pause so it reads like a reply, not an instant echo
+      const delay = (reply ? 900 : 500) + Math.min(1600, line.length * 22) + Math.random() * 700;
+      const tm = setTimeout(() => { st.timers.delete(tm); if (api.level() !== 'off') api.say(cid, line); }, delay);
+      st.timers.add(tm);
+      return true;
+    }
+    function run(r) { if (r && r[0]) speak(r[0], r[1], r[2], r[3], r[4]); }
+
+    return {
+      fx(e) {
+        const G = api.G();
+        if (!G || !e || !GAMES[game]) return;
+        try { run(GAMES[game](e, ctx())); } catch (err) { /* banter must never break the game */ }
+      },
+      start() {
+        st.lastIdle = Date.now();
+        const c = ctx();
+        run([c.bot(), 'start', 0.45]);
+      },
+      joined(cid) { speak(cid, 'greet', 0.55); },
+      heard(name, text) {
+        if (api.level() === 'off') return;
+        const P = api.people(), bots = P.filter(p => p.bot);
+        if (!bots.length) return;
+        text = String(text || '');
+        const named = bots.find(b => new RegExp('\\b' + short(b.name).replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\b', 'i').test(text));
+        const atBots = named || /\bbots?\b/i.test(text);
+        const hit = HEARD.find(h => h[1].test(text));
+        if (!hit && !atBots) return;
+        const pool = bots.filter(b => b.alive || api.G() == null);
+        const who = named || (pool.length ? rnd(pool) : rnd(bots));
+        const key = hit ? hit[0] : 'mention';
+        speak(who.cid, key, atBots ? 0.9 : hit[2], { p: name }, 0, true);
+      },
+      tick() {
+        const t = Date.now();
+        if (t < st.nextIdleCheck) return;
+        st.nextIdleCheck = t + 1000;
+        const G = api.G();
+        if (!G || G.phase === 'over' || api.level() === 'off') return;
+        const quiet = lots() ? 28000 : 55000;
+        if (t - st.lastIdle < quiet) return;
+        st.lastIdle = t;   // try again after another quiet stretch either way
+        const c = ctx();
+        run([c.bot(), Math.random() < 0.55 && IDLE[game] ? IDLE[game] : 'idle', 0.7]);
+      },
+      stop() { for (const tm of st.timers) clearTimeout(tm); st.timers.clear(); },
+    };
+  }
+  return { make, LINES: L };
+})();
+window.Banter = Banter;
+
+/* ------------------------- speech bubbles (everyone) -------------------------
+   A bot's line pops up over its seat for a few seconds and follows it around
+   (the 3D table moves). If the seat isn't on screen, it's just a chat message. */
+const Says = (() => {
+  const live = new Map();    // cid -> { el, find, until }
+  let raf = 0;
+  function visible(el) {
+    if (!el || !el.isConnected) return null;
+    const r = el.getBoundingClientRect();
+    if (r.width < 2 || r.height < 2 || r.bottom < 0 || r.top > innerHeight || r.right < 0 || r.left > innerWidth) return null;
+    const cs = getComputedStyle(el);
+    if (cs.visibility === 'hidden' || cs.display === 'none' || +cs.opacity === 0) return null;
+    return r;
+  }
+  function finder(m) {
+    return () => (m.seat != null && document.getElementById('seat-' + m.seat)) ||
+      document.querySelector(`.prow[data-cid="${String(m.cid).replace(/["\\]/g, '')}"]`);
+  }
+  function show(m) {
+    if (!m || !m.text) return false;
+    const find = finder(m);
+    if (!visible(find())) return false;
+    const old = live.get(m.cid);
+    if (old) old.el.remove();
+    const el = document.createElement('div');
+    el.className = 'say';
+    el.textContent = m.text;
+    document.body.appendChild(el);
+    live.set(m.cid, { el, find, until: performance.now() + Math.max(3600, Math.min(8000, 2200 + m.text.length * 60)) });
+    if (!raf) raf = requestAnimationFrame(frame);
+    return true;
+  }
+  function frame() {
+    raf = 0;
+    const t = performance.now();
+    for (const [cid, b] of live) {
+      if (t > b.until + 400) { b.el.remove(); live.delete(cid); continue; }
+      if (t > b.until) b.el.classList.add('bye');
+      const r = visible(b.find());
+      if (!r) { b.el.style.visibility = 'hidden'; continue; }
+      b.el.style.visibility = '';
+      const w = b.el.offsetWidth, h = b.el.offsetHeight;
+      let x = r.left + r.width / 2 - w / 2, y = r.top - h - 10, below = false;
+      if (y < 8) { y = r.bottom + 10; below = true; }
+      x = Math.max(8, Math.min(innerWidth - w - 8, x));
+      b.el.classList.toggle('below', below);
+      b.el.style.setProperty('--ax', Math.max(14, Math.min(w - 14, r.left + r.width / 2 - x)) + 'px');
+      b.el.style.transform = `translate(${x.toFixed(1)}px,${y.toFixed(1)}px)`;
+    }
+    if (live.size) raf = requestAnimationFrame(frame);
+  }
+  function clear() { for (const b of live.values()) b.el.remove(); live.clear(); }
+  return { show, clear };
+})();
+window.Says = Says;
+
+</script>
+<script>
 /* =====================================================================
    ROOM — everything the host runs (Boxed In): members, bots, kicks, join-back
    requests, chat, settings and the game loop. Every player (the host too)
@@ -1555,6 +2017,7 @@ const Room = (() => {
       code: null, members: [], kicked: new Set(), requests: [], reqId: 1, phase: 'lobby', G: null, chat: [], msgId: 1,
       settings: E.defaultSettings(2), gameNo: 0, counted: false, lastVer: -1, rate: new Map(),
     };
+    R.banter = Banter.make('wg', banterApi());
     R.members.push({ cid: ids.cid, dev: ids.dev, name: cleanName(prof.name), avatar: cleanAv(prof.avatar), color: cleanCol(prof.color), host: true, bot: false, link: SELF, conn: true, via: 'self', spec: false, wins: 0, games: 0 });
     Net.openRoom({ onOpen, onMsg, onClose }, st => { if (R) { R.routes = st; push(); } onStatus && onStatus(st); }).then(code => {
       R.code = code;
@@ -1566,8 +2029,29 @@ const Room = (() => {
   }
   function close() {
     stopLoop();
+    if (R && R.banter) R.banter.stop();
     if (R) Net.closeRoom();
     R = null;
+  }
+
+
+  /* ------------------------- bot banter ------------------------- */
+  function banterApi() {
+    return {
+      level: () => (R && R.settings && R.settings.botChat) || 'some',
+      G: () => (R && R.phase === 'game' ? R.G : null),
+      people: () => (R ? R.members.filter(m => m.bot || !m.spec).map(m => {
+        const si = R.phase === 'game' ? seatOf(m.cid) : -1, s = si >= 0 ? R.G.seats[si] : null;
+        return { cid: m.cid, name: m.name, bot: !!m.bot, seat: si, alive: s ? !!s.alive : R.phase !== 'game' };
+      }) : []),
+      say: (cid, text) => {
+        if (!R) return;
+        const m = R.members.find(x => x.cid === cid && x.bot);
+        if (!m) return;
+        const si = R.phase === 'game' ? seatOf(cid) : -1;
+        chatPush({ id: R.msgId++, cid, name: m.name, avatar: m.avatar, color: m.color, text, ts: now(), bot: true, seat: si >= 0 ? si : null });
+      },
+    };
   }
 
   /* ------------------------- clock ------------------------- */
@@ -1596,6 +2080,7 @@ const Room = (() => {
         push();
       }
       if (R.G.ver !== R.lastVer) push();
+      if (R.banter) R.banter.tick();
     }
     if (R.phase === 'lobby') {
       let changed = false;
@@ -1640,7 +2125,7 @@ const Room = (() => {
     if (!G || !G.out.length) return;
     const out = G.out.splice(0);
     for (const o of out) {
-      if (o.to === -1) all({ t: 'ev', e: o.m });
+      if (o.to === -1) { all({ t: 'ev', e: o.m }); if (R.banter && o.m && o.m.t === 'fx') R.banter.fx(o.m); }
       else {
         const s = G.seats[o.to];
         if (s && !s.bot) send(R.members.find(x => x.cid === s.cid), { t: 'ev', e: o.m });
@@ -1742,6 +2227,7 @@ const Room = (() => {
     if (r.length >= 6) { toastTo(mem, 'Slow down a little 🙂', 'err'); return; }
     r.push(t); R.rate.set(mem.cid, r);
     chatPush({ id: R.msgId++, cid: mem.cid, name: mem.name, avatar: mem.avatar, color: mem.color, text, ts: t });
+    if (R.banter && !mem.bot) R.banter.heard(mem.name, text);
   }
   function act(mem, x) {
     if (!R.G || R.phase !== 'game' || !x || typeof x !== 'object') return;
@@ -1795,6 +2281,7 @@ const Room = (() => {
       const k = R.members.filter(m => m.bot).length;
       const spec = R.phase === 'game';
       R.members.push({ cid: 'bot-' + Math.random().toString(36).slice(2, 8), name: 'Bot ' + name, avatar: BOT_AV[k % BOT_AV.length], color: BOT_COL[k % BOT_COL.length], bot: true, host: false, link: null, conn: true, via: 'bot', spec, wins: 0, games: 0 });
+      if (R.banter) R.banter.joined(R.members[R.members.length - 1].cid);
       autoNumbers(); push();
       return true;
     },
@@ -1821,6 +2308,7 @@ const Room = (() => {
       R.G = E.newGame(ps.map(m => ({ cid: m.cid, name: m.name, avatar: m.avatar, color: m.color, bot: m.bot })), R.settings, null, now());
       for (const m of ps) if (!m.bot && !m.conn) E.setConnected(R.G, seatOf(m.cid), false);
       R.phase = 'game'; R.counted = false; R.gameNo++;
+      if (R.banter) R.banter.start();
       drain(); push();
       return null;
     },
@@ -1874,11 +2362,11 @@ const Room = (() => {
 <script>
 /* Version tag: when this copy was built, in your own time zone, shown on the home screen
    and in the menu, so you can tell whether the newest push has reached you yet.
-   build.py stamps 202611251916 (UTC, YYYYMMDDHHMM) and boxed-in-version.json (the version file that
+   build.py stamps 202611251933 (UTC, YYYYMMDDHHMM) and boxed-in-version.json (the version file that
    sits next to the page on the site). Every couple of minutes it checks that file and
    offers a reload when a newer version is live. */
 const BuildVer = (() => {
-  const B = '202611251916', FILE = 'boxed-in-version.json';
+  const B = '202611251933', FILE = 'boxed-in-version.json';
   const parse = b => { const m = /^(\d{4})(\d\d)(\d\d)(\d\d)(\d\d)$/.exec(String(b || '')); return m ? new Date(Date.UTC(+m[1], +m[2] - 1, +m[3], +m[4], +m[5])) : null; };
   const fmt = d => d.toLocaleString(undefined, { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' });
   const mine = parse(B);
@@ -2136,6 +2624,7 @@ function renderLobby() {
     <div class="srow"><div class="sl">Turn timer<small>Out of time? A move is made for you</small></div><select class="sel" data-set="turnTime">${tt.map(x => `<option value="${x}" ${x === S.turnTime ? 'selected' : ''}>${x ? x + ' s' : 'Off'}</option>`).join('')}</select></div>
     <div class="srow"><div class="sl">🔨 Wall break (3–4 players)<small>Once per game, smash a wall touching your stone</small></div><button class="tog ${S.wallBreak ? 'on' : ''}" data-act="setb" data-k="wallBreak" aria-label="Wall break"></button></div>
     <div class="srow"><div class="sl">🤖 Bot skill</div>${seg('botLevel', S.botLevel, [['easy', 'Easy'], ['normal', 'Normal'], ['hard', 'Hard']])}</div>
+    <div class="srow"><div class="sl">💬 Bot chat<small>Jokes, taunts and the odd lie</small></div><div class="seg">${[['off', 'Off'], ['some', 'Some'], ['lots', 'Lots']].map(o => `<button class="${(S.botChat || 'some') === o[0] ? 'on' : ''}" data-act="set" data-k="botChat" data-v="${o[0]}">${o[1]}</button>`).join('')}</div></div>
     <div class="srow"><div class="sl">Shade sealed territory<small>Color squares that already belong to someone</small></div><button class="tog ${S.hints ? 'on' : ''}" data-act="setb" data-k="hints" aria-label="Shade territory"></button></div>
     <div class="soon">2 players: 4 stones each · 3–4 players: 2 stones each</div>
   </div>`;
@@ -2470,7 +2959,8 @@ function clientRecv(m) {
     }
     case 'chat':
       A.chat.push(m.m); if (A.chat.length > 100) A.chat.shift();
-      if (!(A.sideOpen && A.tab === 'chat') && !m.m.sys) { A.unread++; SFX.play('chat'); }
+      const bub = m.m.bot && A.v && window.Says ? Says.show(m.m) : false;   // bots talk in speech bubbles
+      if (!(A.sideOpen && A.tab === 'chat') && !m.m.sys && !bub) { A.unread++; SFX.play('chat'); }
       renderSide(); renderTop();
       return;
     case 'ev': onEv(m.e); return;
