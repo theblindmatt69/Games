@@ -474,6 +474,12 @@ input,select{font:inherit;color:inherit}
 @media (max-width:640px){ .logo h1{font-size:clamp(26px,10.5vw,40px);letter-spacing:.1em} .logo h1 span{margin-left:6px} }
 .field{min-width:0;width:100%}.join-row .btn,.profile-row .avatar{flex:none}
 
+/* version tag (home screen + menu) */
+.vertag{position:fixed;left:10px;bottom:8px;z-index:5;font-size:11px;line-height:1.4;color:rgba(255,255,255,.45);letter-spacing:.02em;user-select:text}
+.mver{margin-top:12px;text-align:center;font-size:11.5px;color:rgba(255,255,255,.5)}
+.vertag .vnew,.mver .vnew{font:inherit;font-weight:700;color:#ffd84a;background:none;border:0;padding:0;cursor:pointer;text-decoration:underline}
+@media(max-width:760px){.vertag{position:static;text-align:center;padding:4px 0 2px}}
+
 </style>
 </head>
 <body>
@@ -508,6 +514,7 @@ input,select{font:inherit;color:inherit}
         <div class="home-note" id="homeNote"></div>
         <button class="btn ghost small" data-act="rules">📖 How to play</button>
       </div>
+          <div class="vertag" id="verTag"></div>
     </section>
     <section id="scr-wait" class="screen hidden"><div class="wait-card" id="waitCard"></div></section>
     <section id="scr-lobby" class="screen hidden"></section>
@@ -1865,6 +1872,43 @@ const Room = (() => {
 
 </script>
 <script>
+/* Version tag: when this copy was built, in your own time zone, shown on the home screen
+   and in the menu, so you can tell whether the newest push has reached you yet.
+   build.py stamps 202611251916 (UTC, YYYYMMDDHHMM) and boxed-in-version.json (the version file that
+   sits next to the page on the site). Every couple of minutes it checks that file and
+   offers a reload when a newer version is live. */
+const BuildVer = (() => {
+  const B = '202611251916', FILE = 'boxed-in-version.json';
+  const parse = b => { const m = /^(\d{4})(\d\d)(\d\d)(\d\d)(\d\d)$/.exec(String(b || '')); return m ? new Date(Date.UTC(+m[1], +m[2] - 1, +m[3], +m[4], +m[5])) : null; };
+  const fmt = d => d.toLocaleString(undefined, { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' });
+  const mine = parse(B);
+  let newer = null;
+  const label = () => mine ? 'Version ' + fmt(mine) : 'Version: test build';
+  const newHTML = () => newer ? ` · <button type="button" class="vnew" onclick="location.reload()">🔄 ${fmt(newer)} is out: reload</button>` : '';
+  function paint() {
+    const el = document.getElementById('verTag');
+    if (!el) return;
+    el.title = 'Build ' + B;
+    el.innerHTML = label() + newHTML();
+    for (const m of document.querySelectorAll('.mver')) m.innerHTML = label() + newHTML();
+  }
+  function check() {
+    if (!/^https?:$/.test(location.protocol) || !mine || !window.fetch || document.hidden) return;
+    fetch(FILE + '?t=' + Date.now(), { cache: 'no-store' }).then(r => r.ok ? r.json() : null).then(j => {
+      const d = j && parse(j.v);
+      if (d && d > mine && (!newer || d > newer)) { newer = d; paint(); }
+    }).catch(() => { /* offline or a downloaded copy: just show the label */ });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', paint); else paint();
+  setTimeout(check, 2500);
+  setInterval(check, 120000);
+  document.addEventListener('visibilitychange', () => { if (!document.hidden) check(); });
+  return { B, label, html: () => `<div class="mver" title="Build ${B}">${label()}${newHTML()}</div>` };
+})();
+window.BuildVer = BuildVer;
+
+</script>
+<script>
 /* =====================================================================
    BOXED IN — UI: screens, board, input, effects, sounds.
    Shares Dead Deal's lobby, chat, menus, toasts and join flow.
@@ -2284,7 +2328,7 @@ function modalHTML(md, g) {
       b.push(`<button class="btn" data-act="sound">${A.sound ? '🔇 Mute sounds' : '🔊 Turn sounds on'}</button>`);
       b.push(isHost() ? '<button class="btn" data-act="closeroom" style="color:#ff8a93">✖ Close the room</button>' : '<button class="btn" data-act="leave" style="color:#ff8a93">🚪 Leave room</button>');
       b.push('<button class="btn ghost" data-act="mclose">Back to the game</button>');
-      return `<div class="mbox"><h2>${isHost() ? '👑 Host menu' : '☰ Menu'}</h2><p>Room <b>${esc(A.code)}</b></p><div class="mbtns">${b.join('')}</div></div>`;
+      return `<div class="mbox"><h2>${isHost() ? '👑 Host menu' : '☰ Menu'}</h2><p>Room <b>${esc(A.code)}</b></p><div class="mbtns">${b.join('')}</div>${BuildVer.html()}</div>`;
     }
     case 'routes': {
       const st = (v && v.routes) || {};

@@ -35,18 +35,23 @@ h1 span{color:#ff4a5a;text-shadow:0 0 14px rgba(255,42,60,.85),0 0 40px rgba(255
 footer{text-align:center;color:#7d5c62;font-size:13px;padding:22px 16px 30px}
 @media(max-width:760px){.doors{grid-template-columns:1fr}.art{height:120px}}
 @media(prefers-reduced-motion:reduce){.door{transition:none}}
+.ver{font-size:12px;color:#9a7a80;margin:-4px 0 12px}
+.live{text-align:center;font-size:13px;color:#b08a90;margin:-6px 0 22px}
+.live b{color:#ffd0d6}
 </style>
 </head>
 <body>
 <main>
   <h1>MATT'S <span>GAME ROOM</span></h1>
   <p class="sub">Online games for 2 to 8 friends: cards, poker and strategy. Host a room, share the 5-letter code or pick an open room from the list. Bots can fill empty seats. This site always runs the newest version: just reload.</p>
+  <p class="live" id="live"></p>
   <div class="doors">
     <a class="door" href="dead-deal.html">
       <div class="art"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M12 2C7 2 3.5 5.6 3.5 10.2c0 2.9 1.4 5.2 3.5 6.5V20c0 .6.4 1 1 1h8c.6 0 1-.4 1-1v-3.3c2.1-1.3 3.5-3.6 3.5-6.5C20.5 5.6 17 2 12 2zM6.4 11a2.2 2.2 0 1 0 4.4 0a2.2 2.2 0 1 0-4.4 0zM13.2 11a2.2 2.2 0 1 0 4.4 0a2.2 2.2 0 1 0-4.4 0zM12 13.8l-1.4 2.4h2.8zM9.6 18.2h1.1V21H9.6zM13.3 18.2h1.1V21h-1.1z"/></svg></div>
       <h2>Dead Deal</h2>
       <p>Sit at the table, play your cards and dodge the Deathcard. Last one standing wins.</p>
       <div class="meta"><span>2–8 players</span><span>3D table</span><span>🎄 Festive mode</span></div>
+      <div class="ver" data-f="version.json">Version …</div>
       <span class="play">PLAY</span>
     </a>
     <a class="door p" href="holdem.html">
@@ -54,6 +59,7 @@ footer{text-align:center;color:#7d5c62;font-size:13px;padding:22px 16px 30px}
       <h2>Hold'em</h2>
       <p>No-Limit Texas Hold'em. Bet, bluff and take every chip on the table. Side pots, rising blinds and bots that play to win.</p>
       <div class="meta"><span>2–8 players</span><span>Poker</span><span>Bots</span></div>
+      <div class="ver" data-f="holdem-version.json">Version …</div>
       <span class="play">PLAY</span>
     </a>
     <a class="door g" href="boxed-in.html">
@@ -61,6 +67,7 @@ footer{text-align:center;color:#7d5c62;font-size:13px;padding:22px 16px 30px}
       <h2>Boxed In</h2>
       <p>Move, then build a wall. Fence off the biggest territory before the board closes up.</p>
       <div class="meta"><span>2–4 players</span><span>Strategy</span></div>
+      <div class="ver" data-f="boxed-in-version.json">Version …</div>
       <span class="play">PLAY</span>
     </a>
     <a class="door y" href="dead-center.html">
@@ -68,10 +75,32 @@ footer{text-align:center;color:#7d5c62;font-size:13px;padding:22px 16px 30px}
       <h2>Dead Center</h2>
       <p>Race to the middle square. Each turn, step or drop a wall to slow everyone else down.</p>
       <div class="meta"><span>2–4 players</span><span>Race</span></div>
+      <div class="ver" data-f="dead-center-version.json">Version …</div>
       <span class="play">PLAY</span>
     </a>
   </div>
 </main>
 <footer>Made with Claude · Games connect players directly, with backup routes when a network blocks direct links.</footer>
+<script>
+// live versions, read fresh from the site (no cache), so you can see when a push is out
+(() => {
+  const parse = b => { const m = /^(\d{4})(\d\d)(\d\d)(\d\d)(\d\d)$/.exec(String(b || '')); return m ? new Date(Date.UTC(+m[1], +m[2] - 1, +m[3], +m[4], +m[5])) : null; };
+  const fmt = d => d.toLocaleString(undefined, { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' });
+  function load() {
+    const els = [...document.querySelectorAll('.ver[data-f]')];
+    Promise.all(els.map(el => fetch(el.dataset.f + '?t=' + Date.now(), { cache: 'no-store' }).then(r => r.ok ? r.json() : null).catch(() => null).then(j => {
+      const d = j && parse(j.v);
+      el.textContent = d ? 'Version ' + fmt(d) : 'Version: unknown';
+      return d;
+    }))).then(ds => {
+      const last = ds.filter(Boolean).sort((a, b) => b - a)[0];
+      document.getElementById('live').innerHTML = last ? 'Last update: <b>' + fmt(last) + '</b>' : '';
+    });
+  }
+  load();
+  setInterval(load, 60000);
+  document.addEventListener('visibilitychange', () => { if (!document.hidden) load(); });
+})();
+</script>
 </body>
 </html>
