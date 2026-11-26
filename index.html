@@ -40,6 +40,9 @@ footer{text-align:center;color:#7d5c62;font-size:13px;padding:22px 16px 30px}
 .ver{font-size:12px;color:#9a7a80;margin:-4px 0 12px}
 .live{text-align:center;font-size:13px;color:#b08a90;margin:-6px 0 22px}
 .live b{color:#ffd0d6}
+.shelf{margin:46px 0 0;text-align:center;font-size:clamp(24px,3.4vw,32px);letter-spacing:.08em;font-weight:950}
+.shelf:before,.shelf:after{content:"";display:inline-block;width:60px;height:2px;margin:0 16px;vertical-align:middle;background:linear-gradient(90deg,transparent,#ff4a5a)}
+.shelf:after{background:linear-gradient(90deg,#ff4a5a,transparent)}
 </style>
 </head>
 <body>
@@ -89,6 +92,20 @@ footer{text-align:center;color:#7d5c62;font-size:13px;padding:22px 16px 30px}
       <span class="play">PLAY</span>
     </a>
   </div>
+  <!-- CLASSICS:START -->
+  <h2 class="shelf">Classic board games</h2>
+  <p class="sub" style="margin-top:4px">Quick 2–4 player classics, 5–10 minutes a game. Every room shows up in each game's Open rooms list.</p>
+  <div class="doors">
+    <a class="door" style="--c:#4f8df5" href="dots-and-boxes.html">
+      <div class="art"><svg viewBox="0 0 24 24" aria-hidden="true"><g fill="currentColor"><circle cx="5" cy="5" r="1.6"/><circle cx="12" cy="5" r="1.6"/><circle cx="19" cy="5" r="1.6"/><circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/><circle cx="5" cy="19" r="1.6"/><circle cx="12" cy="19" r="1.6"/><circle cx="19" cy="19" r="1.6"/><rect x="5.6" y="5.6" width="5.8" height="5.8" opacity=".45"/></g><path d="M5 5h7v7H5zM12 12h7M19 12v7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+      <h2>Dots &amp; Boxes</h2>
+      <p>Draw a line, close a box, go again. Bonus ⭐ boxes and boards up to 7×6.</p>
+      <div class="meta"><span>2–4 players</span><span>Classic</span><span>Bots</span></div>
+      <div class="ver" data-f="dots-and-boxes-version.json">Version …</div>
+      <span class="play">PLAY</span>
+    </a>
+  </div>
+  <!-- CLASSICS:END -->
 </main>
 <footer>Made with Claude · Games connect players directly, with backup routes when a network blocks direct links.</footer>
 <script>

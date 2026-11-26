@@ -9,5 +9,10 @@ Online browser games you play with friends from one link:
 - **Dead Center**: race to the middle while dropping walls in everyone's way.
 - **House Edge**: an idle casino tycoon that keeps earning while you're away (single player, saves in your browser).
 
+<!-- CLASSICS:START -->
+### Classic board games
+- **Dots & Boxes**: draw lines, close boxes, go again; bonus boxes worth 2 (2 to 4 players).
+<!-- CLASSICS:END -->
+
 Host a room and share the 5-letter code, or pick an open room from the list on the Dead Deal home page.
 Each game is one self-contained HTML file, so the site updates for everyone as soon as a new version is pushed here.
