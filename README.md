@@ -12,6 +12,8 @@ Online browser games you play with friends from one link:
 
 <!-- CLASSICS:START -->
 ### Classic board games
+Online, 2 to 4 players, with bots. Every room is public: join from the Open rooms list on each game's home page (no codes needed). The 2-player games split 4 people into two tables, and give an odd player out a bot.
+
 - **Dots & Boxes**: draw lines, close boxes, go again; bonus boxes worth 2 (2 to 4 players).
 - **Four in a Row**: drop discs and line up four; wider boards for 3 or 4 players.
 - **Flip**: Othello for 2 to 4 players: trap lines of discs to flip them.

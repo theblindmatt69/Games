@@ -2604,11 +2604,11 @@ const Room = (() => {
 
 /* Version tag: when this copy was built, in your own time zone, shown on the home screen
    and in the menu, so you can tell whether the newest push has reached you yet.
-   build.py stamps 202611262053 (UTC, YYYYMMDDHHMM) and battleship-version.json (the version file that
+   build.py stamps 202611262055 (UTC, YYYYMMDDHHMM) and battleship-version.json (the version file that
    sits next to the page on the site). Every couple of minutes it checks that file and
    offers a reload when a newer version is live. */
 const BuildVer = (() => {
-  const B = '202611262053', FILE = 'battleship-version.json';
+  const B = '202611262055', FILE = 'battleship-version.json';
   const parse = b => { const m = /^(\d{4})(\d\d)(\d\d)(\d\d)(\d\d)$/.exec(String(b || '')); return m ? new Date(Date.UTC(+m[1], +m[2] - 1, +m[3], +m[4], +m[5])) : null; };
   const fmt = d => d.toLocaleString(undefined, { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' });
   const mine = parse(B);
