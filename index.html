@@ -46,7 +46,7 @@ footer{text-align:center;color:#7d5c62;font-size:13px;padding:22px 16px 30px}
 .chip{padding:8px 14px;border-radius:999px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.03);color:#e9d9db;font:inherit;font-size:14px;font-weight:800;cursor:pointer}
 .chip:hover{border-color:rgba(255,255,255,.3)}
 .chip.on{background:var(--neon);border-color:var(--neon);color:#100304;box-shadow:0 0 16px rgba(255,42,60,.5)}
-.sec{margin:34px 0 0}
+.sec{margin:34px 0 0;scroll-margin-top:72px}
 .sec>header{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:14px;border-bottom:1px solid rgba(255,255,255,.08);padding-bottom:10px}
 .sec h3{margin:0;font-size:clamp(22px,3vw,28px);letter-spacing:.03em}
 .sec header p{margin:4px 0 0;color:var(--muted);font-size:14.5px}
@@ -60,6 +60,13 @@ footer{text-align:center;color:#7d5c62;font-size:13px;padding:22px 16px 30px}
 .duel b{font-size:17px}
 .duel small{color:var(--muted);font-size:13px;line-height:1.45;flex:1}
 .duel i{font-style:normal;font-size:11.5px;font-weight:800;color:color-mix(in srgb,var(--c) 70%,#fff);margin-top:6px}
+.shelf{margin:46px 0 0;text-align:center;font-size:clamp(24px,3.4vw,32px);letter-spacing:.08em;font-weight:950}
+.shelf:before,.shelf:after{content:"";display:inline-block;width:60px;height:2px;margin:0 16px;vertical-align:middle;background:linear-gradient(90deg,transparent,#ff4a5a)}
+.shelf:after{background:linear-gradient(90deg,#ff4a5a,transparent)}
+/* the classic board games block keeps its own heading; style it like the other sections */
+.sec .shelf{margin:0;text-align:left;font-size:clamp(22px,3vw,28px);letter-spacing:.03em;font-weight:800;padding-bottom:4px}
+.sec .shelf:after{display:none}
+.sec .shelf+.sub{text-align:left;margin:4px 0 14px!important;max-width:none;font-size:14.5px;padding-bottom:10px;border-bottom:1px solid rgba(255,255,255,.08)}
 .hide{display:none!important}
 .empty{color:var(--muted);text-align:center;padding:30px}
 @media(max-width:760px){.duels{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.duel{padding:13px}.duel small{font-size:12px}.chips{justify-content:flex-start;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}.chips::-webkit-scrollbar{display:none}.chip{flex:none}}
@@ -141,6 +148,55 @@ footer{text-align:center;color:#7d5c62;font-size:13px;padding:22px 16px 30px}
     </div>
   </section>
 
+  <section class="sec" id="classics" data-tags="online strategy">
+  <!-- CLASSICS:START -->
+  <h2 class="shelf">Classic board games</h2>
+  <p class="sub" style="margin-top:4px">Quick 2–4 player classics, 5–10 minutes a game. Every room shows up in each game's Open rooms list.</p>
+  <div class="doors">
+    <a class="door" style="--c:#4f8df5" href="dots-and-boxes.html">
+      <div class="art"><svg viewBox="0 0 24 24" aria-hidden="true"><g fill="currentColor"><circle cx="5" cy="5" r="1.6"/><circle cx="12" cy="5" r="1.6"/><circle cx="19" cy="5" r="1.6"/><circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/><circle cx="5" cy="19" r="1.6"/><circle cx="12" cy="19" r="1.6"/><circle cx="19" cy="19" r="1.6"/><rect x="5.6" y="5.6" width="5.8" height="5.8" opacity=".45"/></g><path d="M5 5h7v7H5zM12 12h7M19 12v7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+      <h2>Dots &amp; Boxes</h2>
+      <p>Draw a line, close a box, go again. Bonus ⭐ boxes and boards up to 7×6.</p>
+      <div class="meta"><span>2–4 players</span><span>Classic</span><span>Bots</span></div>
+      <div class="ver" data-f="dots-and-boxes-version.json">Version …</div>
+      <span class="play">PLAY</span>
+    </a>
+    <a class="door" style="--c:#ffc928" href="four-in-a-row.html">
+      <div class="art"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="4" width="19" height="16" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/><g fill="currentColor"><circle cx="7" cy="16" r="2"/><circle cx="12" cy="16" r="2"/><circle cx="12" cy="11" r="2"/><circle cx="17" cy="16" r="2"/><circle cx="17" cy="11" r="2"/><circle cx="17" cy="6.5" r="2" opacity=".5"/></g></svg></div>
+      <h2>Four in a Row</h2>
+      <p>Drop discs, line up four. Wider boards for 3–4 players, and bots that look 7 moves ahead.</p>
+      <div class="meta"><span>2–4 players</span><span>Classic</span><span>Bots</span></div>
+      <div class="ver" data-f="four-in-a-row-version.json">Version …</div>
+      <span class="play">PLAY</span>
+    </a>
+    <a class="door" style="--c:#2fbf71" href="flip.html">
+      <div class="art"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="2" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="9" cy="9" r="3" fill="currentColor"/><circle cx="15" cy="15" r="3" fill="currentColor"/><circle cx="15" cy="9" r="3" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="9" cy="15" r="3" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></div>
+      <h2>Flip</h2>
+      <p>Othello for 2–4. Trap a line of discs to flip them to your colour. Corners are gold.</p>
+      <div class="meta"><span>2–4 players</span><span>Classic</span><span>Bots</span></div>
+      <div class="ver" data-f="flip-version.json">Version …</div>
+      <span class="play">PLAY</span>
+    </a>
+    <a class="door" style="--c:#ff5c8a" href="ultimate-tic-tac-toe.html">
+      <div class="art"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3v18M15 3v18M3 9h18M3 15h18" stroke="currentColor" stroke-width="1.4" opacity=".55"/><path d="M4.2 4.2l3.6 3.6M7.8 4.2L4.2 7.8M10.2 10.2l3.6 3.6M13.8 10.2l-3.6 3.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="18" cy="18" r="2" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="18" cy="6" r="2" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></div>
+      <h2>Ultimate Tic-Tac-Toe</h2>
+      <p>Nine boards in one. Your move sends your opponent to the next board. 4 players? Two tables at once.</p>
+      <div class="meta"><span>2-player tables</span><span>Classic</span><span>Bots</span></div>
+      <div class="ver" data-f="ultimate-tic-tac-toe-version.json">Version …</div>
+      <span class="play">PLAY</span>
+    </a>
+    <a class="door" style="--c:#d8323f" href="checkers.html">
+      <div class="art"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="15" r="5" fill="currentColor"/><circle cx="16" cy="9" r="5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M13.2 9.6l1.1-2.2 1.7 1.4 1.7-1.4 1.1 2.2" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg></div>
+      <h2>Checkers</h2>
+      <p>American checkers: forced captures, multi-jumps and kings. 4 players play two tables at once.</p>
+      <div class="meta"><span>2-player tables</span><span>Classic</span><span>Bots</span></div>
+      <div class="ver" data-f="checkers-version.json">Version …</div>
+      <span class="play">PLAY</span>
+    </a>
+  </div>
+  <!-- CLASSICS:END -->
+  </section>
+
   <section class="sec" id="solo">
     <header><div><h3>🧘 Solo</h3><p>Just you. It keeps going while you're away.</p></div></header>
     <div class="doors">
@@ -184,9 +240,11 @@ footer{text-align:center;color:#7d5c62;font-size:13px;padding:22px 16px 30px}
   const chips = [...document.querySelectorAll('.chip')];
   function apply(tag) {
     for (const c of chips) c.classList.toggle('on', c.dataset.f === tag);
-    for (const el of document.querySelectorAll('[data-tags]')) el.classList.toggle('hide', tag !== 'all' && !el.dataset.tags.split(' ').includes(tag));
+    const cards = [...document.querySelectorAll('.sec .door, .sec .duel')];
+    // a card without its own tags uses its section's tags
+    for (const el of cards) { const t = (el.dataset.tags || el.closest('.sec').dataset.tags || '').split(' '); el.classList.toggle('hide', tag !== 'all' && !t.includes(tag)); }
     let any = false;
-    for (const s of document.querySelectorAll('.sec')) { const vis = [...s.querySelectorAll('[data-tags]')].some(el => !el.classList.contains('hide')); s.classList.toggle('hide', !vis); any = any || vis; }
+    for (const s of document.querySelectorAll('.sec')) { const vis = [...s.querySelectorAll('.door, .duel')].some(el => !el.classList.contains('hide')); s.classList.toggle('hide', !vis); any = any || vis; }
     document.getElementById('none').classList.toggle('hide', any);
   }
   for (const c of chips) c.addEventListener('click', () => { apply(c.dataset.f); history.replaceState(null, '', c.dataset.f === 'all' ? location.pathname : '#' + c.dataset.f); });
