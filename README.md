@@ -14,6 +14,7 @@ Online browser games you play with friends from one link:
 - **Dots & Boxes**: draw lines, close boxes, go again; bonus boxes worth 2 (2 to 4 players).
 - **Four in a Row**: drop discs and line up four; wider boards for 3 or 4 players.
 - **Flip**: Othello for 2 to 4 players: trap lines of discs to flip them.
+- **Ultimate Tic-Tac-Toe**: nine boards in one, where your move decides where your opponent plays (2-player tables; 4 people make two tables).
 <!-- CLASSICS:END -->
 
 Host a room and share the 5-letter code, or pick an open room from the list on the Dead Deal home page.

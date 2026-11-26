@@ -492,6 +492,8 @@ body{background:radial-gradient(1200px 700px at 50% -10%, var(--tint) 0%, var(--
 .spinner{border-top-color:var(--acc)}
 a.btn{text-decoration:none;color:inherit}
 .logo h1 span{margin:0 0 0 .22em}
+.tblres .vs span{display:inline-flex;align-items:center;gap:6px}
+.tblres .vs{flex-wrap:wrap}
 
 /* =================== FOUR IN A ROW: plastic frame =================== */
 :root{--acc:#ffc928;--acc2:#e09a00;--acc3:#ffe07a;--tint:#10224a;--f1:#2f6fe0;--f2:#1b47a8}
@@ -868,7 +870,7 @@ function make(spec) {
     const p = me && me.t === tb ? me.p : -1;
     const mode = modeOf(G, T);
     const scores = spec.scores ? spec.scores(C) : null;
-    const res = r => r ? { winners: r.winners.map(q => T.seats[q]), draw: !!r.draw, text: r.text || '', score: r.score } : null;
+    const res = (r, X) => r ? { winners: r.winners.map(q => (X || T).seats[q]), draw: !!r.draw, text: r.text || '', score: r.score } : null;
     const canAct = p >= 0 && !T.done && G.phase !== 'over' && C.alive(p) && (mode === 'turn' ? T.cur === p : !!(T.need && T.need[p]));
     return {
       phase: G.phase, me: si, mp: p, tb, ntab: G.tables.length, mode, canAct,
@@ -877,7 +879,7 @@ function make(spec) {
         tb, players: T.seats.slice(), cur: mode === 'turn' && !T.done ? T.seats[T.cur] : -1, need: mode === 'simul' && T.need ? T.seats.filter((g, k) => T.need[k]) : [],
         done: T.done, result: res(T.result), turnRemain: Math.max(0, T.turnRemain), turnTotal: G.S.turnTime * 1000 * (T.timeMul || 1), moves: T.moves, scores,
       },
-      tables: G.tables.map(X => ({ tb: X.tb, players: X.seats.slice(), done: X.done, cur: !X.done && modeOf(G, X) === 'turn' ? X.seats[X.cur] : -1, result: res(X.result), scores: spec.scores ? spec.scores(ctxOf(G, X)) : null })),
+      tables: G.tables.map(X => ({ tb: X.tb, players: X.seats.slice(), done: X.done, cur: !X.done && modeOf(G, X) === 'turn' ? X.seats[X.cur] : -1, result: res(X.result, X), scores: spec.scores ? spec.scores(ctxOf(G, X)) : null })),
       s: spec.view(C, p, canAct),
       log: G.log.filter(l => l.tb < 0 || l.tb === tb).slice(-60),
       winners: G.winners.slice(), draw: G.draw, ended: G.ended,
@@ -2556,11 +2558,11 @@ const Room = (() => {
 
 /* Version tag: when this copy was built, in your own time zone, shown on the home screen
    and in the menu, so you can tell whether the newest push has reached you yet.
-   build.py stamps 202611262018 (UTC, YYYYMMDDHHMM) and four-in-a-row-version.json (the version file that
+   build.py stamps 202611262034 (UTC, YYYYMMDDHHMM) and four-in-a-row-version.json (the version file that
    sits next to the page on the site). Every couple of minutes it checks that file and
    offers a reload when a newer version is live. */
 const BuildVer = (() => {
-  const B = '202611262018', FILE = 'four-in-a-row-version.json';
+  const B = '202611262034', FILE = 'four-in-a-row-version.json';
   const parse = b => { const m = /^(\d{4})(\d\d)(\d\d)(\d\d)(\d\d)$/.exec(String(b || '')); return m ? new Date(Date.UTC(+m[1], +m[2] - 1, +m[3], +m[4], +m[5])) : null; };
   const fmt = d => d.toLocaleString(undefined, { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' });
   const mine = parse(B);
