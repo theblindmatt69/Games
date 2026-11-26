@@ -12,6 +12,7 @@ Online browser games you play with friends from one link:
 <!-- CLASSICS:START -->
 ### Classic board games
 - **Dots & Boxes**: draw lines, close boxes, go again; bonus boxes worth 2 (2 to 4 players).
+- **Four in a Row**: drop discs and line up four; wider boards for 3 or 4 players.
 <!-- CLASSICS:END -->
 
 Host a room and share the 5-letter code, or pick an open room from the list on the Dead Deal home page.
