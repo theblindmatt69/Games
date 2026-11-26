@@ -18,6 +18,7 @@ Online browser games you play with friends from one link:
 - **Ultimate Tic-Tac-Toe**: nine boards in one, where your move decides where your opponent plays (2-player tables; 4 people make two tables).
 - **Checkers**: American checkers with forced captures, multi-jumps and kings (2-player tables).
 - **Code Breaker**: a Mastermind race where everyone cracks the same hidden colour code at once.
+- **Battleship**: hide your fleet, then take turns firing to sink theirs (2-player tables).
 <!-- CLASSICS:END -->
 
 Host a room and share the 5-letter code, or pick an open room from the list on the Dead Deal home page.
