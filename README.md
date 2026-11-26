@@ -3,6 +3,7 @@
 Online browser games you play with friends from one link:
 **https://theblindmatt69.github.io/Games/**
 
+- **Duel Arcade**: 15 two-player games for one screen (share a phone, tablet or keyboard): Air Hockey, Ping Pong, Sumo Push, Tank Duel, Light Cycles, Paint Wars, Asteroid Dodge, Quick Draw, Tug of War, Brain Battle, Rock Paper Scissors, Tic Tac Toe, Four in a Row, Dots & Boxes and Memory Match.
 - **Dead Deal**: a 3D card table. Play your cards, dodge the Deathcard, be the last one standing. Festive Misfortune mode included.
 - **Hold'em**: No-Limit Texas Hold'em for 2 to 8 players, with side pots, rising blinds and bots.
 - **Boxed In**: move, then build a wall. Fence off the most territory.
