@@ -21,6 +21,7 @@ Online, 2 to 4 players, with bots. Every room is public: join from the Open room
 - **Checkers**: American checkers with forced captures, multi-jumps and kings (2-player tables).
 - **Code Breaker**: a Mastermind race where everyone cracks the same hidden colour code at once.
 - **Battleship**: hide your fleet, then take turns firing to sink theirs (2-player tables).
+- **Wall Go**: move a stone up to 2 squares, then build a wall; fence off the most territory (2 to 4 players). Every move is graded against the best move with a plain-English explanation of why, rated games change your rating (result, play quality and territory), and your rating, the people you've played and your last 30 games are remembered on each device.
 <!-- CLASSICS:END -->
 
 Host a room and share the 5-letter code, or pick an open room from the list on the Dead Deal home page.
