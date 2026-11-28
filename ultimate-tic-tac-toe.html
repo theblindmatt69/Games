@@ -2023,7 +2023,7 @@ const Banter = (() => {
     ['bluff', /bluff|lying|liar|\blie\b|\bfake\b/i, 0.5],
     ['insult', /\b(noob|n00b|bad|trash|suck|sucks|stupid|dumb|loser|garbage|ez|easy|cringe)\b/i, 0.3],
     ['praise', /\b(nice|good one|gj|wp|well played|wow|impressive|smart|genius)\b/i, 0.25],
-    ['lol', /\b(lol|lmao|haha+|rofl|xd)\b||/i, 0.25],
+    ['lol', /\b(lol|lmao|haha+|rofl|xd)\b|\u{1F602}|\u{1F923}/iu, 0.25],
     ['hi', /\b(hi|hello|hey+|yo|sup|hiya|howdy)\b/i, 0.45],
     ['question', /\?\s*$/, 0.15],
   ];
@@ -2584,11 +2584,11 @@ const Room = (() => {
 
 /* Version tag: when this copy was built, in your own time zone, shown on the home screen
    and in the menu, so you can tell whether the newest push has reached you yet.
-   build.py stamps 202611280352 (UTC, YYYYMMDDHHMM) and ultimate-tic-tac-toe-version.json (the version file that
+   build.py stamps 202611280353 (UTC, YYYYMMDDHHMM) and ultimate-tic-tac-toe-version.json (the version file that
    sits next to the page on the site). Every couple of minutes it checks that file and
    offers a reload when a newer version is live. */
 const BuildVer = (() => {
-  const B = '202611280352', FILE = 'ultimate-tic-tac-toe-version.json';
+  const B = '202611280353', FILE = 'ultimate-tic-tac-toe-version.json';
   const parse = b => { const m = /^(\d{4})(\d\d)(\d\d)(\d\d)(\d\d)$/.exec(String(b || '')); return m ? new Date(Date.UTC(+m[1], +m[2] - 1, +m[3], +m[4], +m[5])) : null; };
   const fmt = d => d.toLocaleString(undefined, { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' });
   const mine = parse(B);
@@ -2946,7 +2946,7 @@ function renderRooms() {
   const searching = Date.now() - (A.browseAt || 0) < 4000;
   const rows = list.map(r => {
     const lobby = r.phase === 'lobby', full = r.n >= r.max;
-    return `<button class="rrow" data-act="joinroom" data-code="${esc(r.code)}"><span class="avatar" style="--av:40px;--c:#2a3346">${esc(r.av || '')}</span><span class="ri"><b>${esc(r.host)}'s room</b><small>${r.n}/${r.max} players${r.bots ? ` (${r.bots} bot${r.bots > 1 ? 's' : ''})` : ''}${r.specs ? ` · ${r.specs} watching` : ''} · ${lobby ? (full ? 'Full: you can watch' : 'In the lobby') : 'Playing: you can watch'}</small></span><span class="rjoin ${lobby && !full ? '' : 'watch'}">${lobby && !full ? 'Join' : 'Watch'}</span></button>`;
+    return `<button class="rrow" data-act="joinroom" data-code="${esc(r.code)}"><span class="avatar" style="--av:40px;--c:#2a3346">${markSVG(r.av)}</span><span class="ri"><b>${esc(r.host)}'s room</b><small>${r.n}/${r.max} players${r.bots ? ` (${r.bots} bot${r.bots > 1 ? 's' : ''})` : ''}${r.specs ? ` · ${r.specs} watching` : ''} · ${lobby ? (full ? 'Full: you can watch' : 'In the lobby') : 'Playing: you can watch'}</small></span><span class="rjoin ${lobby && !full ? '' : 'watch'}">${lobby && !full ? 'Join' : 'Watch'}</span></button>`;
   }).join('');
   const empty = searching ? '<div class="rempty"><div class="spinner small"></div>Looking for open rooms…</div>' : '<div class="rempty">No open rooms right now.<br>Host one and it shows up here for everyone.</div>';
   setHTML(el, `<div class="rc-head"><h3>Open rooms</h3><span class="live"><i></i>${list.length ? list.length + ' live' : 'Live'}</span></div><div class="rlist">${rows || empty}</div><div class="rc-foot">Every room shows up here. Pick one to join, or host your own.</div>`);
