@@ -6,7 +6,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <title>Duel Arcade · two players, one screen</title>
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚔️</text></svg>">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect x='6' y='6' width='88' height='88' rx='22' fill='%2309090c'/><circle cx='50' cy='50' r='26' fill='%23ff6bd6'/><circle cx='42' cy='41' r='8' fill='white' opacity='.45'/></svg>">
 <style>
 :root{--bg:#07070c;--panel:#12121c;--line:#262638;--text:#f2f2f8;--muted:#9a9ab4;--blue:#3ea6ff;--red:#ff4d5e;--gold:#ffd54a}
 *{box-sizing:border-box}
@@ -54,6 +54,34 @@ kbd{display:inline-block;min-width:22px;padding:1px 6px;margin:0 1px;border-radi
 .vertag .vnew,.mver .vnew{font:inherit;font-weight:700;color:var(--gold);background:none;border:0;padding:0;cursor:pointer;text-decoration:underline}
 @media(max-width:760px){.vertag{position:static;text-align:center;padding:24px 0 6px}}
 
+
+.tile .ti svg{width:1em;height:1em;display:block}
+.ib .ic,.btn .ic{width:19px;height:19px;display:block;margin:auto}
+
+/* ================= Matt's Game Room look (same as Wall Go II) ================= */
+:root{--bg:#09090c;--bg2:#0f0f14;--panel:#121218;--panel2:#1c1c25;--line:#262630;--line2:#33333f;--text:#eeedf2;--muted:#a3a2af;--dim:#6d6c7a;
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}
+body{background:radial-gradient(1100px 700px at 30% 0%,#181820 0,transparent 62%) no-repeat,var(--bg)}
+#topbar{background:rgba(9,9,12,.86);backdrop-filter:blur(6px)}
+.btn{border-radius:10px;background:#1c1c25;border-color:var(--line);font-weight:600}
+.btn:hover{background:#242430;border-color:var(--line2)}
+.btn.primary{background:#eeedf2;border-color:#eeedf2;color:#0b0b0f;box-shadow:none}
+.btn.primary:hover{background:#fff}
+.btn.primary[disabled]{background:#3a3a46;border-color:#3a3a46;color:#a3a2af}
+.icon-btn{border-radius:10px;background:var(--panel);border-color:var(--line);color:var(--text)}
+.icon-btn .ic,.btn .ic{width:19px;height:19px;display:block}
+.home-card,.mbox,.endbox,.panel,.card{background:linear-gradient(180deg,#17171f,#0f0f14)}
+.field,input.field,select.field{background:#0b0b0f;border-color:var(--line)}
+.field:focus{border-color:#eeedf2}
+.avatar{background:radial-gradient(circle at 34% 28%,color-mix(in srgb,var(--c,#3c8cff) 45%,#fff) 0,var(--c,#3c8cff) 42%,color-mix(in srgb,var(--c,#3c8cff) 60%,#000) 100%);
+  box-shadow:0 2px 0 color-mix(in srgb,var(--c,#3c8cff) 40%,#000),0 5px 12px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.35);font-size:0;color:#fff}
+.avatar .mk{width:56%;height:56%;display:block;filter:drop-shadow(0 1px 1px rgba(0,0,0,.35))}
+.picker button{display:grid;place-items:center;font-size:0;background:#1c1c25}
+.picker button .mk{width:22px;height:22px}
+.picker button .mk *{fill:#eeedf2}
+.picker button .mk [stroke]{stroke:#eeedf2;fill:none}
+.endbox .trophy{font-size:0;line-height:0;display:grid;place-items:center}
+.endbox .trophy .big-ic{width:72px;height:72px}
 </style>
 </head>
 <body>
@@ -61,7 +89,7 @@ kbd{display:inline-block;min-width:22px;padding:1px 6px;margin:0 1px;border-radi
   <header class="mtop">
     <a class="back" href="index.html" title="Back to the game room">←</a>
     <div class="brand">DUEL <b>ARCADE</b></div>
-    <button class="ib" data-act="sound" title="Sound">🔊</button>
+    <button class="ib" data-act="sound" title="Sound"><svg viewBox="0 0 24 24" class="ic" aria-hidden="true"><path d="M4 9h3.5L12 5v14l-4.5-4H4z" fill="currentColor"/><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
   </header>
   <p class="lead">Two players, one screen. Share a phone or tablet (each of you takes a half), or a keyboard: <b class="k1">Blue</b> uses <kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> + <kbd>Space</kbd>, <b class="k2">Red</b> uses the <kbd>arrow keys</kbd> + <kbd>Enter</kbd>.</p>
   <div id="menuList"></div>
@@ -69,13 +97,13 @@ kbd{display:inline-block;min-width:22px;padding:1px 6px;margin:0 1px;border-radi
 </section>
 <section id="arcade" class="hidden">
   <canvas id="cv"></canvas>
-  <button id="pauseBtn" class="ib" data-act="pause" title="Pause (Esc)">⏸</button>
+  <button id="pauseBtn" class="ib" data-act="pause" title="Pause (Esc)"><svg viewBox="0 0 24 24" class="ic" aria-hidden="true"><rect x="6.5" y="5" width="3.6" height="14" rx="1.2" fill="currentColor"/><rect x="13.9" y="5" width="3.6" height="14" rx="1.2" fill="currentColor"/></svg></button>
   <button id="startNow" class="pill" data-act="startnow">▶ Start</button>
   <div id="pausebox" class="hidden"><div class="box"><h2>Paused</h2>
     <button class="btn gold" data-act="resume">Resume</button>
     <button class="btn" data-act="restart">Restart</button>
     <button class="btn" data-act="menu">All games</button>
-    <button class="btn small" data-act="sound">🔊</button>
+    <button class="btn small" data-act="sound"><svg viewBox="0 0 24 24" class="ic" aria-hidden="true"><path d="M4 9h3.5L12 5v14l-4.5-4H4z" fill="currentColor"/><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
   </div></div>
   <div id="overlay" class="hidden"><div class="box"><div class="who"></div><div class="sc"></div>
     <button class="btn gold" data-act="again">Rematch</button>
@@ -213,6 +241,54 @@ const Duel = (() => {
     return y >= G.h / 2 ? 0 : 1;
   }
 
+
+  /* --------------------------------- sprites (drawn, no emojis) ---------------------------------
+     Each sprite is a list of path layers in a 24×24 box: {d, f: fill, s: stroke, w: width}. 'C' = the colour asked for. */
+  const ci = (x, y, r) => `M${x - r} ${y}a${r} ${r} 0 1 0 ${2 * r} 0a${r} ${r} 0 1 0 ${-2 * r} 0z`;
+  const star = (n, cx, cy, R, r) => { let d = ''; for (let k = 0; k < n * 2; k++) { const a = -Math.PI / 2 + k * Math.PI / n, q = k % 2 ? r : R; d += (k ? 'L' : 'M') + (cx + Math.cos(a) * q).toFixed(2) + ' ' + (cy + Math.sin(a) * q).toFixed(2); } return d + 'z'; };
+  const poly = (n, cx, cy, R, rot) => { let d = ''; for (let k = 0; k < n; k++) { const a = (rot || 0) + k * 2 * Math.PI / n; d += (k ? 'L' : 'M') + (cx + Math.cos(a) * R).toFixed(2) + ' ' + (cy + Math.sin(a) * R).toFixed(2); } return d + 'z'; };
+  const FACE = '#ffd25a', INK = '#2a1a0a';
+  const SPR = {
+    circle: [{ d: ci(12, 12, 8.5), f: '#ff6b6b' }], ring: [{ d: ci(12, 12, 7.5), s: '#ff6b6b', w: 3 }],
+    square: [{ d: 'M4 4h16v16H4z', f: '#3ea6ff' }], squareR: [{ d: 'M8 4h8a4 4 0 0 1 4 4v8a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4V8a4 4 0 0 1 4-4z', f: '#3ea6ff' }],
+    star5: [{ d: star(5, 12, 12.6, 10, 4.2), f: '#ffd54a' }], star6: [{ d: star(6, 12, 12, 10, 5), f: '#ffd54a' }],
+    triUp: [{ d: 'M12 3l9.5 17h-19z', f: '#3ddc84' }], triDown: [{ d: 'M12 21L2.5 4h19z', f: '#3ddc84' }],
+    hex: [{ d: poly(6, 12, 12, 9.5, Math.PI / 6), f: '#b56bff' }], oct: [{ d: poly(8, 12, 12, 9.5, Math.PI / 8), f: '#b56bff' }],
+    plus: [{ d: 'M9.5 3h5v6.5H21v5h-6.5V21h-5v-6.5H3v-5h6.5z', f: '#ff9f43' }], cross: [{ d: 'M5.6 2.1L12 8.5l6.4-6.4 3.5 3.5L15.5 12l6.4 6.4-3.5 3.5L12 15.5l-6.4 6.4-3.5-3.5L8.5 12 2.1 5.6z', f: '#ff9f43' }],
+    heart: [{ d: 'M12 21s-9-5.5-9-12a5 5 0 0 1 9-3 5 5 0 0 1 9 3c0 6.5-9 12-9 12z', f: '#ff6bd6' }], drop: [{ d: 'M12 2.5s7 8 7 12.5a7 7 0 0 1-14 0C5 10.5 12 2.5 12 2.5z', f: '#ff6bd6' }],
+    moon: [{ d: 'M15.5 2.5a9.5 9.5 0 1 0 6 16.5A8 8 0 0 1 15.5 2.5z', f: '#9bd1ff' }], sun: [{ d: ci(12, 12, 5.5), f: '#9bd1ff' }, { d: 'M12 1.5v3.5M12 19v3.5M1.5 12H5M19 12h3.5M4.6 4.6l2.5 2.5M16.9 16.9l2.5 2.5M4.6 19.4l2.5-2.5M16.9 7.1l2.5-2.5', s: '#9bd1ff', w: 2.2 }],
+    bolt: [{ d: 'M14 1.5L4 13.5h6.5L9 22.5l10.5-13H13z', f: '#ffd54a' }], boltL: [{ d: 'M10 1.5l10 12h-6.5l1.5 9-10.5-13H11z', f: '#ffd54a' }],
+    arrowUp: [{ d: 'M12 2.5l8.5 9H15v10h-6v-10H3.5z', f: '#5ad1c8' }], arrowR: [{ d: 'M21.5 12l-9 8.5V15h-10V9h10V3.5z', f: '#5ad1c8' }],
+    star: [{ d: star(5, 12, 12.6, 10, 4.2), f: '#ffd54a' }],
+    dotB: [{ d: ci(12, 12, 8), f: '#3ea6ff' }, { d: ci(9.5, 9.5, 2.5), f: 'rgba(255,255,255,.45)' }], dotR: [{ d: ci(12, 12, 8), f: '#ff4d5e' }, { d: ci(9.5, 9.5, 2.5), f: 'rgba(255,255,255,.45)' }],
+    rock: [{ d: 'M5 11.5c0-3 2-5.5 5-5.5h4.5c3 0 5 2.5 5 5.5v2.5c0 4-3 6.5-7 6.5s-7.5-2.5-7.5-6.5z', f: '#f2c9a0' }, { d: 'M8.3 7v5M11.6 6.5v5.5M14.9 6.5v5.5M8 14.5c2 1 5 1 8 0', s: '#b3835a', w: 1.4 }],
+    paper: [{ d: 'M6 2.5h9l4 4v15H6z', f: '#f4f4f8' }, { d: 'M15 2.5v4h4', s: '#b9b8c6', w: 1.4 }, { d: 'M8.5 10h8M8.5 13.5h8M8.5 17h6', s: '#9a99aa', w: 1.4 }],
+    scissors: [{ d: ci(6.5, 17, 3.2) + ci(17.5, 17, 3.2), s: '#ff6b6b', w: 2.4 }, { d: 'M8.5 14.5L18 2.5M15.5 14.5L6 2.5', s: '#dfe3ea', w: 2.4 }],
+    face: [{ d: ci(12, 12, 10), f: FACE }, { d: 'M6 8.5l4.5 1.6M18 8.5l-4.5 1.6', s: INK, w: 1.8 }, { d: ci(9, 12, 1.4) + ci(15, 12, 1.4), f: INK }, { d: 'M8.5 17.2c2.2-1.3 4.8-1.3 7 0', s: INK, w: 1.8 }],
+    dizzy: [{ d: ci(12, 12, 10), f: FACE }, { d: 'M7.3 9.3l3 3m0-3l-3 3M13.7 9.3l3 3m0-3l-3 3', s: INK, w: 1.7 }, { d: ci(12, 16.8, 2), f: INK }],
+    cowboy: [{ d: ci(12, 14, 8.5), f: FACE }, { d: 'M2 8.5c3 1.6 17 1.6 20 0-1.5 1.8-3.5 2.6-5 2.6H7c-1.5 0-3.5-.8-5-2.6z', f: '#8b5a2b' }, { d: 'M7 9V5.5C7 3.5 9 2 12 2s5 1.5 5 3.5V9z', f: '#a0692f' }, { d: ci(9.2, 14, 1.3) + ci(14.8, 14, 1.3), f: INK }, { d: 'M9 18c1.8 1 4.2 1 6 0', s: INK, w: 1.6 }],
+    hide: [{ d: ci(12, 12, 10), f: FACE }, { d: 'M4.5 9.5h15v5h-15z', f: '#e8a86a' }, { d: 'M9 18c1.8-.8 4.2-.8 6 0', s: INK, w: 1.6 }],
+    bang: [{ d: star(10, 12, 12, 11, 5.5), f: '#ffb02e' }, { d: star(10, 12, 12, 6.5, 3.4), f: '#fff3a0' }],
+    bomb: [{ d: ci(11, 14, 7.5), f: '#23232c' }, { d: ci(8.5, 11.5, 2), f: 'rgba(255,255,255,.35)' }, { d: 'M15 8.5l2.5-2.5', s: '#8b8b98', w: 2.2 }, { d: 'M17.5 6c1-1.8 2.5-2.3 4-1.5', s: '#c9a46a', w: 1.4 }, { d: star(6, 21.5, 3.5, 2.4, 1), f: '#ffd54a' }],
+  };
+  // memory cards: 14 clearly different symbols
+  const MEM = [['circle', 0], ['square', 0], ['triUp', 0], ['star5', 0], ['heart', 0], ['hex', 0], ['plus', 0], ['moon', 0], ['bolt', 0], ['drop', 0], ['ring', 0], ['cross', 0], ['sun', 0], ['arrowUp', 0]];
+  MEM.forEach(([nm], i) => { SPR['m' + i] = SPR[nm].map(l => Object.assign({}, l, l.f ? { f: ['#ff5d6c', '#3ea6ff', '#3ddc84', '#f5b82e', '#ff6bd6', '#9b6bff', '#ff8a2e', '#5aa9ff', '#e2c21c', '#22c3d6', '#ff5d6c', '#7ac943', '#ffa53d', '#2fbfa8'][i] } : { s: ['#ff5d6c', '#3ea6ff', '#3ddc84', '#f5b82e', '#ff6bd6', '#9b6bff', '#ff8a2e', '#5aa9ff', '#e2c21c', '#22c3d6', '#ff5d6c', '#7ac943', '#ffa53d', '#2fbfa8'][i] })); });
+  const P2D = {};
+  function sprite(name, size, color) {
+    const L = SPR[name];
+    if (!L) return false;
+    g.save(); g.scale(size / 24, size / 24); g.translate(-12, -12);
+    g.lineCap = 'round'; g.lineJoin = 'round';
+    for (const l of L) {
+      const path = P2D[l.d] || (P2D[l.d] = new Path2D(l.d));
+      if (l.f) { g.fillStyle = l.f === 'C' ? color : l.f; g.fill(path, 'evenodd'); }
+      if (l.s) { g.strokeStyle = l.s === 'C' ? color : l.s; g.lineWidth = l.w || 2; g.stroke(path); }
+    }
+    g.restore();
+    return true;
+  }
+
   /* --------------------------------- drawing --------------------------------- */
   function say(p, txt, x, y, size, color, o) {
     o = o || {};
@@ -228,6 +304,8 @@ const Duel = (() => {
     g.globalAlpha = o.a == null ? 1 : o.a;
     if (o.glow) { g.shadowColor = o.glow; g.shadowBlur = o.blur || 24; }
     g.fillStyle = color || '#fff';
+    const tok = String(txt).replace(/\u200b/g, '');
+    if (tok[0] === '@' && SPR[tok.slice(1)]) { sprite(tok.slice(1), size * 1.15, color || '#fff'); g.restore(); return; }
     const lines = String(txt).split('\n'), lh = size * (o.lh || 1.2);
     lines.forEach((l, k) => g.fillText(l, 0, (k - (lines.length - 1) / 2) * lh));
     g.restore();
@@ -416,7 +494,7 @@ const Duel = (() => {
     G.prevState = G.state; G.state = 'paused';
     $('pausebox').classList.remove('hidden');
   }
-  const API = { point, burst, floatText, shake, say, rr, circle, glow, noGlow, bg, halves, buttons, inRect, zone, dir, rnd, pick, clamp, PL, snd: n => Snd.play(n), get g() { return g; } };
+  const API = { point, burst, floatText, shake, say, sprite, rr, circle, glow, noGlow, bg, halves, buttons, inRect, zone, dir, rnd, pick, clamp, PL, snd: n => Snd.play(n), get g() { return g; } };
 
   /* ---------------------------------- loop ---------------------------------- */
   function frame(now) {
@@ -486,7 +564,7 @@ const Duel = (() => {
         say(p, G.ready[p] ? '✓ READY' : (G.face ? 'TAP HERE WHEN READY' : `${p === 0 ? 'BLUE' : 'RED'}: PRESS A KEY`), zx, zy, G.ready[p] ? 80 : 50, G.ready[p] ? PL[p].c : '#fff', { glow: PL[p].glow, w: 900, dy: 50 });
         say(p, how, zx, zy, 32, 'rgba(255,255,255,.82)', { w: 600, lh: 1.35, dy: -70 });
       }
-      say(-1, gm.icon + ' ' + gm.name, cx, cy, 64, '#fff', { glow: 'rgba(255,255,255,.4)', w: 900 });
+      say(-1, gm.name, cx, cy, 64, '#fff', { glow: 'rgba(255,255,255,.4)', w: 900 });
     } else if (G.state === 'count' || G.state === 'count2') {
       say(-1, G.state === 'count' ? String(Math.max(1, Math.ceil(2.4 - G.st))) : 'GET READY', cx, cy, G.state === 'count' ? 220 : 80, '#fff', { glow: 'rgba(255,255,255,.6)', w: 900, a: 0.9 });
     } else if (G.state === 'play' && G.goT > 0) {
@@ -504,14 +582,14 @@ const Duel = (() => {
       if (G.face) {
         for (const p of [0, 1]) {
           const z = zone(p), won = p === G.winner;
-          say(p, won ? 'YOU WIN! 🏆' : 'YOU LOSE', z.x + z.w / 2, z.y + z.h / 2, won ? 110 : 80, won ? PL[p].c : 'rgba(255,255,255,.7)', { glow: won ? PL[p].glow : 'transparent', w: 900 });
+          say(p, won ? 'YOU WIN!' : 'YOU LOSE', z.x + z.w / 2, z.y + z.h / 2, won ? 110 : 80, won ? PL[p].c : 'rgba(255,255,255,.7)', { glow: won ? PL[p].glow : 'transparent', w: 900 });
         }
       }
     }
   }
 
   /* ---------------------------------- menu ---------------------------------- */
-  const CATS = [['action', '⚡ Action'], ['reflex', '🧠 Reflex & brain'], ['board', '♟️ Board games']];
+  const CATS = [['action', 'Action'], ['reflex', 'Reflex & brain'], ['board', 'Board games']];
   function buildMenu() {
     $('menuList').innerHTML = CATS.map(([k, label]) => {
       const list = GAMES.filter(gm => gm.cat === k);
@@ -560,9 +638,9 @@ const Duel = (() => {
       else if (act === 'restart' || act === 'again') { $('pausebox').classList.add('hidden'); open(G.game); }
       else if (act === 'menu') { location.hash = ''; showMenu(); }
       else if (act === 'startnow' && G && G.state === 'ready') { G.ready = [true, true]; Snd.play('tap'); }
-      else if (act === 'sound') { const on = Snd.toggle(); for (const b of document.querySelectorAll('[data-act=sound]')) b.textContent = on ? '🔊' : '🔇'; }
+      else if (act === 'sound') { const on = Snd.toggle(); for (const b of document.querySelectorAll('[data-act=sound]')) b.innerHTML = on ? '<svg viewBox="0 0 24 24" class="ic" aria-hidden="true"><path d="M4 9h3.5L12 5v14l-4.5-4H4z" fill="currentColor"/><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>' : '<svg viewBox="0 0 24 24" class="ic" aria-hidden="true"><path d="M4 9h3.5L12 5v14l-4.5-4H4z" fill="currentColor"/><path d="M16 9.5l5 5m0-5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>'; }
     });
-    for (const b of document.querySelectorAll('[data-act=sound]')) b.textContent = Snd.on ? '🔊' : '🔇';
+    for (const b of document.querySelectorAll('[data-act=sound]')) b.innerHTML = Snd.on ? '<svg viewBox="0 0 24 24" class="ic" aria-hidden="true"><path d="M4 9h3.5L12 5v14l-4.5-4H4z" fill="currentColor"/><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>' : '<svg viewBox="0 0 24 24" class="ic" aria-hidden="true"><path d="M4 9h3.5L12 5v14l-4.5-4H4z" fill="currentColor"/><path d="M16 9.5l5 5m0-5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>';
     addEventListener('hashchange', route);
     layout();
     route();
@@ -581,7 +659,7 @@ window.Duel = Duel;
   /* ================================ AIR HOCKEY ================================ */
   const MR = 78, PR = 48, GOAL = 400;
   Duel.reg({
-    id: 'airhockey', base: '#0a1420', name: 'Air Hockey', icon: '🏒', color: '#36e0ff', cat: 'action', target: 7,
+    id: 'airhockey', base: '#0a1420', name: 'Air Hockey', icon: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="15" r="5" fill="#36e0ff"/><circle cx="12" cy="15" r="2.2" fill="#0a1420"/><circle cx="12" cy="6" r="3" fill="#fff"/></svg>', color: '#36e0ff', cat: 'action', target: 7,
     blurb: 'Smash the puck into the other goal. First to 7.',
     how: { touch: 'Drag your mallet around your half.\nKnock the puck into the far goal.', keys: ['W A S D to move your mallet', 'Arrow keys to move your mallet'] },
     pause: 1.1, recount: false,
@@ -671,7 +749,7 @@ window.Duel = Duel;
   /* ================================= PING PONG ================================= */
   const PW = 250, PH = 32, BR = 22;
   Duel.reg({
-    id: 'pong', base: '#0f0d1d', name: 'Ping Pong', icon: '🏓', color: '#ffe066', cat: 'action', target: 7,
+    id: 'pong', base: '#0f0d1d', name: 'Ping Pong', icon: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="3" height="10" rx="1.5" fill="#ffe066"/><rect x="18" y="10" width="3" height="10" rx="1.5" fill="#ffe066"/><circle cx="12" cy="12" r="2.3" fill="#fff"/></svg>', color: '#ffe066', cat: 'action', target: 7,
     blurb: 'Classic paddle duel. The ball speeds up every hit.',
     how: { touch: 'Slide your finger left and right\nto move your paddle.', keys: ['A / D (or W / S) to move', 'Arrow keys to move'] },
     pause: 1.0, recount: false,
@@ -748,7 +826,7 @@ window.Duel = Duel;
   /* =================================== SUMO =================================== */
   const RING = 440, SR = 82;
   Duel.reg({
-    id: 'sumo', base: '#1a0f0a', name: 'Sumo Push', icon: '🤼', color: '#ff9f43', cat: 'action', target: 5,
+    id: 'sumo', base: '#1a0f0a', name: 'Sumo Push', icon: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.5" fill="none" stroke="#ff9f43" stroke-width="1.8"/><circle cx="9" cy="12" r="3.2" fill="#3ea6ff"/><circle cx="15" cy="12" r="3.2" fill="#ff4d5e"/></svg>', color: '#ff9f43', cat: 'action', target: 5,
     blurb: 'Your wrestler spins. Tap to charge and shove the other one out of the ring.',
     how: { touch: 'Your wrestler keeps turning.\nTap to charge the way it faces.', keys: ['Space (or any Blue key) to charge', 'Enter (or any Red key) to charge'] },
     pause: 1.4,
@@ -823,7 +901,7 @@ window.Duel = Duel;
         g.fillStyle = s.cd > 0 ? 'rgba(255,255,255,.35)' : PL[p].c;
         g.beginPath(); g.moveTo(30, 0); g.lineTo(-14, -24); g.lineTo(-14, 24); g.closePath(); g.fill();
         g.restore();
-        g.save(); g.translate(s.x, s.y); g.rotate(s.a + Math.PI / 2); g.font = `${60 * sc}px serif`; g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillText(s.out ? '😵' : '😤', 0, 0); g.restore();
+        g.save(); g.translate(s.x, s.y); g.rotate(s.a + Math.PI / 2); g.font = `${60 * sc}px serif`; g.textAlign = 'center'; g.textBaseline = 'middle'; G.sprite(s.out ? 'dizzy' : 'face', 64 * sc); g.restore();
         g.globalAlpha = 1;
       }
     },
@@ -856,7 +934,7 @@ window.Duel = Duel;
   }
   const inside = (x, y, R) => x > R[0] && x < R[0] + R[2] && y > R[1] && y < R[1] + R[3];
   Duel.reg({
-    id: 'tanks', base: '#101510', name: 'Tank Duel', icon: '🛡️', color: '#7bd36b', cat: 'action', target: 5,
+    id: 'tanks', base: '#101510', name: 'Tank Duel', icon: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="12" width="18" height="6" rx="3" fill="#7bd36b"/><rect x="7" y="8" width="9" height="5" rx="1.5" fill="#7bd36b"/><path d="M15 10h7" stroke="#7bd36b" stroke-width="2" stroke-linecap="round"/></svg>', color: '#7bd36b', cat: 'action', target: 5,
     blurb: 'One-button tanks. Bullets bounce off walls, so watch your own shots.',
     how: { touch: 'Your tank spins on its own.\nHold to drive. Tap to fire.', keys: ['Hold Space to drive, tap to fire', 'Hold Enter to drive, tap to fire'] },
     pause: 1.6,
@@ -957,7 +1035,7 @@ window.Duel = Duel;
   const CW = 50, CH = 80, CELL = 20;
   const turnL = ([dx, dy]) => [dy, -dx], turnR = ([dx, dy]) => [-dy, dx];
   Duel.reg({
-    id: 'cycles', base: '#0b0716', name: 'Light Cycles', icon: '🏍️', color: '#b56bff', cat: 'action', target: 5,
+    id: 'cycles', base: '#0b0716', name: 'Light Cycles', icon: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 19V9h8v6h10" fill="none" stroke="#b56bff" stroke-width="2.4" stroke-linejoin="round"/><circle cx="21" cy="15" r="1.8" fill="#fff"/></svg>', color: '#b56bff', cat: 'action', target: 5,
     blurb: 'Leave a wall of light behind you. Make the other rider crash first.',
     how: { touch: 'Tap the left or right side\nof your half to turn.', keys: ['A turns left, D turns right', '← turns left, → turns right'] },
     pause: 1.5,
@@ -1024,7 +1102,7 @@ window.Duel = Duel;
   /* ================================= PAINT WARS ================================= */
   const PC = 20, PRW = 32, PS = 50, ROUND_T = 30;
   Duel.reg({
-    id: 'paint', base: '#17141c', name: 'Paint Wars', icon: '🎨', color: '#ff6bd6', cat: 'action', target: 2,
+    id: 'paint', base: '#17141c', name: 'Paint Wars', icon: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18c1.5 0 2-1 2-2s-1-2 0-3 4 1 6-1c1.5-1.5 1-4-1-6-2-3-4-6-7-6z" fill="#ff6bd6"/><circle cx="8" cy="10" r="1.6" fill="#fff"/><circle cx="12" cy="7" r="1.6" fill="#3ea6ff"/><circle cx="16" cy="10" r="1.6" fill="#ffe066"/></svg>', color: '#ff6bd6', cat: 'action', target: 2,
     blurb: 'Roll your color over the floor. Most paint after 30 seconds wins the round.',
     how: { touch: 'Touch your half and drag like a joystick.\nPaint everywhere you roll.', keys: ['W A S D to roll around', 'Arrow keys to roll around'] },
     pause: 2.2, hud: true,
@@ -1074,7 +1152,7 @@ window.Duel = Duel;
       if (d.bomb) {
         const s = 1 + Math.sin(d.bomb.t * 8) * 0.08;
         G.glow('rgba(255,255,255,.8)', 30); G.circle(d.bomb.x, d.bomb.y, 46 * s, '#fff'); G.noGlow();
-        g.save(); g.translate(d.bomb.x, d.bomb.y); g.font = '56px serif'; g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillText('💣', 0, 4); g.restore();
+        g.save(); g.translate(d.bomb.x, d.bomb.y); G.sprite('bomb', 66); g.restore();
       }
       for (const [p, r] of d.r.entries()) {
         G.circle(r.x + 6, r.y + 8, 40, 'rgba(0,0,0,.35)');
@@ -1100,7 +1178,7 @@ window.Duel = Duel;
   /* =============================== ASTEROID DODGE =============================== */
   const SHIP = 30;
   Duel.reg({
-    id: 'dodge', base: '#05060f', name: 'Asteroid Dodge', icon: '☄️', color: '#ff7a45', cat: 'action', target: 5,
+    id: 'dodge', base: '#05060f', name: 'Asteroid Dodge', icon: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="15" cy="9" r="5" fill="#ff7a45"/><path d="M3 21l8-8M5 15l5-4M9 19l4-5" stroke="#ff7a45" stroke-width="1.8" stroke-linecap="round" opacity=".7"/></svg>', color: '#ff7a45', cat: 'action', target: 5,
     blurb: 'Rocks fly out of the middle at both of you. Last ship flying wins.',
     how: { touch: 'Slide your finger left and right\nto steer your ship.', keys: ['A / D (or W / S) to steer', 'Arrow keys to steer'] },
     pause: 1.5,
@@ -1177,7 +1255,7 @@ window.Duel = Duel;
   /* ================================= QUICK DRAW ================================= */
   const DECOYS = ['DRAMA', 'DRAWER', 'DRAGON', 'DRAIN', 'DREW?', 'DRUM', 'DROOL', 'RAW!'];
   Duel.reg({
-    id: 'quickdraw', base: '#2b1238', name: 'Quick Draw', icon: '🤠', color: '#f2a65a', cat: 'reflex', target: 5,
+    id: 'quickdraw', base: '#2b1238', name: 'Quick Draw', icon: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="#f2a65a" stroke-width="2"/><circle cx="12" cy="12" r="4.5" fill="none" stroke="#f2a65a" stroke-width="2"/><circle cx="12" cy="12" r="1.5" fill="#fff"/></svg>', color: '#f2a65a', cat: 'reflex', target: 5,
     blurb: 'Wait for DRAW, then tap first. Shoot too early and you lose the round.',
     how: { touch: 'Wait for the word DRAW!\nThen tap your half as fast as you can.', keys: ['Wait for DRAW!, then press Space', 'Wait for DRAW!, then press Enter'] },
     pause: 1.8,
@@ -1219,9 +1297,9 @@ window.Duel = Duel;
         g.save(); g.translate(500, y); g.rotate(p === 0 ? 0 : Math.PI);
         g.font = '220px serif'; g.textAlign = 'center'; g.textBaseline = 'middle';
         g.globalAlpha = hitMe ? 0.5 : 1;
-        g.fillText(hitMe ? '😵' : d.early === p ? '🙈' : '🤠', 0, 0);
+        G.sprite(hitMe ? 'dizzy' : d.early === p ? 'hide' : 'cowboy', 230);
         g.globalAlpha = 1;
-        if (d.shot === p) { g.font = '120px serif'; g.fillText('💥', 0, -200); }
+        if (d.shot === p) { g.translate(0, -200); G.sprite('bang', 130); }
         g.restore();
         const z = G.zone(p);
         if (d.ph === 'wait') G.say(p, 'Steady…', 500, p === 0 ? z.y + z.h - 120 : z.y + 120, 52, 'rgba(255,255,255,.8)');
@@ -1232,7 +1310,7 @@ window.Duel = Duel;
 
   /* ================================= TUG OF WAR ================================= */
   Duel.reg({
-    id: 'tug', base: '#203a1f', name: 'Tug of War', icon: '🪢', color: '#c9a46a', cat: 'reflex', target: 3,
+    id: 'tug', base: '#203a1f', name: 'Tug of War', icon: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 13c3-3 5 3 8 0s5 3 8 0 3-1 4 0" fill="none" stroke="#c9a46a" stroke-width="2.6" stroke-linecap="round"/><path d="M12 7v10" stroke="#fff" stroke-width="1.6"/></svg>', color: '#c9a46a', cat: 'reflex', target: 3,
     blurb: 'Mash as fast as you can to drag the rope over your line.',
     how: { touch: 'Tap your half as fast as you can!', keys: ['Mash Space (or any Blue key)', 'Mash Enter (or any Red key)'] },
     pause: 1.6,
@@ -1266,15 +1344,15 @@ window.Duel = Duel;
       G.circle(500, 800 + off, 26, '#ff4d5e', '#fff', 6);
       for (const p of [0, 1]) {
         const z = G.zone(p);
-        G.say(p, '💪', 200, p === 0 ? z.y + z.h - 140 : z.y + 140, 120 + d.wob[p] * 30, '#fff');
-        G.say(p, '💪', 800, p === 0 ? z.y + z.h - 140 : z.y + 140, 120 + d.wob[p] * 30, '#fff');
+        G.say(p, 'PULL!', 200, p === 0 ? z.y + z.h - 140 : z.y + 140, 120 + d.wob[p] * 30, '#fff');
+        G.say(p, 'PULL!', 800, p === 0 ? z.y + z.h - 140 : z.y + 140, 120 + d.wob[p] * 30, '#fff');
       }
     },
   });
 
   /* ================================= BRAIN BATTLE ================================= */
   const COLORS = [['RED', '#ff4d5e'], ['BLUE', '#3ea6ff'], ['GREEN', '#3ddc84'], ['YELLOW', '#ffd54a'], ['PURPLE', '#b56bff']];
-  const ODD = [['🍎', '🍏'], ['🐶', '🐱'], ['😀', '😃'], ['🌕', '🌖'], ['⭐', '🌟'], ['🚗', '🚕'], ['🍩', '🍪'], ['👻', '💀'], ['🐸', '🐢'], ['🌲', '🌳']];
+  const ODD = [['@circle', '@ring'], ['@square', '@squareR'], ['@star5', '@star6'], ['@triUp', '@triDown'], ['@hex', '@oct'], ['@plus', '@cross'], ['@heart', '@drop'], ['@moon', '@sun'], ['@bolt', '@boltL'], ['@arrowUp', '@arrowR']];
   function shuffle(a) { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
   function question() {
     const kind = Duel.pick(['add', 'sub', 'mul', 'big', 'color', 'odd', 'count']);
@@ -1299,7 +1377,7 @@ window.Duel = Duel;
     return { q, ans, opts, show, locked: [false, false] };
   }
   Duel.reg({
-    id: 'brain', base: '#170d22', name: 'Brain Battle', icon: '🧠', color: '#ff6b9d', cat: 'reflex', target: 7,
+    id: 'brain', base: '#170d22', name: 'Brain Battle', icon: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 21h6M10 18h4M12 3a6 6 0 0 0-4 10.5c.8.8 1 1.5 1 2.5h6c0-1 .2-1.7 1-2.5A6 6 0 0 0 12 3z" fill="none" stroke="#ff6b9d" stroke-width="1.9" stroke-linejoin="round" stroke-linecap="round"/></svg>', color: '#ff6b9d', cat: 'reflex', target: 7,
     blurb: 'Quick-fire math, colors and spot-the-odd-one. First right answer scores.',
     how: { touch: 'Read the question on your side.\nTap the right answer first. Wrong = locked out.', keys: ['Answer with A, S, D', 'Answer with ←, ↓, →'] },
     pause: 1.3, recount: false,
@@ -1309,7 +1387,7 @@ window.Duel = Duel;
       const d = G.d, Q = d.Q;
       if (Q.locked[p] || !Q.opts[k] && Q.opts[k] !== 0) return;
       d.pickd[p] = k;
-      if (Q.opts[k] === Q.ans) { G.burst(500, p === 0 ? 1300 : 300, PL[p].c, 18, 500); G.point(p, { msg: `${PL[p].name} got it!`, sub: `Answer: ${String(Q.ans).replace(/​/g, '')}` }); }
+      if (Q.opts[k] === Q.ans) { G.burst(500, p === 0 ? 1300 : 300, PL[p].c, 18, 500); G.point(p, { msg: `${PL[p].name} got it!`, sub: String(Q.ans)[0] === '@' ? 'Spotted the odd one' : `Answer: ${String(Q.ans).replace(/​/g, '')}` }); }
       else {
         Q.locked[p] = true; G.snd('bad');
         if (Q.locked[0] && Q.locked[1]) G.point(-1, { msg: 'Both wrong!', sub: `Answer: ${String(Q.ans).replace(/​/g, '')}`, sound: 'bad' });
@@ -1331,7 +1409,7 @@ window.Duel = Duel;
           const rnd = () => { s = (s * 9301 + 49297) % 233280; return s / 233280; };
           for (let k = 0; k < Q.show.stars; k++) {
             const sx = 160 + rnd() * 680, sy = qy - 60 + rnd() * 160 * (p === 0 ? 1 : -1) + (p === 0 ? 0 : 0);
-            G.say(p, '⭐', sx, sy, 50, '#fff');
+            G.say(p, '@star', sx, sy, 44, '#fff');
           }
         }
         const rects = G.buttons(p, 3, { h: 200 }), keys = p === 0 ? ['A', 'S', 'D'] : ['←', '↓', '→'];
@@ -1339,7 +1417,7 @@ window.Duel = Duel;
           const locked = Q.locked[p];
           g.fillStyle = locked ? 'rgba(255,255,255,.05)' : PL[p].soft; G.rr(r.x, r.y, r.w, r.h, 26); g.fill();
           g.strokeStyle = locked ? 'rgba(255,255,255,.1)' : PL[p].c; g.lineWidth = 5; g.stroke();
-          G.say(p, String(Q.opts[k]).replace(/​/g, ''), r.x + r.w / 2, r.y + r.h / 2, String(Q.opts[k]).length > 4 ? 44 : 70, locked ? 'rgba(255,255,255,.3)' : '#fff', { w: 900, dy: -6 });
+          G.say(p, String(Q.opts[k]).replace(/​/g, ''), r.x + r.w / 2, r.y + r.h / 2, String(Q.opts[k])[0] === '@' ? 96 : String(Q.opts[k]).length > 4 ? 44 : 70, locked ? 'rgba(255,255,255,.3)' : '#fff', { w: 900, dy: -6 });
           if (!G.face) G.say(p, keys[k], r.x + r.w / 2, r.y + r.h / 2, 26, 'rgba(255,255,255,.45)', { dy: 66 });
         });
         if (Q.locked[p]) G.say(p, '✗ Locked out', 500, z.y + z.h / 2, 46, '#ff8a8a', { dy: p === 0 ? 40 : 40 });
@@ -1348,9 +1426,9 @@ window.Duel = Duel;
   });
 
   /* ============================ ROCK PAPER SCISSORS ============================ */
-  const RPS = ['✊', '✋', '✌️'], RPSN = ['Rock', 'Paper', 'Scissors'];
+  const RPS = ['@rock', '@paper', '@scissors'], RPSN = ['Rock', 'Paper', 'Scissors'];
   Duel.reg({
-    id: 'rps', base: '#0c1a1f', name: 'Rock Paper Scissors', icon: '✂️', color: '#5ad1c8', cat: 'reflex', target: 5,
+    id: 'rps', base: '#0c1a1f', name: 'Rock Paper Scissors', icon: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="6.5" cy="17" r="3.2" fill="none" stroke="#5ad1c8" stroke-width="2"/><circle cx="17.5" cy="17" r="3.2" fill="none" stroke="#5ad1c8" stroke-width="2"/><path d="M8.5 14.5L18 2.5M15.5 14.5L6 2.5" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>', color: '#5ad1c8', cat: 'reflex', target: 5,
     blurb: 'Pick in secret, then reveal. Rock beats scissors, scissors beat paper, paper beats rock.',
     how: { touch: 'Pick secretly on your side.\nNo peeking at the other half!', keys: ['Pick with A, S, D', 'Pick with ←, ↓, →'] },
     pause: 2.2, recount: false,
@@ -1427,7 +1505,7 @@ window.Duel = Duel;
   /* ================================ TIC TAC TOE ================================ */
   const LINES = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]];
   Duel.reg({
-    id: 'ttt', base: '#0b1020', name: 'Tic Tac Toe', icon: '❌', color: '#3ea6ff', cat: 'board', target: 3, rotate: false, hud: false, world,
+    id: 'ttt', base: '#0b1020', name: 'Tic Tac Toe', icon: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4l7 7m0-7l-7 7" stroke="#3ea6ff" stroke-width="2.4" stroke-linecap="round"/><circle cx="16.5" cy="16.5" r="4" fill="none" stroke="#ff4d5e" stroke-width="2.4"/></svg>', color: '#3ea6ff', cat: 'board', target: 3, rotate: false, hud: false, world,
     blurb: 'Three in a row. First to win 3 games. Who goes first switches every game.',
     how: { touch: 'Take turns tapping a square.\nGet three in a row.', keys: keysHow },
     pause: 1.8, recount: false,
@@ -1481,7 +1559,7 @@ window.Duel = Duel;
   /* ================================ FOUR IN A ROW ================================ */
   const C4W = 7, C4H = 6;
   Duel.reg({
-    id: 'connect4', base: '#0d0f1f', name: 'Four in a Row', icon: '🔴', color: '#ffd54a', cat: 'board', target: 2, rotate: false, hud: false, world,
+    id: 'connect4', base: '#0d0f1f', name: 'Four in a Row', icon: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="8" r="3.5" fill="#ffd54a"/><circle cx="16" cy="8" r="3.5" fill="#ff4d5e"/><circle cx="8" cy="16" r="3.5" fill="#ff4d5e"/><circle cx="16" cy="16" r="3.5" fill="#ffd54a"/></svg>', color: '#ffd54a', cat: 'board', target: 2, rotate: false, hud: false, world,
     blurb: 'Drop discs and line up four in any direction. First to win 2 games.',
     how: { touch: 'Take turns tapping a column\nto drop your disc.', keys: ['A / D to pick a column, Space to drop', '← / → to pick a column, Enter to drop'] },
     pause: 2, recount: false,
@@ -1540,7 +1618,7 @@ window.Duel = Duel;
   /* =============================== DOTS AND BOXES =============================== */
   const N = 4;   // boxes per side
   Duel.reg({
-    id: 'dots', base: '#0c1712', name: 'Dots & Boxes', icon: '🔲', color: '#3ddc84', cat: 'board', target: 2, rotate: false, hud: false, world,
+    id: 'dots', base: '#0c1712', name: 'Dots & Boxes', icon: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5h14v14" fill="none" stroke="#3ddc84" stroke-width="2.2" stroke-linecap="round"/><g fill="#fff"><circle cx="5" cy="5" r="1.7"/><circle cx="19" cy="5" r="1.7"/><circle cx="5" cy="19" r="1.7"/><circle cx="19" cy="19" r="1.7"/></g></svg>', color: '#3ddc84', cat: 'board', target: 2, rotate: false, hud: false, world,
     blurb: 'Draw lines between dots. Close a box to claim it and go again.',
     how: { touch: 'Tap between two dots to draw a line.\nFinish a box: it is yours and you go again.', keys: ['Tap or click a line (mouse)', 'Tap or click a line (mouse)'] },
     pause: 2.4, recount: false,
@@ -1565,7 +1643,7 @@ window.Duel = Duel;
       panels(G, F, d.turn, [`${count[0]} boxes`, `${count[1]} boxes`]);
       for (let r = 0; r < N; r++) for (let c = 0; c < N; c++) {
         const v = d.box[r * N + c];
-        if (v >= 0) { g.fillStyle = PL[v].soft.replace('.18', '.5'); g.fillRect(ox + c * s + 6, oy + r * s + 6, s - 12, s - 12); G.say(v, v === 0 ? '🔵' : '🔴', ox + (c + 0.5) * s, oy + (r + 0.5) * s, s * 0.35, '#fff'); }
+        if (v >= 0) { g.fillStyle = PL[v].soft.replace('.18', '.5'); g.fillRect(ox + c * s + 6, oy + r * s + 6, s - 12, s - 12); G.say(v, v === 0 ? '@dotB' : '@dotR', ox + (c + 0.5) * s, oy + (r + 0.5) * s, s * 0.35, '#fff'); }
       }
       g.lineCap = 'round';
       for (let r = 0; r <= N; r++) for (let c = 0; c < N; c++) {
@@ -1605,9 +1683,9 @@ window.Duel = Duel;
   }
 
   /* ================================ MEMORY MATCH ================================ */
-  const MW = 4, MH = 4, EMO = ['🐙', '🦊', '🐸', '🍕', '🚀', '🎸', '🌵', '🍩', '🦄', '⚽', '🐝', '🍉', '👾', '🎈'];
+  const MW = 4, MH = 4, EMO = ['m0', 'm1', 'm2', 'm3', 'm4', 'm5', 'm6', 'm7', 'm8', 'm9', 'm10', 'm11', 'm12', 'm13'];
   Duel.reg({
-    id: 'memory', base: '#140c20', name: 'Memory Match', icon: '🃏', color: '#b56bff', cat: 'board', target: 2, rotate: false, hud: false, world,
+    id: 'memory', base: '#140c20', name: 'Memory Match', icon: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="9" height="13" rx="2" fill="#b56bff" transform="rotate(-10 7.5 11.5)"/><rect x="11" y="5" width="9" height="13" rx="2" fill="#f4eefc"/><path d="M15.5 9l1.2 2.4 2.6.4-1.9 1.8.5 2.6-2.4-1.3-2.4 1.3.5-2.6-1.9-1.8 2.6-.4z" fill="#b56bff"/></svg>', color: '#b56bff', cat: 'board', target: 2, rotate: false, hud: false, world,
     blurb: 'Flip two cards a turn. Find a pair to keep it and go again.',
     how: { touch: 'Take turns flipping two cards.\nMatch a pair to score and go again.', keys: keysHow },
     pause: 2.4, recount: false,
@@ -1641,7 +1719,7 @@ window.Duel = Duel;
         g.fillStyle = face ? (c.got >= 0 ? PL[c.got].soft.replace('.18', '.55') : '#f4eefc') : '#3b2a5c';
         G.rr(-w / 2, -h / 2, w, h, 22); g.fill();
         g.strokeStyle = face ? (c.got >= 0 ? PL[c.got].c : '#fff') : '#6c4fa3'; g.lineWidth = 5; g.stroke();
-        if (face) { g.font = `${Math.min(w, h) * 0.55}px serif`; g.textAlign = 'center'; g.textBaseline = 'middle'; if (G.rot) g.rotate(-Math.PI / 2); g.fillText(c.e, 0, 6); }
+        if (face) { if (G.rot) g.rotate(-Math.PI / 2); G.sprite(c.e, Math.min(w, h) * 0.62); }
         else { g.fillStyle = 'rgba(255,255,255,.12)'; g.font = `900 ${Math.min(w, h) * 0.4}px sans-serif`; g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillText('?', 0, 4); }
         g.restore();
       });
@@ -1671,17 +1749,17 @@ window.Duel = Duel;
 <script>
 /* Version tag: when this copy was built, in your own time zone, shown on the home screen
    and in the menu, so you can tell whether the newest push has reached you yet.
-   build.py stamps 202611262039 (UTC, YYYYMMDDHHMM) and duels-version.json (the version file that
+   build.py stamps 202611280406 (UTC, YYYYMMDDHHMM) and duels-version.json (the version file that
    sits next to the page on the site). Every couple of minutes it checks that file and
    offers a reload when a newer version is live. */
 const BuildVer = (() => {
-  const B = '202611262039', FILE = 'duels-version.json';
+  const B = '202611280406', FILE = 'duels-version.json';
   const parse = b => { const m = /^(\d{4})(\d\d)(\d\d)(\d\d)(\d\d)$/.exec(String(b || '')); return m ? new Date(Date.UTC(+m[1], +m[2] - 1, +m[3], +m[4], +m[5])) : null; };
   const fmt = d => d.toLocaleString(undefined, { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' });
   const mine = parse(B);
   let newer = null;
   const label = () => mine ? 'Version ' + fmt(mine) : 'Version: test build';
-  const newHTML = () => newer ? ` · <button type="button" class="vnew" onclick="location.reload()">🔄 ${fmt(newer)} is out: reload</button>` : '';
+  const newHTML = () => newer ? ` · <button type="button" class="vnew" onclick="location.reload()">${fmt(newer)} is out: reload</button>` : '';
   function paint() {
     const el = document.getElementById('verTag');
     if (!el) return;

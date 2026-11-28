@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#090405">
 <title>Matt's Game Room</title>
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💀</text></svg>">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect x='6' y='6' width='88' height='88' rx='22' fill='%2309090c'/><circle cx='50' cy='50' r='26' fill='%23ff4655'/><circle cx='42' cy='41' r='8' fill='white' opacity='.45'/></svg>">
 <style>
 /*
   VOICE   a late-night card room: dark, red neon, a little dangerous
@@ -70,6 +70,8 @@ footer{text-align:center;color:#7d5c62;font-size:13px;padding:22px 16px 30px}
 .hide{display:none!important}
 .empty{color:var(--muted);text-align:center;padding:30px}
 @media(max-width:760px){.duels{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.duel{padding:13px}.duel small{font-size:12px}.chips{justify-content:flex-start;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}.chips::-webkit-scrollbar{display:none}.chip{flex:none}}
+
+.duel .di svg{width:1em;height:1em;display:block}
 </style>
 </head>
 <body>
@@ -79,45 +81,45 @@ footer{text-align:center;color:#7d5c62;font-size:13px;padding:22px 16px 30px}
   <p class="live" id="live"></p>
   <nav class="chips" aria-label="Filter games">
     <button class="chip on" data-f="all">All games</button>
-    <button class="chip" data-f="two">⚔️ Two player</button>
-    <button class="chip" data-f="online">🌐 Online</button>
-    <button class="chip" data-f="strategy">♟️ Strategy</button>
-    <button class="chip" data-f="cards">🃏 Cards</button>
-    <button class="chip" data-f="action">⚡ Action</button>
-    <button class="chip" data-f="brain">🧠 Brain &amp; reflex</button>
-    <button class="chip" data-f="solo">🧘 Solo</button>
+    <button class="chip" data-f="two">Two player</button>
+    <button class="chip" data-f="online">Online</button>
+    <button class="chip" data-f="strategy">Strategy</button>
+    <button class="chip" data-f="cards">Cards</button>
+    <button class="chip" data-f="action">Action</button>
+    <button class="chip" data-f="brain">Brain &amp; reflex</button>
+    <button class="chip" data-f="solo">Solo</button>
   </nav>
 
   <section class="sec" id="two">
-    <header><div><h3>⚔️ Two players, one screen</h3><p>Grab a friend and share a phone, tablet or keyboard. Each of you takes a half (Blue uses W A S D, Red uses the arrow keys).</p></div>
+    <header><div><h3>Two players, one screen</h3><p>Grab a friend and share a phone, tablet or keyboard. Each of you takes a half (Blue uses W A S D, Red uses the arrow keys).</p></div>
       <div><a class="more" href="duels.html">Open the Duel Arcade →</a><div class="ver" data-f="duels-version.json">Version …</div></div></header>
     <div class="duels">
-      <a class="duel" data-tags="two action" href="duels.html#airhockey" style="--c:#36e0ff"><span class="di">🏒</span><b>Air Hockey</b><small>Smash the puck into the other goal. First to 7.</small><i>⚡ Action</i></a>
-      <a class="duel" data-tags="two action" href="duels.html#pong" style="--c:#ffe066"><span class="di">🏓</span><b>Ping Pong</b><small>Classic paddle duel. The ball speeds up every hit.</small><i>⚡ Action</i></a>
-      <a class="duel" data-tags="two action" href="duels.html#sumo" style="--c:#ff9f43"><span class="di">🤼</span><b>Sumo Push</b><small>Your wrestler spins. Tap to charge and shove the other one out of the ring.</small><i>⚡ Action</i></a>
-      <a class="duel" data-tags="two action" href="duels.html#tanks" style="--c:#7bd36b"><span class="di">🛡️</span><b>Tank Duel</b><small>One-button tanks. Bullets bounce off walls, so watch your own shots.</small><i>⚡ Action</i></a>
-      <a class="duel" data-tags="two action" href="duels.html#cycles" style="--c:#b56bff"><span class="di">🏍️</span><b>Light Cycles</b><small>Leave a wall of light behind you. Make the other rider crash first.</small><i>⚡ Action</i></a>
-      <a class="duel" data-tags="two action" href="duels.html#paint" style="--c:#ff6bd6"><span class="di">🎨</span><b>Paint Wars</b><small>Roll your color over the floor. Most paint after 30 seconds wins the round.</small><i>⚡ Action</i></a>
-      <a class="duel" data-tags="two action" href="duels.html#dodge" style="--c:#ff7a45"><span class="di">☄️</span><b>Asteroid Dodge</b><small>Rocks fly out of the middle at both of you. Last ship flying wins.</small><i>⚡ Action</i></a>
-      <a class="duel" data-tags="two brain" href="duels.html#quickdraw" style="--c:#f2a65a"><span class="di">🤠</span><b>Quick Draw</b><small>Wait for DRAW, then tap first. Shoot too early and you lose the round.</small><i>🧠 Brain & reflex</i></a>
-      <a class="duel" data-tags="two brain" href="duels.html#tug" style="--c:#c9a46a"><span class="di">🪢</span><b>Tug of War</b><small>Mash as fast as you can to drag the rope over your line.</small><i>🧠 Brain & reflex</i></a>
-      <a class="duel" data-tags="two brain" href="duels.html#brain" style="--c:#ff6b9d"><span class="di">🧠</span><b>Brain Battle</b><small>Quick-fire math, colors and spot-the-odd-one. First right answer scores.</small><i>🧠 Brain & reflex</i></a>
-      <a class="duel" data-tags="two brain" href="duels.html#rps" style="--c:#5ad1c8"><span class="di">✂️</span><b>Rock Paper Scissors</b><small>Pick in secret, then reveal. Rock beats scissors, scissors beat paper, paper beats rock.</small><i>🧠 Brain & reflex</i></a>
-      <a class="duel" data-tags="two strategy" href="duels.html#ttt" style="--c:#3ea6ff"><span class="di">❌</span><b>Tic Tac Toe</b><small>Three in a row. First to win 3 games. Who goes first switches every game.</small><i>♟️ Board</i></a>
-      <a class="duel" data-tags="two strategy" href="duels.html#connect4" style="--c:#ffd54a"><span class="di">🔴</span><b>Four in a Row</b><small>Drop discs and line up four in any direction. First to win 2 games.</small><i>♟️ Board</i></a>
-      <a class="duel" data-tags="two strategy" href="duels.html#dots" style="--c:#3ddc84"><span class="di">🔲</span><b>Dots &amp; Boxes</b><small>Draw lines between dots. Close a box to claim it and go again.</small><i>♟️ Board</i></a>
-      <a class="duel" data-tags="two brain" href="duels.html#memory" style="--c:#b56bff"><span class="di">🃏</span><b>Memory Match</b><small>Flip two cards a turn. Find a pair to keep it and go again.</small><i>🧠 Brain & reflex</i></a>
+      <a class="duel" data-tags="two action" href="duels.html#airhockey" style="--c:#36e0ff"><span class="di"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="15" r="5" fill="#36e0ff"/><circle cx="12" cy="15" r="2.2" fill="#0a1420"/><circle cx="12" cy="6" r="3" fill="#fff"/></svg></span><b>Air Hockey</b><small>Smash the puck into the other goal. First to 7.</small><i>Action</i></a>
+      <a class="duel" data-tags="two action" href="duels.html#pong" style="--c:#ffe066"><span class="di"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="3" height="10" rx="1.5" fill="#ffe066"/><rect x="18" y="10" width="3" height="10" rx="1.5" fill="#ffe066"/><circle cx="12" cy="12" r="2.3" fill="#fff"/></svg></span><b>Ping Pong</b><small>Classic paddle duel. The ball speeds up every hit.</small><i>Action</i></a>
+      <a class="duel" data-tags="two action" href="duels.html#sumo" style="--c:#ff9f43"><span class="di"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.5" fill="none" stroke="#ff9f43" stroke-width="1.8"/><circle cx="9" cy="12" r="3.2" fill="#3ea6ff"/><circle cx="15" cy="12" r="3.2" fill="#ff4d5e"/></svg></span><b>Sumo Push</b><small>Your wrestler spins. Tap to charge and shove the other one out of the ring.</small><i>Action</i></a>
+      <a class="duel" data-tags="two action" href="duels.html#tanks" style="--c:#7bd36b"><span class="di"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="12" width="18" height="6" rx="3" fill="#7bd36b"/><rect x="7" y="8" width="9" height="5" rx="1.5" fill="#7bd36b"/><path d="M15 10h7" stroke="#7bd36b" stroke-width="2" stroke-linecap="round"/></svg></span><b>Tank Duel</b><small>One-button tanks. Bullets bounce off walls, so watch your own shots.</small><i>Action</i></a>
+      <a class="duel" data-tags="two action" href="duels.html#cycles" style="--c:#b56bff"><span class="di"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 19V9h8v6h10" fill="none" stroke="#b56bff" stroke-width="2.4" stroke-linejoin="round"/><circle cx="21" cy="15" r="1.8" fill="#fff"/></svg></span><b>Light Cycles</b><small>Leave a wall of light behind you. Make the other rider crash first.</small><i>Action</i></a>
+      <a class="duel" data-tags="two action" href="duels.html#paint" style="--c:#ff6bd6"><span class="di"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18c1.5 0 2-1 2-2s-1-2 0-3 4 1 6-1c1.5-1.5 1-4-1-6-2-3-4-6-7-6z" fill="#ff6bd6"/><circle cx="8" cy="10" r="1.6" fill="#fff"/><circle cx="12" cy="7" r="1.6" fill="#3ea6ff"/><circle cx="16" cy="10" r="1.6" fill="#ffe066"/></svg></span><b>Paint Wars</b><small>Roll your color over the floor. Most paint after 30 seconds wins the round.</small><i>Action</i></a>
+      <a class="duel" data-tags="two action" href="duels.html#dodge" style="--c:#ff7a45"><span class="di"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="15" cy="9" r="5" fill="#ff7a45"/><path d="M3 21l8-8M5 15l5-4M9 19l4-5" stroke="#ff7a45" stroke-width="1.8" stroke-linecap="round" opacity=".7"/></svg></span><b>Asteroid Dodge</b><small>Rocks fly out of the middle at both of you. Last ship flying wins.</small><i>Action</i></a>
+      <a class="duel" data-tags="two brain" href="duels.html#quickdraw" style="--c:#f2a65a"><span class="di"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="#f2a65a" stroke-width="2"/><circle cx="12" cy="12" r="4.5" fill="none" stroke="#f2a65a" stroke-width="2"/><circle cx="12" cy="12" r="1.5" fill="#fff"/></svg></span><b>Quick Draw</b><small>Wait for DRAW, then tap first. Shoot too early and you lose the round.</small><i>Brain & reflex</i></a>
+      <a class="duel" data-tags="two brain" href="duels.html#tug" style="--c:#c9a46a"><span class="di"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 13c3-3 5 3 8 0s5 3 8 0 3-1 4 0" fill="none" stroke="#c9a46a" stroke-width="2.6" stroke-linecap="round"/><path d="M12 7v10" stroke="#fff" stroke-width="1.6"/></svg></span><b>Tug of War</b><small>Mash as fast as you can to drag the rope over your line.</small><i>Brain & reflex</i></a>
+      <a class="duel" data-tags="two brain" href="duels.html#brain" style="--c:#ff6b9d"><span class="di"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 21h6M10 18h4M12 3a6 6 0 0 0-4 10.5c.8.8 1 1.5 1 2.5h6c0-1 .2-1.7 1-2.5A6 6 0 0 0 12 3z" fill="none" stroke="#ff6b9d" stroke-width="1.9" stroke-linejoin="round" stroke-linecap="round"/></svg></span><b>Brain Battle</b><small>Quick-fire math, colors and spot-the-odd-one. First right answer scores.</small><i>Brain & reflex</i></a>
+      <a class="duel" data-tags="two brain" href="duels.html#rps" style="--c:#5ad1c8"><span class="di"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="6.5" cy="17" r="3.2" fill="none" stroke="#5ad1c8" stroke-width="2"/><circle cx="17.5" cy="17" r="3.2" fill="none" stroke="#5ad1c8" stroke-width="2"/><path d="M8.5 14.5L18 2.5M15.5 14.5L6 2.5" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg></span><b>Rock Paper Scissors</b><small>Pick in secret, then reveal. Rock beats scissors, scissors beat paper, paper beats rock.</small><i>Brain & reflex</i></a>
+      <a class="duel" data-tags="two strategy" href="duels.html#ttt" style="--c:#3ea6ff"><span class="di"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4l7 7m0-7l-7 7" stroke="#3ea6ff" stroke-width="2.4" stroke-linecap="round"/><circle cx="16.5" cy="16.5" r="4" fill="none" stroke="#ff4d5e" stroke-width="2.4"/></svg></span><b>Tic Tac Toe</b><small>Three in a row. First to win 3 games. Who goes first switches every game.</small><i>Board</i></a>
+      <a class="duel" data-tags="two strategy" href="duels.html#connect4" style="--c:#ffd54a"><span class="di"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="8" r="3.5" fill="#ffd54a"/><circle cx="16" cy="8" r="3.5" fill="#ff4d5e"/><circle cx="8" cy="16" r="3.5" fill="#ff4d5e"/><circle cx="16" cy="16" r="3.5" fill="#ffd54a"/></svg></span><b>Four in a Row</b><small>Drop discs and line up four in any direction. First to win 2 games.</small><i>Board</i></a>
+      <a class="duel" data-tags="two strategy" href="duels.html#dots" style="--c:#3ddc84"><span class="di"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5h14v14" fill="none" stroke="#3ddc84" stroke-width="2.2" stroke-linecap="round"/><g fill="#fff"><circle cx="5" cy="5" r="1.7"/><circle cx="19" cy="5" r="1.7"/><circle cx="5" cy="19" r="1.7"/><circle cx="19" cy="19" r="1.7"/></g></svg></span><b>Dots &amp; Boxes</b><small>Draw lines between dots. Close a box to claim it and go again.</small><i>Board</i></a>
+      <a class="duel" data-tags="two brain" href="duels.html#memory" style="--c:#b56bff"><span class="di"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="9" height="13" rx="2" fill="#b56bff" transform="rotate(-10 7.5 11.5)"/><rect x="11" y="5" width="9" height="13" rx="2" fill="#f4eefc"/><path d="M15.5 9l1.2 2.4 2.6.4-1.9 1.8.5 2.6-2.4-1.3-2.4 1.3.5-2.6-1.9-1.8 2.6-.4z" fill="#b56bff"/></svg></span><b>Memory Match</b><small>Flip two cards a turn. Find a pair to keep it and go again.</small><i>Brain & reflex</i></a>
     </div>
   </section>
 
   <section class="sec" id="online">
-    <header><div><h3>🌐 Online with friends</h3><p>Host a room and share the 5-letter code, or pick an open room from the list. Bots can fill empty seats.</p></div></header>
+    <header><div><h3>Online with friends</h3><p>Host a room and share the 5-letter code, or pick an open room from the list. Bots can fill empty seats.</p></div></header>
     <div class="doors">
     <a data-tags="online cards" class="door" href="dead-deal.html">
       <div class="art"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M12 2C7 2 3.5 5.6 3.5 10.2c0 2.9 1.4 5.2 3.5 6.5V20c0 .6.4 1 1 1h8c.6 0 1-.4 1-1v-3.3c2.1-1.3 3.5-3.6 3.5-6.5C20.5 5.6 17 2 12 2zM6.4 11a2.2 2.2 0 1 0 4.4 0a2.2 2.2 0 1 0-4.4 0zM13.2 11a2.2 2.2 0 1 0 4.4 0a2.2 2.2 0 1 0-4.4 0zM12 13.8l-1.4 2.4h2.8zM9.6 18.2h1.1V21H9.6zM13.3 18.2h1.1V21h-1.1z"/></svg></div>
       <h2>Dead Deal</h2>
       <p>Sit at the table, play your cards and dodge the Deathcard. Last one standing wins.</p>
-      <div class="meta"><span>2–8 players</span><span>3D table</span><span>🎄 Festive mode</span></div>
+      <div class="meta"><span>2–8 players</span><span>3D table</span><span>Festive mode</span></div>
       <div class="ver" data-f="version.json">Version …</div>
       <span class="play">PLAY</span>
     </a>
@@ -156,7 +158,7 @@ footer{text-align:center;color:#7d5c62;font-size:13px;padding:22px 16px 30px}
     <a class="door" data-tags="online strategy" style="--c:#4f8df5" href="dots-and-boxes.html">
       <div class="art"><svg viewBox="0 0 24 24" aria-hidden="true"><g fill="currentColor"><circle cx="5" cy="5" r="1.6"/><circle cx="12" cy="5" r="1.6"/><circle cx="19" cy="5" r="1.6"/><circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/><circle cx="5" cy="19" r="1.6"/><circle cx="12" cy="19" r="1.6"/><circle cx="19" cy="19" r="1.6"/><rect x="5.6" y="5.6" width="5.8" height="5.8" opacity=".45"/></g><path d="M5 5h7v7H5zM12 12h7M19 12v7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div>
       <h2>Dots &amp; Boxes</h2>
-      <p>Draw a line, close a box, go again. Bonus ⭐ boxes and boards up to 7×6.</p>
+      <p>Draw a line, close a box, go again. Bonus star boxes and boards up to 7×6.</p>
       <div class="meta"><span>2–4 players</span><span>Classic</span><span>Bots</span></div>
       <div class="ver" data-f="dots-and-boxes-version.json">Version …</div>
       <span class="play">PLAY</span>
@@ -214,7 +216,7 @@ footer{text-align:center;color:#7d5c62;font-size:13px;padding:22px 16px 30px}
   </section>
 
   <section class="sec" id="solo">
-    <header><div><h3>🧘 Solo</h3><p>Just you. It keeps going while you're away.</p></div></header>
+    <header><div><h3>Solo</h3><p>Just you. It keeps going while you're away.</p></div></header>
     <div class="doors">
     <a data-tags="solo" class="door h wide" href="house-edge.html">
       <div class="art"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="5.2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-dasharray="2.2 1.9"/><path fill="currentColor" d="M12 8.6l1.1 2.3 2.5.3-1.8 1.7.5 2.5-2.3-1.2-2.3 1.2.5-2.5-1.8-1.7 2.5-.3z"/><path stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M12 1.8v2.4M12 19.8v2.4M1.8 12h2.4M19.8 12h2.4M4.8 4.8l1.7 1.7M17.5 17.5l1.7 1.7M19.2 4.8l-1.7 1.7M6.5 17.5l-1.7 1.7"/></svg></div>
