@@ -6,7 +6,7 @@ Online browser games you play with friends from one link:
 - **Duel Arcade**: 15 two-player games for one screen (share a phone, tablet or keyboard): Air Hockey, Ping Pong, Sumo Push, Tank Duel, Light Cycles, Paint Wars, Asteroid Dodge, Quick Draw, Tug of War, Brain Battle, Rock Paper Scissors, Tic Tac Toe, Four in a Row, Dots & Boxes and Memory Match.
 - **Dead Deal**: a 3D card table. Play your cards, dodge the Deathcard, be the last one standing. Festive Misfortune mode included.
 - **Hold'em**: No-Limit Texas Hold'em for 2 to 8 players, with side pots, rising blinds and bots.
-- **Boxed In**: move, then build a wall. Fence off the most territory.
+- **Wall Go II**: the territory duel from The Devil's Plan (square and round pieces, move then build a wall, 2–4 players). Join from the Open rooms list; every move is graded and explained; rated games change your rating by result, play quality and territory, and your rating, the people you've played and your past games are remembered on each device. (Replaces Boxed In; boxed-in.html now forwards here.)
 - **Dead Center**: race to the middle while dropping walls in everyone's way.
 - **House Edge**: an idle casino tycoon that keeps earning while you're away (single player, saves in your browser).
 
@@ -21,7 +21,6 @@ Online, 2 to 4 players, with bots. Every room is public: join from the Open room
 - **Checkers**: American checkers with forced captures, multi-jumps and kings (2-player tables).
 - **Code Breaker**: a Mastermind race where everyone cracks the same hidden colour code at once.
 - **Battleship**: hide your fleet, then take turns firing to sink theirs (2-player tables).
-- **Wall Go**: move a stone up to 2 squares, then build a wall; fence off the most territory (2 to 4 players). Every move is graded against the best move with a plain-English explanation of why, rated games change your rating (result, play quality and territory), and your rating, the people you've played and your last 30 games are remembered on each device.
 <!-- CLASSICS:END -->
 
 Host a room and share the 5-letter code, or pick an open room from the list on the Dead Deal home page.
