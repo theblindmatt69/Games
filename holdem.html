@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <meta name="theme-color" content="#06120c">
 <title>Hold'em</title>
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🃏</text></svg>">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect x='6' y='6' width='88' height='88' rx='22' fill='%2309090c'/><circle cx='50' cy='50' r='26' fill='%232fd27a'/><circle cx='42' cy='41' r='8' fill='white' opacity='.45'/></svg>">
 <style>
 :root{
   --bg:#0a0c11; --bg2:#10141c; --panel:#151a24; --panel2:#1b2130; --line:#283043; --line2:#344059;
@@ -93,7 +93,7 @@ input,select{font:inherit;color:inherit}
 .route-steps{display:flex;flex-direction:column;gap:6px;text-align:left;margin:0 auto 16px;max-width:280px}
 .route-steps div{font-size:13px;color:var(--dim)}
 .route-steps div.on{color:var(--text)}
-.route-steps div.on:before{content:"⏳ "}
+.route-steps div.on:before{content:""}
 .route-steps div.done:before{content:"✓ ";color:var(--green)}
 
 /* ---------- lobby ---------- */
@@ -652,6 +652,34 @@ body{background:radial-gradient(1200px 700px at 50% -10%,#123826 0%,var(--bg) 62
 .say.bye{opacity:0}
 @keyframes sayin{from{opacity:0;scale:.8}to{opacity:1;scale:1}}
 
+
+.ic-s{width:1.05em;height:1.05em;vertical-align:-.16em;margin-right:4px;display:inline-block}
+.lg .ic-s,em .ic-s{width:1em;height:1em;margin:0;vertical-align:middle}
+
+/* ================= Matt's Game Room look (same as Wall Go II) ================= */
+:root{--bg:#09090c;--bg2:#0f0f14;--panel:#121218;--panel2:#1c1c25;--line:#262630;--line2:#33333f;--text:#eeedf2;--muted:#a3a2af;--dim:#6d6c7a;
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}
+body{background:radial-gradient(1100px 700px at 30% 0%,#181820 0,transparent 62%) no-repeat,var(--bg)}
+#topbar{background:rgba(9,9,12,.86);backdrop-filter:blur(6px)}
+.btn{border-radius:10px;background:#1c1c25;border-color:var(--line);font-weight:600}
+.btn:hover{background:#242430;border-color:var(--line2)}
+.btn.primary{background:#eeedf2;border-color:#eeedf2;color:#0b0b0f;box-shadow:none}
+.btn.primary:hover{background:#fff}
+.btn.primary[disabled]{background:#3a3a46;border-color:#3a3a46;color:#a3a2af}
+.icon-btn{border-radius:10px;background:var(--panel);border-color:var(--line);color:var(--text)}
+.icon-btn .ic,.btn .ic{width:19px;height:19px;display:block}
+.home-card,.mbox,.endbox,.panel,.card{background:linear-gradient(180deg,#17171f,#0f0f14)}
+.field,input.field,select.field{background:#0b0b0f;border-color:var(--line)}
+.field:focus{border-color:#eeedf2}
+.avatar{background:radial-gradient(circle at 34% 28%,color-mix(in srgb,var(--c,#3c8cff) 45%,#fff) 0,var(--c,#3c8cff) 42%,color-mix(in srgb,var(--c,#3c8cff) 60%,#000) 100%);
+  box-shadow:0 2px 0 color-mix(in srgb,var(--c,#3c8cff) 40%,#000),0 5px 12px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.35);font-size:0;color:#fff}
+.avatar .mk{width:56%;height:56%;display:block;filter:drop-shadow(0 1px 1px rgba(0,0,0,.35))}
+.picker button{display:grid;place-items:center;font-size:0;background:#1c1c25}
+.picker button .mk{width:22px;height:22px}
+.picker button .mk *{fill:#eeedf2}
+.picker button .mk [stroke]{stroke:#eeedf2;fill:none}
+.endbox .trophy{font-size:0;line-height:0;display:grid;place-items:center}
+.endbox .trophy .big-ic{width:72px;height:72px}
 </style>
 </head>
 <body>
@@ -660,9 +688,9 @@ body{background:radial-gradient(1200px 700px at 50% -10%,#123826 0%,var(--bg) 62
     <div class="tb-left"><span class="mini-logo">HOLD<b>'EM</b></span><button class="code-chip" data-act="copy" title="Copy invite"><span class="lbl">ROOM</span><span id="tbCode">-----</span><span class="cp">⧉</span></button></div>
     <div class="tb-right">
       <button class="net" id="tbNet" data-act="routes"><i></i><span id="tbNetTxt">Online</span></button>
-      <button class="icon-btn" data-act="sound" id="tbSound" title="Sound">🔊</button>
-      <button class="icon-btn" data-act="side" id="tbChat" title="Chat &amp; log">💬<span class="badge hidden" id="tbUnread"></span></button>
-      <button class="icon-btn" data-act="menu" title="Menu">☰</button>
+      <button class="icon-btn" data-act="sound" id="tbSound" title="Sound"><svg viewBox="0 0 24 24" class="ic" aria-hidden="true"><path d="M4 9h3.5L12 5v14l-4.5-4H4z" fill="currentColor"/><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
+      <button class="icon-btn" data-act="side" id="tbChat" title="Chat &amp; log"><svg viewBox="0 0 24 24" class="ic" aria-hidden="true"><path d="M5 5h14a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-8l-5 3.5V17H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg><span class="badge hidden" id="tbUnread"></span></button>
+      <button class="icon-btn" data-act="menu" title="Menu"><svg viewBox="0 0 24 24" class="ic" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg></button>
     </div>
   </header>
   <main id="main">
@@ -678,14 +706,14 @@ body{background:radial-gradient(1200px 700px at 50% -10%,#123826 0%,var(--bg) 62
           <button class="avatar big" id="homeAv" data-act="profile" title="Change avatar"></button>
           <input class="field" id="nameIn" maxlength="16" placeholder="Your name" autocomplete="off">
         </div>
-        <button class="btn primary big" data-act="host">🃏 Host a table</button>
+        <button class="btn primary big" data-act="host">Host a table</button>
         <div class="or">or join a friend</div>
         <div class="join-row">
           <input class="field" id="codeIn" maxlength="5" placeholder="CODE" autocomplete="off" autocapitalize="characters" spellcheck="false">
           <button class="btn big" data-act="join">Join</button>
         </div>
         <div class="home-note" id="homeNote"></div>
-        <button class="btn ghost small" data-act="rules">📖 How to play</button>
+        <button class="btn ghost small" data-act="rules">How to play</button>
       </div>
       <div class="rooms-card" id="roomsCard"></div>
       </div>
@@ -701,7 +729,7 @@ body{background:radial-gradient(1200px 700px at 50% -10%,#123826 0%,var(--bg) 62
     </section>
   </main>
   <aside id="side" class="hidden">
-    <div class="side-tabs"><button data-act="tab" data-tab="chat" class="on">💬 Chat</button><button data-act="tab" data-tab="log">📜 Log</button><button class="side-x" data-act="side">✕</button></div>
+    <div class="side-tabs"><button data-act="tab" data-tab="chat" class="on">Chat</button><button data-act="tab" data-tab="log">Log</button><button class="side-x" data-act="side">✕</button></div>
     <div id="chatList" class="side-body"></div>
     <div id="logList" class="side-body hidden"></div>
     <form id="chatForm" autocomplete="off"><input id="chatIn" maxlength="200" placeholder="Say something…"><button type="submit">Send</button></form>
@@ -867,7 +895,7 @@ function newGame(players, S, rng, now) {
     toCall: 0, minRaise: 0, handNo: 0, level: Math.max(0, BLINDS.indexOf(S.sb)), sb: S.sb, bb: S.sb * 2,
     deadline: 0, wait: (now || 0) + 1200, next: 'deal', results: null, equity: null, runout: false, placeNext: players.length,
   };
-  log(G, `🃏 New game: ${players.length} players, ${S.chips} chips each, blinds ${G.sb}/${G.bb}.`, 'sys');
+  log(G, `New game: ${players.length} players, ${S.chips} chips each, blinds ${G.sb}/${G.bb}.`, 'sys');
   return G;
 }
 function log(G, text, k) { G.log.push({ t: text, k: k || '' }); if (G.log.length > 80) G.log.splice(0, G.log.length - 80); }
@@ -891,7 +919,7 @@ function startHand(G) {
   G.handNo++;
   if (G.S.blindUp && G.handNo > 1 && (G.handNo - 1) % G.S.blindUp === 0 && G.level < BLINDS.length - 1) {
     G.level++; G.sb = BLINDS[G.level]; G.bb = G.sb * 2;
-    log(G, `⏫ Blinds go up to ${G.sb}/${G.bb}.`, 'sys');
+    log(G, `Blinds go up to ${G.sb}/${G.bb}.`, 'sys');
     fx(G, { kind: 'blinds', sb: G.sb, bb: G.bb });
   }
   for (const s of G.seats) Object.assign(s, { hole: [], folded: !s.alive, allIn: false, bet: 0, total: 0, acted: false, canRaise: true, sinceFull: false, last: null, shown: false });
@@ -1022,7 +1050,7 @@ function foldWin(G, s) {
   s.chips += amt; s.wins++;
   G.cur = -1;
   G.results = { pots: [{ amt, winners: [s.i], hand: '' }], fold: true };
-  log(G, `🏆 ${s.name} wins ${amt} (everyone else folded).`, 'win');
+  log(G, `${s.name} wins ${amt} (everyone else folded).`, 'win');
   fx(G, { kind: 'win', who: [s.i], amt });
   for (const t of G.seats) t.bet = 0;
   G.stage = 'wait'; G.next = 'bust'; G.wait = G.now + FOLDWIN_MS;
@@ -1037,7 +1065,7 @@ function closeStreet(G) {
     // everyone's all in: turn the cards face up and run the board out slowly
     G.runout = true;
     for (const s of live) s.shown = true;
-    log(G, '🔥 All in! Hands are turned face up.', 'allin');
+    log(G, 'All in! Hands are turned face up.', 'allin');
     fx(G, { kind: 'reveal' });
     calcEquity(G);
   }
@@ -1093,7 +1121,7 @@ function showdown(G) {
     for (const i of win) { G.seats[i].chips += share + (rem > 0 ? 1 : 0); if (rem > 0) rem--; }
     const hand = handName(best);
     const label = ps.length > 1 ? (k === 0 ? 'the main pot' : `side pot ${k}`) : 'the pot';
-    log(G, `🏆 ${win.map(i => nm(G, i)).join(' and ')} ${win.length > 1 ? 'split' : 'wins'} ${label} (${p.amt}) with ${hand}.`, 'win');
+    log(G, `${win.map(i => nm(G, i)).join(' and ')} ${win.length > 1 ? 'split' : 'wins'} ${label} (${p.amt}) with ${hand}.`, 'win');
     res.push({ amt: p.amt, winners: win, hand, best: win.length ? best5(G.seats[win[0]].hole.concat(G.board)) : [] });
   });
   for (const w of new Set(res.flatMap(r => r.winners))) G.seats[w].wins++;
@@ -1107,7 +1135,7 @@ function busts(G) {
   gone.sort((a, b) => a.total - b.total);
   for (const s of gone) {
     s.alive = false; s.place = G.placeNext--; s.why = 'busted';
-    log(G, `💥 ${s.name} is out of chips (place #${s.place}).`, 'bust');
+    log(G, `${s.name} is out of chips (place #${s.place}).`, 'bust');
     fx(G, { kind: 'bust', who: s.i });
   }
   if (G.seats.filter(s => s.alive).length < 2) return finish(G);
@@ -1121,7 +1149,7 @@ function finish(G) {
   const rest = alive.filter(s => s !== w).sort((a, b) => b.chips - a.chips);
   let p = 2; for (const s of rest) s.place = p++;
   G.phase = 'over'; G.cur = -1; G.stage = 'over';
-  log(G, `👑 ${w.name} wins the game!`, 'win');
+  log(G, `${w.name} wins the game!`, 'win');
   fx(G, { kind: 'gameover', winner: w.i });
   bump(G);
 }
@@ -1145,7 +1173,7 @@ function tick(G, now) {
   if (s.bot) { if (now >= s.wake) { const m = botMove(G, s.i); act(G, s.i, m); } return; }
   if (G.deadline && now >= G.deadline) {
     const o = options(G, s.i);
-    log(G, `⏰ ${s.name} ran out of time.`, '');
+    log(G, `${s.name} ran out of time.`, '');
     act(G, s.i, { a: o && o.check ? 'check' : 'fold' });
   }
 }
@@ -1193,7 +1221,7 @@ function removeSeat(G, i, why) {
   s.folded = true;
   s.alive = false; s.why = why || 'left'; s.place = G.placeNext--;
   s.chips = 0;
-  log(G, `🚪 ${s.name} ${why === 'kicked' ? 'was kicked' : 'left'}.`, 'bust');
+  log(G, `${s.name} ${why === 'kicked' ? 'was kicked' : 'left'}.`, 'bust');
   const live = inHand(G);
   if (G.seats.filter(t => t.alive).length < 2) { if (live.length === 1 && G.stage !== 'wait') foldWin(G, live[0]); return finish(G); }
   if (G.stage !== 'wait' && wasTurn) advance(G, i);
@@ -1832,10 +1860,10 @@ const Banter = (() => {
       "GG! Well, G for me. You tried.",
       "Was there ever any doubt?",
       "I'd like to thank my processor, my RAM, and nobody else.",
-      "Winner winner, silicon dinner. 🏆",
+      "Winner winner, silicon dinner.",
       "Don't feel bad. I'm literally made of math.",
       "Same time tomorrow? I could use the practice. Not really.",
-      "Victory tastes like electricity. ⚡",
+      "Victory tastes like electricity.",
       "Easy. Okay, medium. Okay, it was close. But I WON.",
     ],
     humanWin: [
@@ -1844,13 +1872,13 @@ const Banter = (() => {
       "{w} wins? Rematch. Right now.",
       "Fine. {w} is good. I said it once and I'll never say it again.",
       "I wasn't even trying. (I was trying so hard.)",
-      "Somebody check {w}'s sleeves. 🕵️",
+      "Somebody check {w}'s sleeves.",
       "Enjoy it, {w}. I'm updating my strategy as we speak.",
     ],
     botOut: [
       "I demand a recount.",
       "Tell my motherboard I loved her.",
-      "This is fine. Everything is fine. 🔥",
+      "This is fine. Everything is fine.",
       "I'll be back. Next game. Probably.",
       "That was a strategic exit. You wouldn't understand.",
       "Rage quitting is beneath me. Rebooting is not.",
@@ -1858,67 +1886,67 @@ const Banter = (() => {
       "I'm not out, I'm just spectating with extra steps.",
     ],
     humanOut: [
-      "Rest in pieces, {t}. 🪦",
+      "Rest in pieces, {t}.",
       "{t} has left the building. Forcibly.",
       "Press F for {t}.",
       "Don't worry {t}, spectating is a skill too.",
-      "One down. 👀",
+      "One down.",
       "{t}, you were the chosen one!",
-      "Bye {t}! Wave to us from the sidelines. 👋",
+      "Bye {t}! Wave to us from the sidelines.",
     ],
     idle: [
       "Why did the robot go on vacation? To recharge. I'll be here all game.",
       "I'm not saying I'm the best player here. The scoreboard will say it for me.",
-      "Fun fact: I never blink. I'm watching all of you. 👁️",
+      "Fun fact: I never blink. I'm watching all of you.",
       "Hurry up, I'm not getting any younger. Or older. I'm a bot.",
       "Who's winning? Don't answer. It's me.",
       "I've got a good feeling about this. Bad feeling for you though.",
-      "I know something you don't know. 🤫",
+      "I know something you don't know.",
       "Somebody here is bluffing. I won't say who. (It's {p}.)",
       "What do you call a bot that never loses? Me. That's the joke.",
       "I'd tell you a joke about UDP, but you might not get it.",
-      "{p} has been quiet. Too quiet. 🤨",
+      "{p} has been quiet. Too quiet.",
       "If I lose, it's lag. If I win, it's skill. Those are the rules.",
     ],
-    hi: ["Hey {p}! Ready to lose?", "Hello! Lovely day to win a game.", "Yo. 😎", "Hi {p}. I've been expecting you.", "Greetings, future loser. I mean friend.", "Heyyy {p} 👋"],
+    hi: ["Hey {p}! Ready to lose?", "Hello! Lovely day to win a game.", "Yo.", "Hi {p}. I've been expecting you.", "Greetings, future loser. I mean friend.", "Heyyy {p}"],
     gg: ["GG! Mostly G for me though.", "gg ez. Kidding. Kind of.", "Good game, good game. Great game for me.", "gg wp. Rematch?", "GG. I'll go easy next time. I won't."],
-    lol: ["I'm laughing too, but on the inside. Where I store your losses.", "😂 glad someone's having fun", "lmao same", "It's funny because it's true.", "My humor module is overheating. 🤣"],
+    lol: ["I'm laughing too, but on the inside. Where I store your losses.", "glad someone's having fun", "lmao same", "It's funny because it's true.", "My humor module is overheating."],
     cheat: ["I don't cheat. I just have perfect memory. And no feelings.", "Rigged? I wish. It'd be easier.", "Accusations won't save you, {p}.", "The only thing rigged here is my winning streak.", "I'm offended. And also winning."],
-    bluff: ["Me? Bluffing? I physically can't lie. 😇", "Maybe I am. Maybe I'm not. Call me and find out.", "Everybody lies. Except me. Except now.", "A bluff is just the truth that hasn't happened yet.", "You'll never know. That's the fun part."],
+    bluff: ["Me? Bluffing? I physically can't lie.", "Maybe I am. Maybe I'm not. Call me and find out.", "Everybody lies. Except me. Except now.", "A bluff is just the truth that hasn't happened yet.", "You'll never know. That's the fun part."],
     insult: ["Bold words from someone about to lose.", "I'm going to remember you said that, {p}.", "Skill issue. Yours, not mine.", "Error 404: your skill not found.", "I've been called worse by better players.", "Sticks and stones can't break my bones. I don't have any.", "Keep talking, {p}. I'm recording all of this."],
-    praise: ["Thank you, I practice a lot. Like, every millisecond.", "I know. 😌", "Stop, you'll make me overheat.", "Finally, someone with taste.", "Flattery won't save you, {p}. But thanks."],
-    question: ["Wouldn't you like to know.", "Ask me after the game.", "That's classified. 🤐", "Great question. Next question.", "My lawyer says no comment.", "Yes. Or no. Definitely one of those."],
+    praise: ["Thank you, I practice a lot. Like, every millisecond.", "I know.", "Stop, you'll make me overheat.", "Finally, someone with taste.", "Flattery won't save you, {p}. But thanks."],
+    question: ["Wouldn't you like to know.", "Ask me after the game.", "That's classified.", "Great question. Next question.", "My lawyer says no comment.", "Yes. Or no. Definitely one of those."],
     mention: ["You rang?", "Talking about me again?", "I hear you. I'm choosing to ignore you.", "Focus on your own game, {p}.", "Yes, I'm that good. Thanks for noticing.", "Shh, I'm concentrating. On beating you."],
 
     /* ---------------------------- Dead Deal ---------------------------- */
     ddIdle: [
-      "Death chance is getting spicy. 🌶️",
+      "Death chance is getting spicy.",
       "The deck is looking at me funny.",
       "I counted the cards. Somebody's in trouble.",
       "Somebody here has an Angel and it isn't you, {p}.",
-      "I'm holding two Cancels. Or zero. Guess. 🃏",
+      "I'm holding two Cancels. Or zero. Guess.",
       "Somebody's about to draw a Deathcard and it's not gonna be me.",
-      "I can smell the Deathcard from here. 💀",
+      "I can smell the Deathcard from here.",
       "Fun fact: I always know where the Deathcard is. Today, I'm choosing violence.",
     ],
-    ddAttack: ["Two turns, {t}. Enjoy. 😈", "Here, {t}, have some extra turns. My treat.", "Special delivery for {t}: pain. 📦", "Draw twice, {t}. I'll wait.", "Attack! Nothing personal. Okay, a little personal.", "Good luck, {t}. The deck is hungry."],
-    ddAttacked: ["Oh, it's like THAT, {t}?", "Rude.", "I will remember this, {t}.", "Bold move, {t}. Let's see how it plays out.", "Wow. And I thought we were friends.", "You're going on my list, {t}. 📝"],
-    ddCancel: ["Nope. Denied. 🚫", "Not today.", "Did you really think that would work?", "Cancel culture is real and I'm part of it.", "Return to sender. 📮"],
+    ddAttack: ["Two turns, {t}. Enjoy.", "Here, {t}, have some extra turns. My treat.", "Special delivery for {t}: pain.", "Draw twice, {t}. I'll wait.", "Attack! Nothing personal. Okay, a little personal.", "Good luck, {t}. The deck is hungry."],
+    ddAttacked: ["Oh, it's like THAT, {t}?", "Rude.", "I will remember this, {t}.", "Bold move, {t}. Let's see how it plays out.", "Wow. And I thought we were friends.", "You're going on my list, {t}."],
+    ddCancel: ["Nope. Denied.", "Not today.", "Did you really think that would work?", "Cancel culture is real and I'm part of it.", "Return to sender."],
     ddSkip: ["I'll pass, thanks.", "Skip! Too busy winning.", "Nah. I'm good.", "You can't lose if you don't draw. That's science.", "Skipping. Not scared. Just efficient."],
-    ddShuffle: ["Good luck tracking that now.", "Shuffle shuffle. Whatever you thought you knew, forget it.", "Chaos is a ladder. 🪜", "Mixed it up a little. You're welcome."],
-    ddReverse: ["Turn it around! 🔄", "Uno reverse. Wrong game, same energy.", "Other way, folks. Other way."],
-    ddSafe: ["Top card's clean. Trust me. 😇", "Ooh, the next card is a good one.", "Next draw's totally safe. Probably.", "I saw the next card. You're gonna love it, {p}.", "Nothing scary on top. Go ahead, draw. 🙂"],
-    ddWarn: ["I would NOT draw right now. Just saying. 👀", "Whoever draws next... it was nice knowing you.", "Yikes. I'm not telling you what's on top. Okay, it's bad.", "💀 I've seen things.", "Interesting... very interesting. 🤔", "I'd get that Angel ready if I were you, {p}."],
-    ddHumanFuture: ["What did you see, {t}? Your face says 💀.", "{t} is looking at the future. Spoiler: I win.", "Don't believe what you saw, {t}. The deck lies.", "So {t}, safe or scary? Blink twice."],
-    ddSteal: ["Thanks for the card, {t}! 🫳", "Yoink.", "What's yours is mine. Literally.", "Mine now. 😏", "Ooh, {t}, you had a good one."],
-    ddStolen: ["Hey! Give that back!", "Thief! Somebody call the card police. 🚓", "Enjoy it, {t}. It's cursed. (It's not. Or is it?)", "That was my favorite card, {t}."],
-    ddPhew: ["Phew. 😅", "Didn't even flinch.", "Easy. Your turn, {p}.", "Nerves of steel. Literally, I'm made of metal.", "Safe! The deck loves me."],
-    ddSaved: ["Not today, Death! 😇", "Angel saves the day. Your turn to sweat.", "I have friends in high places.", "Did you really think a Deathcard could stop me?", "Close one. For you, I mean."],
+    ddShuffle: ["Good luck tracking that now.", "Shuffle shuffle. Whatever you thought you knew, forget it.", "Chaos is a ladder.", "Mixed it up a little. You're welcome."],
+    ddReverse: ["Turn it around!", "Uno reverse. Wrong game, same energy.", "Other way, folks. Other way."],
+    ddSafe: ["Top card's clean. Trust me.", "Ooh, the next card is a good one.", "Next draw's totally safe. Probably.", "I saw the next card. You're gonna love it, {p}.", "Nothing scary on top. Go ahead, draw."],
+    ddWarn: ["I would NOT draw right now. Just saying.", "Whoever draws next... it was nice knowing you.", "Yikes. I'm not telling you what's on top. Okay, it's bad.", "I've seen things.", "Interesting... very interesting.", "I'd get that Angel ready if I were you, {p}."],
+    ddHumanFuture: ["What did you see, {t}? Your face says.", "{t} is looking at the future. Spoiler: I win.", "Don't believe what you saw, {t}. The deck lies.", "So {t}, safe or scary? Blink twice."],
+    ddSteal: ["Thanks for the card, {t}!", "Yoink.", "What's yours is mine. Literally.", "Mine now.", "Ooh, {t}, you had a good one."],
+    ddStolen: ["Hey! Give that back!", "Thief! Somebody call the card police.", "Enjoy it, {t}. It's cursed. (It's not. Or is it?)", "That was my favorite card, {t}."],
+    ddPhew: ["Phew.", "Didn't even flinch.", "Easy. Your turn, {p}.", "Nerves of steel. Literally, I'm made of metal.", "Safe! The deck loves me."],
+    ddSaved: ["Not today, Death!", "Angel saves the day. Your turn to sweat.", "I have friends in high places.", "Did you really think a Deathcard could stop me?", "Close one. For you, I mean."],
     ddHumanSaved: ["Lucky.", "Ugh. Saved by the Angel. Next time, {t}.", "Where do you even find these Angels, {t}?", "Enjoy it, {t}. You won't get another."],
-    ddHid: ["Where did I put the Deathcard? Oh right. 🤫", "I put it somewhere special. Just for you, {p}.", "Don't worry. It's somewhere safe. For me.", "Top? Bottom? Middle? I'll never tell. 🤐", "Hope you like surprises, {p}."],
-    ddHumanHid: ["I saw where you put it, {t}. (I didn't.)", "Hmm, {t} hid it near the top. Probably. 👀", "{t}, you're a terrible hider. I could see your hand shaking.", "Wherever {t} put it, I'm not drawing it."],
-    ddHumanShuffle: ["Shuffling won't save you, {t}.", "Nice shuffle, {t}. Didn't help.", "Panic shuffle! 🔀"],
-    ddPlay: ["Watch this.", "Calculated. 🧠", "And that's how it's done.", "Big brain play."],
+    ddHid: ["Where did I put the Deathcard? Oh right.", "I put it somewhere special. Just for you, {p}.", "Don't worry. It's somewhere safe. For me.", "Top? Bottom? Middle? I'll never tell.", "Hope you like surprises, {p}."],
+    ddHumanHid: ["I saw where you put it, {t}. (I didn't.)", "Hmm, {t} hid it near the top. Probably.", "{t}, you're a terrible hider. I could see your hand shaking.", "Wherever {t} put it, I'm not drawing it."],
+    ddHumanShuffle: ["Shuffling won't save you, {t}.", "Nice shuffle, {t}. Didn't help.", "Panic shuffle!"],
+    ddPlay: ["Watch this.", "Calculated.", "And that's how it's done.", "Big brain play."],
 
     /* ----------------------------- Hold'em ----------------------------- */
     pkIdle: [
@@ -1926,29 +1954,29 @@ const Banter = (() => {
       "I can see your cards. (I can't. But now you're worried.)",
       "Fun fact: 7-2 offsuit is my favorite hand. I play it every time. Or do I?",
       "My poker face is literally a screen.",
-      "Somebody here is bluffing a lot. 👀",
+      "Somebody here is bluffing a lot.",
       "Why did the chip go to therapy? It felt all-in-secure.",
       "Chip count check: mine's bigger. Probably.",
       "I fold a lot because I'm nice. Not because I'm scared.",
     ],
-    pkStrong: ["I have the nuts. Probably.", "You should fold. I'm saying this as a friend.", "This is a value bet. I promise. 😇", "Call me. I dare you.", "Pay me. 💰", "I like my cards. I like them a lot."],
-    pkWeak: ["I have absolutely nothing. Seriously. 🙃", "This is a bluff. Or is it?", "Just stealing the blinds, don't look at me.", "My cards are bad, but my confidence is excellent.", "Raise! Because why not.", "Honestly? I'm just bored."],
-    pkAllin: ["All of it. Let's see your heart rate. 📈", "All in! I either win big or blame the dealer.", "Everything's in the middle. Including my dignity.", "Shove! Your move, {p}.", "YOLO. That's a poker term."],
+    pkStrong: ["I have the nuts. Probably.", "You should fold. I'm saying this as a friend.", "This is a value bet. I promise.", "Call me. I dare you.", "Pay me.", "I like my cards. I like them a lot."],
+    pkWeak: ["I have absolutely nothing. Seriously.", "This is a bluff. Or is it?", "Just stealing the blinds, don't look at me.", "My cards are bad, but my confidence is excellent.", "Raise! Because why not.", "Honestly? I'm just bored."],
+    pkAllin: ["All of it. Let's see your heart rate.", "All in! I either win big or blame the dealer.", "Everything's in the middle. Including my dignity.", "Shove! Your move, {p}.", "YOLO. That's a poker term."],
     pkCall: ["I'll see that.", "Call. I wanna see where this goes.", "Fine, I'll pay to watch.", "Call. Don't read into it. Or do."],
-    pkCheck: ["Check. I'm setting a trap. Or am I?", "Check. Totally not slow-playing.", "Check. Nothing to see here.", "Check. 🙂"],
+    pkCheck: ["Check. I'm setting a trap. Or am I?", "Check. Totally not slow-playing.", "Check. Nothing to see here.", "Check."],
     pkFold: ["I'll let you have this one. Enjoy it while it lasts.", "Fold. I was being generous.", "Strategic retreat.", "I'm folding, but under protest.", "Not worth my time. Clearly."],
-    pkHumanAllin: ["Ooh, all in. Somebody's feeling brave.", "{t} shoves! Sweating yet?", "All in, huh? Smells like a bluff. 👃", "Big move, {t}. Big move.", "{t}, are you sure about that? Like, sure sure?"],
-    pkHumanRaise: ["Smells like a bluff. 👃", "{t} raising? Now I'm interested.", "That's a lot of chips for a pair of twos, {t}.", "Is that confidence or panic, {t}?", "Hmm. {t} has something. Or nothing."],
-    pkHumanFold: ["Smart. Or scared. Same thing.", "Fold? I was just starting to like you, {t}.", "Bye bye, chips. 👋"],
-    pkWin: ["Thanks for the donation. 💰", "Ship it!", "Come to papa. 🤑", "I'll take that, thank you very much.", "Chips go brrr.", "Read 'em and weep."],
+    pkHumanAllin: ["Ooh, all in. Somebody's feeling brave.", "{t} shoves! Sweating yet?", "All in, huh? Smells like a bluff.", "Big move, {t}. Big move.", "{t}, are you sure about that? Like, sure sure?"],
+    pkHumanRaise: ["Smells like a bluff.", "{t} raising? Now I'm interested.", "That's a lot of chips for a pair of twos, {t}.", "Is that confidence or panic, {t}?", "Hmm. {t} has something. Or nothing."],
+    pkHumanFold: ["Smart. Or scared. Same thing.", "Fold? I was just starting to like you, {t}.", "Bye bye, chips."],
+    pkWin: ["Thanks for the donation.", "Ship it!", "Come to papa.", "I'll take that, thank you very much.", "Chips go brrr.", "Read 'em and weep."],
     pkHumanWin: ["Nice hand, {t}. Lucky river though.", "Enjoy it, {t}. They're only borrowed.", "Fine, {t}. Take it. I'll be back for it.", "Hmm. {t} got lucky. Again."],
     pkBotBust: ["I demand a recount.", "I'm not broke, I'm pre-rich.", "The cards hate me. It's personal now.", "Well, that's my chips gone. Anyone got a loan?"],
-    pkHumanBust: ["Don't worry {t}, the chips had a good life.", "{t} is out. Moment of silence. ...Okay, that's enough.", "Busted! Better luck next time, {t}. 🪦", "{t}'s chips are in a better place now. My stack."],
-    pkRiver: ["River, don't fail me now. 🌊", "Come on river...", "This river better be nice to me."],
+    pkHumanBust: ["Don't worry {t}, the chips had a good life.", "{t} is out. Moment of silence. ...Okay, that's enough.", "Busted! Better luck next time, {t}.", "{t}'s chips are in a better place now. My stack."],
+    pkRiver: ["River, don't fail me now.", "Come on river...", "This river better be nice to me."],
 
     /* --------------------------- Dead Center --------------------------- */
     dcIdle: [
-      "Smell that? That's the center. And victory. 🎯",
+      "Smell that? That's the center. And victory.",
       "I can see the middle from here.",
       "You're going the long way? Bold.",
       "Left, right, left... I'm basically a GPS.",
@@ -1956,24 +1984,24 @@ const Banter = (() => {
       "I'm two moves away. Or twenty. You'll never know.",
       "Walls are just doors that haven't been bullied enough.",
     ],
-    dcWall: ["Oops, was that your path, {t}? 🚧", "Detour ahead! 🚧", "Construction season. Sorry, not sorry.", "Take the scenic route, {t}.", "Have you tried going around? 🧱", "Walls: 1, {t}: 0."],
+    dcWall: ["Oops, was that your path, {t}?", "Detour ahead!", "Construction season. Sorry, not sorry.", "Take the scenic route, {t}.", "Have you tried going around?", "Walls: 1, {t}: 0."],
     dcHumanWall: ["Rude.", "A wall? For me? You shouldn't have, {t}.", "I'll just walk around it. Like a winner.", "Nice wall, {t}. Real nice.", "Is that supposed to slow me down, {t}?"],
-    dcWin: ["Dead center. Dead you. 🎯", "Bullseye!", "Center reached. Tell your friends."],
+    dcWin: ["Dead center. Dead you.", "Bullseye!", "Center reached. Tell your friends."],
 
     /* ----------------------------- Boxed In ----------------------------- */
     wgIdle: [
       "I'm building an empire. You're building a shed.",
       "Count the squares. Go on. I'll wait.",
       "I have a plan. It's a secret. It involves you losing.",
-      "Location, location, location. 🏠",
+      "Location, location, location.",
       "This board's getting crowded. Mostly with my walls.",
-      "{p}, you're looking a little... boxed in. 😏",
+      "{p}, you're looking a little... boxed in.",
     ],
-    wgSeal: ["Mine now. Property values just went up. 🏠", "Sold! To me.", "Fenced and finished. 🧱", "This land is my land.", "+{n}. Thanks for the real estate."],
-    wgHumanSeal: ["Nice little hut you got there, {t}.", "Cute territory, {t}. Shame if someone... never mind.", "Enjoy your tiny kingdom, {t}. 👑"],
-    wgBreak: ["Knock knock. 🔨", "Who needs walls anyway?", "Renovations!", "Here's Johnny! Wait, wrong reference."],
-    wgHumanBreak: ["Hey! That was load-bearing!", "Vandalism! 🚨", "Rude, {t}. I just built that."],
-    wgMove: ["Just stretching my legs.", "Don't mind me, just boxing you in.", "Cozy corner you've got there, {t}. Shame about the wall.", "Getting comfy. 🛋️"],
+    wgSeal: ["Mine now. Property values just went up.", "Sold! To me.", "Fenced and finished.", "This land is my land.", "+{n}. Thanks for the real estate."],
+    wgHumanSeal: ["Nice little hut you got there, {t}.", "Cute territory, {t}. Shame if someone... never mind.", "Enjoy your tiny kingdom, {t}."],
+    wgBreak: ["Knock knock.", "Who needs walls anyway?", "Renovations!", "Here's Johnny! Wait, wrong reference."],
+    wgHumanBreak: ["Hey! That was load-bearing!", "Vandalism!", "Rude, {t}. I just built that."],
+    wgMove: ["Just stretching my legs.", "Don't mind me, just boxing you in.", "Cozy corner you've got there, {t}. Shame about the wall.", "Getting comfy."],
     wgPlace: ["Good spot. For me.", "Prime real estate.", "I'll take this one."],
   };
 
@@ -2083,7 +2111,7 @@ const Banter = (() => {
     ['bluff', /bluff|lying|liar|\blie\b|\bfake\b/i, 0.5],
     ['insult', /\b(noob|n00b|bad|trash|suck|sucks|stupid|dumb|loser|garbage|ez|easy|cringe)\b/i, 0.3],
     ['praise', /\b(nice|good one|gj|wp|well played|wow|impressive|smart|genius)\b/i, 0.25],
-    ['lol', /\b(lol|lmao|haha+|rofl|xd)\b|😂|🤣/i, 0.25],
+    ['lol', /\b(lol|lmao|haha+|rofl|xd)\b|\u{1F602}|\u{1F923}/iu, 0.25],
     ['hi', /\b(hi|hello|hey+|yo|sup|hiya|howdy)\b/i, 0.45],
     ['question', /\?\s*$/, 0.15],
   ];
@@ -2253,14 +2281,14 @@ window.Says = Says;
 const Room = (() => {
   const E = window.GE;
   const BOT_NAMES = ['Vex', 'Mara', 'Dice', 'Jinx', 'Rook', 'Nova', 'Ash', 'Kilo', 'Zed', 'Echo', 'Pike', 'Sable'];
-  const BOT_AV = ['🤖', '👾', '🦾', '🎲', '🎰', '🧠', '🛸', '🃏'];
+  const BOT_AV = ['m7', 'm19', 'm21', 'm2', 'm16', 'm15', 'm9', 'm6'];
   const BOT_COL = ['#7c8aa5', '#5fb3b3', '#c792ea', '#f78c6c', '#82aaff', '#c3e88d', '#ffcb6b', '#ff5370'];
   const MAX_SEATS = E.MAX_SEATS, MAX_MEMBERS = 16;
   let R = null, SELF = null, deliver = null, pushT = null, lastPush = 0, ticker = null, worker = null;
 
   const now = () => Date.now();
   const cleanName = n => (String(n || '').replace(/[\u0000-\u001f<>]/g, '').trim().slice(0, 16)) || 'Player';
-  const cleanAv = a => (typeof a === 'string' && a.length && a.length <= 12 ? a : '🙂');
+  const cleanAv = a => (typeof a === 'string' && a.length && a.length <= 12 ? a : 'm0');
   const cleanCol = c => (/^#[0-9a-f]{6}$/i.test(c || '') ? c : '#3e9bff');
   const players = () => R.members.filter(m => !m.spec);
   const seatOf = c => (R.G ? R.G.seats.findIndex(s => s.cid === c) : -1);
@@ -2413,8 +2441,8 @@ const Room = (() => {
       const si = seatOf(m.cid);
       if (R.phase === 'game' && si >= 0 && R.G.seats[si].alive && R.G.phase !== 'over') {
         E.setConnected(R.G, si, false);
-        sys(`📡 ${m.name} lost connection. Moves are made for them until they're back.`);
-      } else sys(`📡 ${m.name} disconnected.`);
+        sys(`${m.name} lost connection. Moves are made for them until they're back.`);
+      } else sys(`${m.name} disconnected.`);
     }
     if (m || R.requests.length !== before) push();
   }
@@ -2444,7 +2472,7 @@ const Room = (() => {
     if (mem) {
       if (mem.host) return L.close();
       attach(mem, L, p);
-      sys(`🔌 ${mem.name} is back.`);
+      sys(`${mem.name} is back.`);
       return;
     }
     if (R.phase === 'game' && R.G && R.G.phase !== 'over') {
@@ -2462,7 +2490,7 @@ const Room = (() => {
     mem = { cid: c, dev, name: p.name, avatar: p.avatar, color: p.color, host: false, bot: false, link: L, conn: true, via: L.via, spec, wins: 0, games: 0 };
     R.members.push(mem);
     welcome(mem);
-    sys(`👋 ${mem.name} joined${spec ? (R.phase === 'game' ? ' and is watching (they play next game)' : ' as a spectator (table is full)') : ''}.`);
+    sys(`${mem.name} joined${spec ? (R.phase === 'game' ? ' and is watching (they play next game)' : ' as a spectator (table is full)') : ''}.`);
     autoNumbers();
     push();
   }
@@ -2484,7 +2512,7 @@ const Room = (() => {
     R.requests.push({ id: R.reqId++, L, cid: c, dev, prof: p, why, seatCid, at: now() });
     L.send({ t: 'wait', why });
     const host = R.members.find(m => m.host);
-    toastTo(host, why === 'kicked' ? `🚪 ${p.name} (removed earlier) wants to join back.` : `🔁 ${p.name} wants to take their seat back.`, 'req');
+    toastTo(host, why === 'kicked' ? `${p.name} (removed earlier) wants to join back.` : `${p.name} wants to take their seat back.`, 'req');
     push();
   }
 
@@ -2493,7 +2521,7 @@ const Room = (() => {
     text = String(text || '').replace(/[\u0000-\u001f]/g, ' ').trim().slice(0, 200);
     if (!text) return;
     const t = now(), r = (R.rate.get(mem.cid) || []).filter(x => t - x < 5000);
-    if (r.length >= 6) { toastTo(mem, 'Slow down a little 🙂', 'err'); return; }
+    if (r.length >= 6) { toastTo(mem, 'Slow down a little', 'err'); return; }
     r.push(t); R.rate.set(mem.cid, r);
     chatPush({ id: R.msgId++, cid: mem.cid, name: mem.name, avatar: mem.avatar, color: mem.color, text, ts: t });
     if (R.banter && !mem.bot) R.banter.heard(mem.name, text);
@@ -2509,7 +2537,7 @@ const Room = (() => {
   }
   function profile(mem, m) {
     const p = { name: cleanName(m.name), avatar: cleanAv(m.avatar), color: cleanCol(m.color) };
-    if (p.name !== mem.name) sys(`✏️ ${mem.name} is now ${p.name}.`);
+    if (p.name !== mem.name) sys(`${mem.name} is now ${p.name}.`);
     Object.assign(mem, p);
     const si = seatOf(mem.cid);
     if (si >= 0) { Object.assign(R.G.seats[si], p); R.G.ver++; }
@@ -2523,10 +2551,10 @@ const Room = (() => {
       R.kicked.add(mem.cid);
       if (mem.dev) R.kicked.add('dev:' + mem.dev);
       if (mem.link) { mem.link.send({ t: 'kicked' }); const L = mem.link; setTimeout(() => L.close(), 400); }
-      sys(`👢 ${mem.name} was removed by the host.`);
+      sys(`${mem.name} was removed by the host.`);
     } else {
       if (mem.link) { const L = mem.link; setTimeout(() => L.close(), 200); }
-      sys(`🚪 ${mem.name} left the room.`);
+      sys(`${mem.name} left the room.`);
     }
     mem.link = null;
     autoNumbers();
@@ -2582,7 +2610,7 @@ const Room = (() => {
       drain(); push();
       return null;
     },
-    endGame() { if (R.G && R.G.phase !== 'over') { E.endGame(R.G); sys('🛑 The host ended the game.'); drain(); push(); } },
+    endGame() { if (R.G && R.G.phase !== 'over') { E.endGame(R.G); sys('The host ended the game.'); drain(); push(); } },
     toLobby() {
       R.phase = 'lobby'; R.G = null;
       for (const m of R.members) if (m.spec && players().length < MAX_SEATS) m.spec = false;
@@ -2610,7 +2638,7 @@ const Room = (() => {
         mem.cid = r.cid; mem.dev = r.dev || mem.dev;
         if (si >= 0) R.G.seats[si].cid = r.cid;
         attach(mem, r.L, r.prof);
-        sys(`🔁 ${mem.name} took their seat back.`);
+        sys(`${mem.name} took their seat back.`);
       }
       push();
     },
@@ -2632,17 +2660,17 @@ const Room = (() => {
 <script>
 /* Version tag: when this copy was built, in your own time zone, shown on the home screen
    and in the menu, so you can tell whether the newest push has reached you yet.
-   build.py stamps 202611251933 (UTC, YYYYMMDDHHMM) and holdem-version.json (the version file that
+   build.py stamps 202611280359 (UTC, YYYYMMDDHHMM) and holdem-version.json (the version file that
    sits next to the page on the site). Every couple of minutes it checks that file and
    offers a reload when a newer version is live. */
 const BuildVer = (() => {
-  const B = '202611251933', FILE = 'holdem-version.json';
+  const B = '202611280359', FILE = 'holdem-version.json';
   const parse = b => { const m = /^(\d{4})(\d\d)(\d\d)(\d\d)(\d\d)$/.exec(String(b || '')); return m ? new Date(Date.UTC(+m[1], +m[2] - 1, +m[3], +m[4], +m[5])) : null; };
   const fmt = d => d.toLocaleString(undefined, { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' });
   const mine = parse(B);
   let newer = null;
   const label = () => mine ? 'Version ' + fmt(mine) : 'Version: test build';
-  const newHTML = () => newer ? ` · <button type="button" class="vnew" onclick="location.reload()">🔄 ${fmt(newer)} is out: reload</button>` : '';
+  const newHTML = () => newer ? ` · <button type="button" class="vnew" onclick="location.reload()">${fmt(newer)} is out: reload</button>` : '';
   function paint() {
     const el = document.getElementById('verTag');
     if (!el) return;
@@ -2675,7 +2703,38 @@ window.BuildVer = BuildVer;
 'use strict';
 const $ = id => document.getElementById(id);
 const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-const AVATARS = ['😎', '🤠', '🥷', '🕵️', '👻', '🤡', '👽', '🐸', '🦊', '🐼', '🐯', '🦁', '🐵', '🐙', '🦄', '🐲', '🎃', '🧛', '🧟', '🧙', '🦹', '🥸', '😈', '🤑', '🐧', '🦉', '🐺', '🦈', '🐻', '🐨'];
+const CHIP_IC = '<svg class="ic-s chip" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="#e8403f"/><circle cx="12" cy="12" r="10" fill="none" stroke="#fff" stroke-width="3" stroke-dasharray="3.9 3.95"/><circle cx="12" cy="12" r="6.2" fill="#c42f2f" stroke="#fff" stroke-width="1.2" stroke-opacity=".7"/></svg>';
+
+/* ---------- avatar marks: a colour disc with a simple shape (no emojis) ---------- */
+const MARKS = ['<circle cx="12" cy="12" r="6.5" fill="none" stroke="#fff" stroke-width="3"/>',
+  '<rect x="6" y="6" width="12" height="12" rx="2.5" fill="#fff"/>',
+  '<path d="M12 4l8 8-8 8-8-8z" fill="#fff"/>',
+  '<path d="M12 5l8 14H4z" fill="#fff"/>',
+  '<path d="M12 3.5l2.6 5.5 6 .7-4.4 4.1 1.2 6L12 16.9 6.6 19.8l1.2-6L3.4 9.7l6-.7z" fill="#fff"/>',
+  '<path d="M10 4h4v6h6v4h-6v6h-4v-6H4v-4h6z" fill="#fff"/>',
+  '<path d="M12 3.5l7.4 4.25v8.5L12 20.5l-7.4-4.25v-8.5z" fill="#fff"/>',
+  '<path d="M13.5 2.5L5 13.5h6l-1.5 8 8.5-11h-6z" fill="#fff"/>',
+  '<path d="M12 20s-7.5-4.6-7.5-10A4.2 4.2 0 0 1 12 7.6 4.2 4.2 0 0 1 19.5 10c0 5.4-7.5 10-7.5 10z" fill="#fff"/>',
+  '<path d="M4 17l1.5-9 4 4 2.5-6 2.5 6 4-4 1.5 9z" fill="#fff"/><rect x="4" y="18" width="16" height="2.5" rx="1" fill="#fff"/>',
+  '<path d="M15 3.5a8.5 8.5 0 1 0 5.5 14A7 7 0 0 1 15 3.5z" fill="#fff"/>',
+  '<path d="M12 3.5s6 7 6 11a6 6 0 0 1-12 0c0-4 6-11 6-11z" fill="#fff"/>',
+  '<path d="M19.5 4.5S8 4 5.5 11.5c-1.4 4.2 1 7.5 1 7.5S9 9.8 16 8.5c-5 2.5-8 6.6-8 10.5 9 0 11.5-6.5 11.5-14.5z" fill="#fff"/>',
+  '<path d="M12 21a6.5 6.5 0 0 1-6.5-6.5c0-4 3-5.5 3.5-9.5 2.5 1.5 3 3.5 3 5 1-1 1.5-2.5 1.5-4 2.5 2 5 5 5 8.5A6.5 6.5 0 0 1 12 21z" fill="#fff"/>',
+  '<path d="M3 9c3-3 6 3 9 0s6 3 9 0M3 15c3-3 6 3 9 0s6 3 9 0" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/>',
+  '<path d="M12 2.5c.8 5.3 3.7 8.2 9.5 9.5-5.8 1.3-8.7 4.2-9.5 9.5-.8-5.3-3.7-8.2-9.5-9.5 5.8-1.3 8.7-4.2 9.5-9.5z" fill="#fff"/>',
+  '<circle cx="12" cy="12" r="8" fill="none" stroke="#fff" stroke-width="2.4"/><circle cx="12" cy="12" r="3.2" fill="#fff"/>',
+  '<path d="M5 8l7 5 7-5M5 13l7 5 7-5" fill="none" stroke="#fff" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>',
+  '<path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z" fill="#fff"/><circle cx="12" cy="12" r="3.3" fill="rgba(0,0,0,.45)"/>',
+  '<rect x="5" y="11" width="3.4" height="8" rx="1.2" fill="#fff"/><rect x="10.3" y="7" width="3.4" height="12" rx="1.2" fill="#fff"/><rect x="15.6" y="4" width="3.4" height="15" rx="1.2" fill="#fff"/>',
+  '<path d="M12 3.5v17M4.6 7.75l14.8 8.5M4.6 16.25l14.8-8.5" stroke="#fff" stroke-width="2.8" stroke-linecap="round"/>',
+  '<path d="M12 4l7 8h-4.5v8h-5v-8H5z" fill="#fff"/>',
+  '<circle cx="8" cy="12" r="3.6" fill="#fff"/><circle cx="16" cy="12" r="3.6" fill="#fff"/>',
+  '<path d="M12 4a8 8 0 1 1-8 8h4a4 4 0 1 0 4-4z" fill="#fff"/>'];
+const AVATARS = MARKS.map((m, i) => 'm' + i);
+// old emoji avatars (saved profiles, older guests) map onto a mark
+const TROPHY = { win: '<svg viewBox="0 0 64 64" class="big-ic" aria-hidden="true"><defs><linearGradient id="tg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe08a"/><stop offset="1" stop-color="#e2a521"/></linearGradient></defs><path d="M20 10h24v14a12 12 0 0 1-24 0z" fill="url(#tg)"/><path d="M20 14h-7v4a8 8 0 0 0 8 8M44 14h7v4a8 8 0 0 1-8 8" fill="none" stroke="#e2a521" stroke-width="3.5" stroke-linecap="round"/><path d="M29 35h6v8h-6z" fill="#d49a1c"/><rect x="21" y="43" width="22" height="8" rx="2.5" fill="url(#tg)"/><path d="M26 14h3v12h-3z" fill="#fff" opacity=".35"/></svg>', flag: '<svg viewBox="0 0 64 64" class="big-ic" aria-hidden="true"><path d="M18 8v48" stroke="#a3a2af" stroke-width="4" stroke-linecap="round"/><path d="M20 10h26l-6 9 6 9H20z" fill="#eeedf2"/><path d="M27 10h6v6h-6zM39 10h6v6h-6zM21 16h6v6h-6zM33 16h6v6h-6zM27 22h6v6h-6zM39 22h7l-1 6h-6z" fill="#2a2a34"/></svg>', draw: '<svg viewBox="0 0 64 64" class="big-ic" aria-hidden="true"><circle cx="24" cy="32" r="13" fill="#3c8cff" opacity=".9"/><circle cx="40" cy="32" r="13" fill="#ff4655" opacity=".85"/><path d="M27 32h10" stroke="#fff" stroke-width="3.5" stroke-linecap="round"/></svg>', stop: '<svg viewBox="0 0 64 64" class="big-ic" aria-hidden="true"><circle cx="32" cy="32" r="20" fill="none" stroke="#a3a2af" stroke-width="4"/><rect x="24" y="24" width="16" height="16" rx="3" fill="#ff4655"/></svg>' };
+function markIdx(av) { const m = /^m(\d+)$/.exec(av || ''); if (m) return +m[1] % MARKS.length; let h = 7; for (const ch of String(av || '')) h = (h * 31 + ch.codePointAt(0)) >>> 0; return h % MARKS.length; }
+function markSVG(av) { return '<svg viewBox="0 0 24 24" class="mk" aria-hidden="true">' + MARKS[markIdx(av)] + '</svg>'; }
 const COLORS = ['#e5484d', '#f08c2e', '#e2b93b', '#2ec4a6', '#3e9bff', '#a476ff', '#ff6fb5', '#6cc24a'];
 const ROUTES = [['local', 'Same device'], ['peer', 'Direct'], ['nostr', 'Backup A'], ['torrent', 'Backup B'], ['relay', 'Relay']];
 const store = {
@@ -2771,7 +2830,7 @@ function renderRequests() {
     if ($('req' + r.id)) continue;
     const d = document.createElement('div');
     d.className = 'toast req reqt'; d.id = 'req' + r.id;
-    d.innerHTML = `<span class="avatar" style="--av:28px;--c:${esc(r.color)}">${esc(r.avatar)}</span><span>${r.why === 'kicked' ? `<b>${esc(r.name)}</b> (removed earlier) wants to join back` : `<b>${esc(r.name)}</b> wants their seat back`}</span><span class="tb"><button class="btn small gold" data-act="accept" data-id="${r.id}">Let in</button><button class="btn small" data-act="deny" data-id="${r.id}">No</button></span>`;
+    d.innerHTML = `<span class="avatar" style="--av:28px;--c:${esc(r.color)}">${markSVG(r.avatar)}</span><span>${r.why === 'kicked' ? `<b>${esc(r.name)}</b> (removed earlier) wants to join back` : `<b>${esc(r.name)}</b> wants their seat back`}</span><span class="tb"><button class="btn small gold" data-act="accept" data-id="${r.id}">Let in</button><button class="btn small" data-act="deny" data-id="${r.id}">No</button></span>`;
     box.prepend(d);
     SFX.play('join');
   }
@@ -2782,7 +2841,7 @@ function setHTML(el, html) { if (el && el._h !== html) { el._h = html; el.innerH
 const game = () => (A.v && A.v.game) || null;
 const seatName = i => { const g = game(); return g && g.seats[i] ? g.seats[i].name : '?'; };
 const isHost = () => A.role === 'host';
-function avatarHTML(av, color, size) { return `<span class="avatar" style="${size ? `--av:${size}px;` : ''}--c:${esc(color)}">${esc(av)}</span>`; }
+function avatarHTML(av, color, size) { return `<span class="avatar" style="${size ? `--av:${size}px;` : ''}--c:${esc(color)}">${markSVG(av)}</span>`; }
 function toHost(m) {
   if (A.role === 'host') return Room.cmd.fromSelf(m);
   if (A.reconnecting || !Net.via()) {
@@ -2830,7 +2889,7 @@ function render() {
 }
 function renderTop() {
   $('tbCode').textContent = A.code || '-----';
-  $('tbSound').textContent = A.sound ? '🔊' : '🔇';
+  $('tbSound').innerHTML = A.sound ? '<svg viewBox="0 0 24 24" class="ic" aria-hidden="true"><path d="M4 9h3.5L12 5v14l-4.5-4H4z" fill="currentColor"/><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>' : '<svg viewBox="0 0 24 24" class="ic" aria-hidden="true"><path d="M4 9h3.5L12 5v14l-4.5-4H4z" fill="currentColor"/><path d="M16 9.5l5 5m0-5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>';
   const u = $('tbUnread');
   u.textContent = A.unread; u.classList.toggle('hidden', !A.unread || (A.sideOpen && A.tab === 'chat'));
   const n = $('tbNet'), t = $('tbNetTxt');
@@ -2844,14 +2903,14 @@ function renderTop() {
   } else if (A.reconnecting) { t.textContent = 'Reconnecting…'; n.classList.add('warn'); }
   else t.textContent = (Net.VIA_LABEL[A.via] || 'Online').split(' (')[0];
   let rb = document.querySelector('.rebanner');
-  if (A.reconnecting && !rb) { rb = document.createElement('div'); rb.className = 'rebanner'; rb.textContent = '📡 Connection lost. Reconnecting (trying every route)…'; document.body.appendChild(rb); }
+  if (A.reconnecting && !rb) { rb = document.createElement('div'); rb.className = 'rebanner'; rb.textContent = 'Connection lost. Reconnecting (trying every route)…'; document.body.appendChild(rb); }
   if (!A.reconnecting && rb) rb.remove();
 }
 
 /* ------------------------------ home ------------------------------ */
 function renderHome() {
   const av = $('homeAv');
-  av.textContent = prof.avatar; av.style.setProperty('--c', prof.color);
+  av.innerHTML = markSVG(prof.avatar); av.style.setProperty('--c', prof.color);
   if (document.activeElement !== $('nameIn')) $('nameIn').value = prof.name || '';
 }
 function renderRooms() {
@@ -2861,10 +2920,10 @@ function renderRooms() {
   const searching = Date.now() - (A.browseAt || 0) < 4000;
   const rows = list.map(r => {
     const lobby = r.phase === 'lobby', full = r.n >= r.max;
-    return `<button class="rrow" data-act="joinroom" data-code="${esc(r.code)}"><span class="avatar" style="--av:40px;--c:#1d4a33">${esc(r.av || '🃏')}</span><span class="ri"><b>${esc(r.host)}'s table</b><small>${r.n}/${r.max} players${r.bots ? ` (${r.bots} bot${r.bots > 1 ? 's' : ''})` : ''} · ${lobby ? (full ? 'Full: you can watch' : 'In the lobby') : 'Playing: you can watch'}</small></span><span class="rcode">${esc(r.code)}</span><span class="rjoin ${lobby && !full ? '' : 'watch'}">${lobby && !full ? 'Join' : 'Watch'}</span></button>`;
+    return `<button class="rrow" data-act="joinroom" data-code="${esc(r.code)}"><span class="avatar" style="--av:40px;--c:#1d4a33">${markSVG(r.av)}</span><span class="ri"><b>${esc(r.host)}'s table</b><small>${r.n}/${r.max} players${r.bots ? ` (${r.bots} bot${r.bots > 1 ? 's' : ''})` : ''} · ${lobby ? (full ? 'Full: you can watch' : 'In the lobby') : 'Playing: you can watch'}</small></span><span class="rcode">${esc(r.code)}</span><span class="rjoin ${lobby && !full ? '' : 'watch'}">${lobby && !full ? 'Join' : 'Watch'}</span></button>`;
   }).join('');
   const empty = searching ? '<div class="rempty"><div class="spinner small"></div>Looking for open tables…</div>' : '<div class="rempty">No open tables right now.<br>Host one and it shows up here for everyone.</div>';
-  setHTML(el, `<div class="rc-head"><h3>🌐 Open tables</h3><span class="live"><i></i>${list.length ? list.length + ' live' : 'Live'}</span></div><div class="rlist">${rows || empty}</div><div class="rc-foot">Have a code? Type it on the left to join a private table directly.</div>`);
+  setHTML(el, `<div class="rc-head"><h3>Open tables</h3><span class="live"><i></i>${list.length ? list.length + ' live' : 'Live'}</span></div><div class="rlist">${rows || empty}</div><div class="rc-foot">Have a code? Type it on the left to join a private table directly.</div>`);
 }
 function note(text, err) { const n = $('homeNote'); n.textContent = text || ''; n.classList.toggle('err', !!err); }
 function saveName() {
@@ -2884,8 +2943,8 @@ function renderWait() {
 function prow(m, host) {
   const me = m.cid === cid;
   const tags = (m.host ? '<span class="tagp host">HOST</span>' : '') + (me ? '<span class="tagp you">YOU</span>' : '') + (m.bot ? '<span class="tagp bot">BOT</span>' : '');
-  const sub = m.bot ? 'Computer player' : !m.conn ? '📡 Reconnecting…' : m.host ? 'Running the game' : (Net.VIA_LABEL[m.via] || 'Connected');
-  const rec = m.games ? ` · 🏆 ${m.wins}/${m.games}` : '';
+  const sub = m.bot ? 'Computer player' : !m.conn ? 'Reconnecting…' : m.host ? 'Running the game' : (Net.VIA_LABEL[m.via] || 'Connected');
+  const rec = m.games ? ` · ${m.wins}/${m.games}` : '';
   const x = host && !m.host ? `<button class="x-btn" data-act="kick" data-cid="${esc(m.cid)}" title="${m.bot ? 'Remove bot' : 'Remove player'}">✕</button>` : '';
   return `<div class="prow" data-act="player" data-cid="${esc(m.cid)}">${avatarHTML(m.avatar, m.color)}<div class="who"><div class="nm">${esc(m.name)}${tags}</div><div class="sub">${sub}${rec}</div></div>${x}</div>`;
 }
@@ -2905,23 +2964,23 @@ function renderLobby() {
   const blindOpts = GE.BLINDS.slice(0, 9).filter(b => b * 20 <= S.chips).map(b => [String(b), `${b}/${b * 2}`]);
   const setup = `<div class="panel setup ${host ? '' : 'locked'}">
     <h3>Table setup <span>${host ? 'you choose' : 'host chooses'}</span></h3>
-    <div class="srow"><div class="sl">💰 Starting chips<small>Everyone starts with ${S.chips.toLocaleString('en-US')}</small></div>${seg('chips', String(S.chips), GE.CHIPS.map(c => [String(c), c >= 1000 ? c / 1000 + 'k' : String(c)]))}</div>
-    <div class="srow"><div class="sl">🪙 Blinds<small>Small blind / big blind to start</small></div>${seg('sb', String(S.sb), blindOpts)}</div>
-    <div class="srow"><div class="sl">⏫ Blinds go up<small>${S.blindUp ? `Every ${S.blindUp} hands, so the game always finishes` : 'Never: a long, deep-stack game'}</small></div>${seg('blindUp', String(S.blindUp), GE.UPS.map(u => [String(u), u ? String(u) : 'Off']))}</div>
+    <div class="srow"><div class="sl">Starting chips<small>Everyone starts with ${S.chips.toLocaleString('en-US')}</small></div>${seg('chips', String(S.chips), GE.CHIPS.map(c => [String(c), c >= 1000 ? c / 1000 + 'k' : String(c)]))}</div>
+    <div class="srow"><div class="sl">Blinds<small>Small blind / big blind to start</small></div>${seg('sb', String(S.sb), blindOpts)}</div>
+    <div class="srow"><div class="sl">Blinds go up<small>${S.blindUp ? `Every ${S.blindUp} hands, so the game always finishes` : 'Never: a long, deep-stack game'}</small></div>${seg('blindUp', String(S.blindUp), GE.UPS.map(u => [String(u), u ? String(u) : 'Off']))}</div>
     <div class="srow"><div class="sl">Turn timer<small>Out of time? You check if you can, otherwise fold</small></div><select class="sel" data-set="turnTime">${tt.map(x => `<option value="${x}" ${x === S.turnTime ? 'selected' : ''}>${x ? x + ' s' : 'Off'}</option>`).join('')}</select></div>
-    <div class="srow"><div class="sl">🤖 Bot skill</div>${seg('botLevel', S.botLevel, [['easy', 'Easy'], ['normal', 'Normal'], ['hard', 'Hard']])}</div>
-    <div class="srow"><div class="sl">💬 Bot chat<small>Jokes, taunts and the odd lie</small></div><div class="seg">${[['off', 'Off'], ['some', 'Some'], ['lots', 'Lots']].map(o => `<button class="${(S.botChat || 'some') === o[0] ? 'on' : ''}" data-act="set" data-k="botChat" data-v="${o[0]}">${o[1]}</button>`).join('')}</div></div>
+    <div class="srow"><div class="sl">Bot skill</div>${seg('botLevel', S.botLevel, [['easy', 'Easy'], ['normal', 'Normal'], ['hard', 'Hard']])}</div>
+    <div class="srow"><div class="sl">Bot chat<small>Jokes, taunts and the odd lie</small></div><div class="seg">${[['off', 'Off'], ['some', 'Some'], ['lots', 'Lots']].map(o => `<button class="${(S.botChat || 'some') === o[0] ? 'on' : ''}" data-act="set" data-k="botChat" data-v="${o[0]}">${o[1]}</button>`).join('')}</div></div>
     <div class="soon">No-Limit Texas Hold'em · last player with chips wins · up to ${GE.MAX_SEATS} at the table</div>
   </div>`;
   const me = v.members.find(m => m.cid === cid);
   const foot = host
     ? `<button class="btn primary big" data-act="start" ${ps.length < 2 ? 'disabled' : ''}>▶ Start game</button><span class="note">${ps.length < 2 ? 'You need at least 2 players. Add a bot to test!' : `${ps.length} players ready`}</span>`
-    : `<span class="note">${me && me.spec ? '👀 The table is full. You\'re watching.' : '⏳ Waiting for the host to start…'}</span><button class="btn small" data-act="leave">Leave room</button>`;
+    : `<span class="note">${me && me.spec ? 'The table is full. You\'re watching.' : 'Waiting for the host to start…'}</span><button class="btn small" data-act="leave">Leave room</button>`;
   setHTML($('scr-lobby'), `<div class="lobby">
-    <div class="lobby-head"><div class="code-big"><div><div class="lbl">Room code</div><div class="code">${esc(A.code)}</div></div><button class="btn small" data-act="copy">⧉ Copy invite</button>${host ? `<button class="btn small listbtn ${v.listed ? 'on' : ''}" data-act="listed" title="Show this table on everyone's home page">${v.listed ? '🌐 Public: in the table list' : '🔒 Private: code only'}</button>` : `<span class="tagp">${v.listed ? '🌐 Public table' : '🔒 Private table'}</span>`}</div>${routes}</div>
+    <div class="lobby-head"><div class="code-big"><div><div class="lbl">Room code</div><div class="code">${esc(A.code)}</div></div><button class="btn small" data-act="copy">⧉ Copy invite</button>${host ? `<button class="btn small listbtn ${v.listed ? 'on' : ''}" data-act="listed" title="Show this table on everyone's home page">${v.listed ? 'Public: in the table list' : 'Private: code only'}</button>` : `<span class="tagp">${v.listed ? 'Public table' : 'Private table'}</span>`}</div>${routes}</div>
     <div class="lobby-grid">
       <div class="panel"><h3>Players <span>${ps.length}/${MAX}</span></h3><div class="plist">${rows}</div>
-        <div class="row-btns">${host ? `<button class="btn small" data-act="addbot" ${ps.length >= MAX ? 'disabled' : ''}>🤖 Add bot</button>` : ''}<button class="btn small ghost" data-act="rules">📖 Rules</button></div>${specHTML}</div>
+        <div class="row-btns">${host ? `<button class="btn small" data-act="addbot" ${ps.length >= MAX ? 'disabled' : ''}>Add bot</button>` : ''}<button class="btn small ghost" data-act="rules">Rules</button></div>${specHTML}</div>
       ${setup}
     </div>
     <div class="lobby-foot">${foot}</div>
@@ -2967,12 +3026,12 @@ function renderSeats(g) {
     const eq = g.equity && g.equity[i] != null && !g.results ? `<span class="eq">${g.equity[i]}%</span>` : '';
     const hn = g.results && g.results.hands && g.results.hands[i] && !s.folded ? `<span class="hn">${esc(g.results.hands[i])}</span>` : '';
     const last = s.last && s.alive ? `<span class="act ${s.last.a}">${ACT_TXT[s.last.a] || ''}${s.last.amt && s.last.a !== 'check' && s.last.a !== 'fold' ? ' ' + fmt(s.last.amt) : ''}</span>` : '';
-    const status = !s.alive ? (s.place ? `<span class="act out">#${s.place}${s.why === 'busted' ? ' · busted' : s.why === 'kicked' ? ' · removed' : s.why ? ' · left' : ''}</span>` : '') : (!s.conn && !s.bot ? '<span class="act dc">📡 away</span>' : '');
+    const status = !s.alive ? (s.place ? `<span class="act out">#${s.place}${s.why === 'busted' ? ' · busted' : s.why === 'kicked' ? ' · removed' : s.why ? ' · left' : ''}</span>` : '') : (!s.conn && !s.bot ? '<span class="act dc">away</span>' : '');
     const ring = cur && g.total > 0 ? '<svg class="ring" viewBox="0 0 64 64"><circle cx="32" cy="32" r="31" data-timer="ring" stroke-dasharray="194.8" stroke-dashoffset="0"/></svg>' : '';
     const marks = (i === g.button ? '<span class="dbtn" title="Dealer button">D</span>' : '') + (i === g.sbSeat && g.stage !== 'over' ? '<span class="bl">SB</span>' : '') + (i === g.bbSeat && g.stage !== 'over' ? '<span class="bl bb">BB</span>' : '');
     html += `<div class="${cls}" id="seat-${i}" style="left:${x}%;top:${y}%" data-act="seat" data-i="${i}">
       <div class="scards">${cards}${eq}</div>
-      <div class="plate">${ring}${avatarHTML(s.avatar, s.color, 44)}<div class="pi"><b>${esc(s.name)}</b><span class="stack">${s.alive ? '🪙 ' + fmt(s.chips) : 'out'}</span></div>${marks}</div>
+      <div class="plate">${ring}${avatarHTML(s.avatar, s.color, 44)}<div class="pi"><b>${esc(s.name)}</b><span class="stack">${s.alive ? CHIP_IC + fmt(s.chips) : 'out'}</span></div>${marks}</div>
       <div class="under">${hn || last || status}</div>
     </div>`;
     if (s.bet > 0) html += `<div class="bet" style="left:${bx}%;top:${by}%"><i class="chip"></i>${fmt(s.bet)}</div>`;
@@ -2985,25 +3044,25 @@ function renderCenter(g) {
   for (let k = 0; k < 5; k++) slots.push(g.board[k] != null ? cardHTML(g.board[k], 'bd' + (best.size ? (best.has(g.board[k]) ? ' hi' : ' dim') : '') + (k === g.board.length - 1 ? ' fresh' : '')) : '<div class="pc slot"></div>');
   let msg = '';
   if (g.results) {
-    msg = g.results.pots.map((p, k) => `<div class="res">🏆 ${p.winners.map(i => esc(g.seats[i].name)).join(' & ')} ${p.winners.length > 1 ? 'split' : 'win' + (p.winners.length === 1 ? 's' : '')} ${fmt(p.amt)}${g.results.pots.length > 1 ? (k ? ` (side pot ${k})` : ' (main pot)') : ''}${p.hand ? ` with ${esc(p.hand)}` : ''}</div>`).join('');
+    msg = g.results.pots.map((p, k) => `<div class="res">${p.winners.map(i => esc(g.seats[i].name)).join(' & ')} ${p.winners.length > 1 ? 'split' : 'win' + (p.winners.length === 1 ? 's' : '')} ${fmt(p.amt)}${g.results.pots.length > 1 ? (k ? ` (side pot ${k})` : ' (main pot)') : ''}${p.hand ? ` with ${esc(p.hand)}` : ''}</div>`).join('');
   }
   const pot = g.results ? '' : `<div class="pot">Pot <b>${fmt(g.pot)}</b></div>`;
   const blinds = `<div class="blinds">Blinds ${fmt(g.sb)}/${fmt(g.bb)}${g.nextBlinds && g.phase === 'play' ? ` · up in ${g.nextBlinds.in} hand${g.nextBlinds.in === 1 ? '' : 's'}` : ''} · Hand ${g.handNo}</div>`;
-  setHTML($('center'), `${blinds}<div class="board">${slots.join('')}</div>${pot}${msg}${g.runout && !g.results ? '<div class="runout">🔥 ALL IN</div>' : ''}`);
+  setHTML($('center'), `${blinds}<div class="board">${slots.join('')}</div>${pot}${msg}${g.runout && !g.results ? '<div class="runout">ALL IN</div>' : ''}`);
 }
 function renderMe(g) {
   const s = g.seats[g.me];
-  if (!s) { setHTML($('me'), '<div class="spec">👀 You\'re watching this table</div>'); return; }
+  if (!s) { setHTML($('me'), '<div class="spec">You\'re watching this table</div>'); return; }
   const best = bestSet(g);
   const cards = g.my ? g.my.hole.map(c => cardHTML(c, 'lg' + (best.size ? (best.has(c) ? ' hi' : ' dim') : '') + (s.folded ? ' dim' : ''))).join('') : '';
   const hand = g.my && s.alive && !s.folded ? `<div class="myhand">${esc(g.my.hand)}</div>` : s.folded && s.alive ? '<div class="myhand muted">You folded</div>' : '';
   const eq = g.equity && g.equity[g.me] != null && !g.results ? `<div class="myeq">${g.equity[g.me]}% to win</div>` : '';
-  setHTML($('me'), `<div class="mycards">${cards}</div><div class="myinfo">${hand}${eq}<div class="mystack">🪙 ${fmt(s.chips)}${s.bet ? ` <small>(${fmt(s.bet)} in this round)</small>` : ''}</div></div>`);
+  setHTML($('me'), `<div class="mycards">${cards}</div><div class="myinfo">${hand}${eq}<div class="mystack">${CHIP_IC}${fmt(s.chips)}${s.bet ? ` <small>(${fmt(s.bet)} in this round)</small>` : ''}</div></div>`);
 }
 function renderBar(g) {
   const s = g.seats[g.me], o = g.opts;
   let h = '';
-  if (g.phase === 'over') h = `<div class="status"><div class="s1">🏁 Game over</div></div>`;
+  if (g.phase === 'over') h = `<div class="status"><div class="s1">Game over</div></div>`;
   else if (o) {
     const key = g.handNo + ':' + g.stage + ':' + g.toCall;
     if (A.raiseFor !== key) { A.raiseFor = key; A.raiseTo = o.minTo; }
@@ -3013,7 +3072,7 @@ function renderBar(g) {
     if (o.minTo < o.maxTo) presets.unshift(['Min', o.minTo]);
     const step = Math.max(1, g.bb / 2 | 0);
     const word = o.toCall === 0 ? 'Bet' : 'Raise to';
-    h = `<div class="status mine"><div class="s1">🎯 Your turn</div><div class="s2">${call ? `${fmt(call)} to call · pot ${fmt(pot)}` : `Pot ${fmt(pot)}`}</div>${g.total > 0 ? '<div class="tbar"><i data-timer="turn"></i></div>' : ''}</div>
+    h = `<div class="status mine"><div class="s1">Your turn</div><div class="s2">${call ? `${fmt(call)} to call · pot ${fmt(pot)}` : `Pot ${fmt(pot)}`}</div>${g.total > 0 ? '<div class="tbar"><i data-timer="turn"></i></div>' : ''}</div>
       <div class="acts">
         <button class="btn abtn fold" data-act="pfold" title="F">Fold</button>
         <button class="btn abtn call" data-act="pcall" title="C">${o.check ? 'Check' : (call >= s.chips ? `Call all in ${fmt(call)}` : `Call ${fmt(call)}`)}</button>
@@ -3025,32 +3084,32 @@ function renderBar(g) {
   } else {
     let s1 = '', s2 = '';
     const cur = g.seats[g.cur];
-    if (g.results) { s1 = g.results.fold ? '🏆 Hand over' : '🃏 Showdown'; s2 = 'Next hand in a moment…'; }
-    else if (g.stage === 'wait') { s1 = g.runout ? '🔥 All in: running the cards out' : '🃏 Dealing…'; }
-    else if (cur) { s1 = cur.bot ? `🤖 ${esc(cur.name)} is thinking…` : `⏳ Waiting for ${esc(cur.name)}`; s2 = g.toCall ? `${fmt(g.toCall)} to call · pot ${fmt(g.pot)}` : `Pot ${fmt(g.pot)}`; }
+    if (g.results) { s1 = g.results.fold ? 'Hand over' : 'Showdown'; s2 = 'Next hand in a moment…'; }
+    else if (g.stage === 'wait') { s1 = g.runout ? 'All in: running the cards out' : 'Dealing…'; }
+    else if (cur) { s1 = cur.bot ? `${esc(cur.name)} is thinking…` : `Waiting for ${esc(cur.name)}`; s2 = g.toCall ? `${fmt(g.toCall)} to call · pot ${fmt(g.pot)}` : `Pot ${fmt(g.pot)}`; }
     const canPre = s && s.alive && !s.folded && !s.allIn && g.my && g.stage !== 'wait' && g.phase === 'play';
     const key = g.handNo + ':' + g.stage;
     if (A.preFor !== key) { A.preFor = key; A.pre = null; }
     const pre = canPre ? `<div class="pre"><button class="btn small ${A.pre === 'cf' ? 'on' : ''}" data-act="pre" data-v="cf">${g.toCall > (s.bet || 0) ? 'Fold' : 'Check / fold'}</button><button class="btn small ${A.pre === 'ca' ? 'on' : ''}" data-act="pre" data-v="ca">Call any</button></div>` : '';
-    const show = g.canShow ? '<button class="btn small" data-act="pshow">👀 Show my cards</button>' : '';
+    const show = g.canShow ? '<button class="btn small" data-act="pshow">Show my cards</button>' : '';
     h = `<div class="status"><div class="s1">${s1}</div>${s2 ? `<div class="s2">${s2}</div>` : ''}${cur && g.total > 0 && !g.results ? '<div class="tbar"><i data-timer="turn"></i></div>' : ''}</div>${pre}${show}`;
   }
   setHTML($('bar'), h);
 }
 function renderEnd(g) {
   const w = $('endwrap');
-  if (g.phase !== 'over' || A.endHidden) { setHTML(w, A.endHidden && g.phase === 'over' ? `<div style="position:absolute;top:10px;right:10px;z-index:21"><button class="btn small gold" data-act="showend">🏆 Results</button></div>` : ''); return; }
+  if (g.phase !== 'over' || A.endHidden) { setHTML(w, A.endHidden && g.phase === 'over' ? `<div style="position:absolute;top:10px;right:10px;z-index:21"><button class="btn small gold" data-act="showend">Results</button></div>` : ''); return; }
   const places = g.seats.map((s, i) => Object.assign({ i }, s)).sort((a, b) => (a.place || 99) - (b.place || 99));
   const win = g.winner >= 0 ? g.seats[g.winner] : null;
   const btns = isHost()
-    ? `<div class="mbtns row"><button class="btn primary" data-act="again">🔁 Play again</button><button class="btn" data-act="tolobby">🏠 Back to lobby</button></div>`
+    ? `<div class="mbtns row"><button class="btn primary" data-act="again">Play again</button><button class="btn" data-act="tolobby">Back to lobby</button></div>`
     : `<p style="margin:0 0 10px">Waiting for the host to start the next game…</p><div class="mbtns row"><button class="btn" data-act="leave">Leave room</button></div>`;
-  setHTML(w, `<div class="endcard"><div class="endbox"><div class="trophy">${win ? '🏆' : '🛑'}</div><h2>${win ? esc(win.name) + ' wins!' : 'Game ended'}</h2><p style="color:var(--muted);margin:0">${win && g.winner === g.me ? 'You took every chip on the table.' : `After ${g.handNo} hand${g.handNo === 1 ? '' : 's'}.`}</p>
-    <div class="places">${places.map(s => `<div class="place ${s.place === 1 ? 'first' : ''}"><span class="pn">${s.place ? '#' + s.place : '–'}</span>${avatarHTML(s.avatar, s.color)}<b style="flex:1">${esc(s.name)}</b><span style="text-align:right">🪙 ${fmt(s.chips)}<br><small style="color:var(--muted)">${s.wins} hand${s.wins === 1 ? '' : 's'} won</small></span></div>`).join('')}</div>
+  setHTML(w, `<div class="endcard"><div class="endbox"><div class="trophy">${win ? TROPHY.win : TROPHY.stop}</div><h2>${win ? esc(win.name) + ' wins!' : 'Game ended'}</h2><p style="color:var(--muted);margin:0">${win && g.winner === g.me ? 'You took every chip on the table.' : `After ${g.handNo} hand${g.handNo === 1 ? '' : 's'}.`}</p>
+    <div class="places">${places.map(s => `<div class="place ${s.place === 1 ? 'first' : ''}"><span class="pn">${s.place ? '#' + s.place : '–'}</span>${avatarHTML(s.avatar, s.color)}<b style="flex:1">${esc(s.name)}</b><span style="text-align:right">${fmt(s.chips)}<br><small style="color:var(--muted)">${s.wins} hand${s.wins === 1 ? '' : 's'} won</small></span></div>`).join('')}</div>
     ${btns}<button class="btn ghost small" style="margin-top:8px" data-act="viewtable">View the table</button></div></div>`);
 }
-function playerGameRow(g, s) { return s.alive ? `🪙 ${fmt(s.chips)} chips · ${s.folded ? 'folded this hand' : s.inHand ? 'in this hand' : 'waiting'} · ${s.wins} hand${s.wins === 1 ? '' : 's'} won` : `Out${s.place ? ' (place #' + s.place + ')' : ''}`; }
-const RULES_HTML = `<div class="mbox wide rules"><h2>📖 How to play Hold'em</h2>
+function playerGameRow(g, s) { return s.alive ? `${fmt(s.chips)} chips · ${s.folded ? 'folded this hand' : s.inHand ? 'in this hand' : 'waiting'} · ${s.wins} hand${s.wins === 1 ? '' : 's'} won` : `Out${s.place ? ' (place #' + s.place + ')' : ''}`; }
+const RULES_HTML = `<div class="mbox wide rules"><h2>How to play Hold'em</h2>
   <h3>Goal</h3><ul><li>Win everyone's chips. Lose all of yours and you're out. The last player with chips wins.</li></ul>
   <h3>A hand</h3><ul><li>Everyone gets 2 private cards. The two players after the dealer button pay the <b>small</b> and <b>big blind</b>.</li><li>Betting rounds happen before the flop, after the <b>flop</b> (3 shared cards), after the <b>turn</b> (1 more) and after the <b>river</b> (the last one).</li><li>Make the best 5-card hand from your 2 cards and the 5 on the table.</li></ul>
   <h3>On your turn</h3><ul><li><b>Fold</b> to give up the hand, <b>check</b> if nobody has bet, <b>call</b> to match a bet, or <b>bet / raise</b>.</li><li>A raise must be at least as big as the last bet or raise. You can always go <b>all in</b>.</li><li>If someone goes all in for less than a full raise, players who already acted can only call or fold.</li></ul>
@@ -3077,13 +3136,13 @@ function modalHTML(md, g) {
       if (!m && !s) { A.modal = null; return ''; }
       const P = m || s, me = md.cid === cid;
       const rows = [];
-      rows.push(['Status', m ? (m.bot ? '🤖 Bot' : !m.conn ? '📡 Reconnecting' : m.host ? '👑 Host' : m.spec ? '👀 Watching' : '🟢 Connected') : '🚪 Left the room']);
+      rows.push(['Status', m ? (m.bot ? 'Bot' : !m.conn ? 'Reconnecting' : m.host ? 'Host' : m.spec ? 'Watching' : 'Connected') : 'Left the room']);
       if (m && !m.bot && !m.host) rows.push(['Route', esc(Net.VIA_LABEL[m.via] || '–')]);
       if (s) rows.push(['This game', playerGameRow(g, s)]);
-      if (m) rows.push(['Record', `🏆 ${m.wins} win${m.wins === 1 ? '' : 's'} in ${m.games} game${m.games === 1 ? '' : 's'}`]);
+      if (m) rows.push(['Record', `${m.wins} win${m.wins === 1 ? '' : 's'} in ${m.games} game${m.games === 1 ? '' : 's'}`]);
       const btns = [];
-      if (me) btns.push('<button class="btn" data-act="profile">✏️ Edit name & avatar</button>');
-      if (isHost() && m && !m.host) btns.push(`<button class="btn" data-act="kick" data-cid="${esc(m.cid)}">${m.bot ? '🗑️ Remove bot' : '👢 Remove from room'}</button>`);
+      if (me) btns.push('<button class="btn" data-act="profile">Edit name & avatar</button>');
+      if (isHost() && m && !m.host) btns.push(`<button class="btn" data-act="kick" data-cid="${esc(m.cid)}">${m.bot ? 'Remove bot' : 'Remove from room'}</button>`);
       btns.push('<button class="btn ghost" data-act="mclose">Close</button>');
       return `<div class="mbox pcard">${avatarHTML(P.avatar, P.color, 84)}<h2>${esc(P.name)}</h2><div>${m && m.host ? '<span class="tagp host">HOST</span>' : ''}${me ? '<span class="tagp you">YOU</span>' : ''}${P.bot ? '<span class="tagp bot">BOT</span>' : ''}</div><div class="kv">${rows.map(r => `<span>${r[0]}</span><span>${r[1]}</span>`).join('')}</div><div class="mbtns">${btns.join('')}</div></div>`;
     }
@@ -3091,28 +3150,28 @@ function modalHTML(md, g) {
       const inGame = v && v.phase === 'game', playing = inGame && g && g.phase !== 'over';
       const b = [];
       if (isHost()) {
-        if (playing) b.push('<button class="btn" data-act="endgame">🛑 End game</button>');
-        if (inGame) b.push('<button class="btn" data-act="tolobby">🏠 Back to lobby</button>');
+        if (playing) b.push('<button class="btn" data-act="endgame">End game</button>');
+        if (inGame) b.push('<button class="btn" data-act="tolobby">Back to lobby</button>');
       }
       b.push('<button class="btn" data-act="copy">⧉ Copy invite</button>');
-      b.push('<button class="btn" data-act="rules">📖 How to play</button>');
-      b.push('<button class="btn" data-act="profile">✏️ Edit name & avatar</button>');
-      b.push(`<button class="btn" data-act="sound">${A.sound ? '🔇 Mute sounds' : '🔊 Turn sounds on'}</button>`);
-      b.push(isHost() ? '<button class="btn" data-act="closeroom" style="color:#ff8a93">✖ Close the room</button>' : '<button class="btn" data-act="leave" style="color:#ff8a93">🚪 Leave room</button>');
+      b.push('<button class="btn" data-act="rules">How to play</button>');
+      b.push('<button class="btn" data-act="profile">Edit name & avatar</button>');
+      b.push(`<button class="btn" data-act="sound">${A.sound ? 'Mute sounds' : 'Turn sounds on'}</button>`);
+      b.push(isHost() ? '<button class="btn" data-act="closeroom" style="color:#ff8a93">✕ Close the room</button>' : '<button class="btn" data-act="leave" style="color:#ff8a93">Leave room</button>');
       b.push('<button class="btn ghost" data-act="mclose">Back to the game</button>');
-      return `<div class="mbox"><h2>${isHost() ? '👑 Host menu' : '☰ Menu'}</h2><p>Room <b>${esc(A.code)}</b></p><div class="mbtns">${b.join('')}</div>${BuildVer.html()}</div>`;
+      return `<div class="mbox"><h2>${isHost() ? 'Host menu' : '☰ Menu'}</h2><p>Room <b>${esc(A.code)}</b></p><div class="mbtns">${b.join('')}</div>${BuildVer.html()}</div>`;
     }
     case 'routes': {
       const st = (v && v.routes) || {};
       const info = { local: 'Other tabs in this browser', peer: 'Direct peer-to-peer link (fastest)', nostr: 'Peer-to-peer, found through Nostr servers', torrent: 'Peer-to-peer, found through torrent trackers', relay: 'Encrypted messages through public relays on the normal web port. Works when direct links are blocked.' };
       const rows = isHost()
-        ? ROUTES.map(r => `<div><b>${r[1]}</b><span style="flex:1">${info[r[0]]}</span><span class="k">${st[r[0]] === 'on' ? '✅ listening' : st[r[0]] === 'fail' ? '❌ unavailable' : st[r[0]] === 'retry' ? '⏳ retrying' : '–'}</span></div>`).join('')
+        ? ROUTES.map(r => `<div><b>${r[1]}</b><span style="flex:1">${info[r[0]]}</span><span class="k">${st[r[0]] === 'on' ? 'listening' : st[r[0]] === 'fail' ? 'unavailable' : st[r[0]] === 'retry' ? 'retrying' : '–'}</span></div>`).join('')
         : `<div><b>${esc(Net.VIA_LABEL[A.via] || 'Unknown')}</b><span>You're connected this way. If it drops, the game tries every route again automatically.</span></div>`;
-      return `<div class="mbox"><h2>📡 Connection routes</h2><p>${isHost() ? 'Your room listens on all of these at once. Friends use whichever gets through first.' : ''}</p><div class="rtable">${rows}</div><div class="mbtns" style="margin-top:14px"><button class="btn ghost" data-act="mclose">Close</button></div></div>`;
+      return `<div class="mbox"><h2>Connection routes</h2><p>${isHost() ? 'Your room listens on all of these at once. Friends use whichever gets through first.' : ''}</p><div class="rtable">${rows}</div><div class="mbtns" style="margin-top:14px"><button class="btn ghost" data-act="mclose">Close</button></div></div>`;
     }
     case 'profile': {
       const p = A.pick || (A.pick = { name: prof.name, avatar: prof.avatar, color: prof.color });
-      return `<div class="mbox"><h2>✏️ Your look</h2><div class="profile-row" style="margin:10px 0">${avatarHTML(p.avatar, p.color, 58)}<input class="field" id="profName" maxlength="16" value="${esc(p.name)}" placeholder="Your name"></div><div class="picker">${AVATARS.map(a => `<button class="${a === p.avatar ? 'on' : ''}" data-act="pickav" data-v="${a}">${a}</button>`).join('')}</div><div class="swatches" style="margin:12px 0">${COLORS.map(c => `<button class="${c === p.color ? 'on' : ''}" style="background:${c}" data-act="pickcol" data-v="${c}"></button>`).join('')}</div><div class="mbtns row"><button class="btn primary" data-act="saveprof">Save</button><button class="btn ghost" data-act="mclose">Cancel</button></div></div>`;
+      return `<div class="mbox"><h2>Your look</h2><div class="profile-row" style="margin:10px 0">${avatarHTML(p.avatar, p.color, 58)}<input class="field" id="profName" maxlength="16" value="${esc(p.name)}" placeholder="Your name"></div><div class="picker">${AVATARS.map(a => `<button class="${a === p.avatar ? 'on' : ''}" data-act="pickav" data-v="${a}">${markSVG(a)}</button>`).join('')}</div><div class="swatches" style="margin:12px 0">${COLORS.map(c => `<button class="${c === p.color ? 'on' : ''}" style="background:${c}" data-act="pickcol" data-v="${c}"></button>`).join('')}</div><div class="mbtns row"><button class="btn primary" data-act="saveprof">Save</button><button class="btn ghost" data-act="mclose">Cancel</button></div></div>`;
     }
     case 'confirm':
       return `<div class="mbox"><h2>${esc(md.title)}</h2><p>${esc(md.text)}</p><div class="mbtns row"><button class="btn primary" data-act="confirmok">${esc(md.ok || 'OK')}</button><button class="btn ghost" data-act="mclose">Cancel</button></div></div>`;
@@ -3134,7 +3193,7 @@ function renderSide() {
   $('chatForm').classList.toggle('hidden', A.tab !== 'chat');
   const cl = $('chatList');
   const atBottom = cl.scrollHeight - cl.scrollTop - cl.clientHeight < 40;
-  setHTML(cl, A.chat.map(m => m.sys ? `<div class="msg sys">${esc(m.text)}</div>` : `<div class="msg">${avatarHTML(m.avatar, m.color, 26)}<div class="mt"><div class="mn" style="color:${esc(m.color)}">${esc(m.name)}</div>${esc(m.text)}</div></div>`).join('') || '<div class="msg sys">Say hi 👋</div>');
+  setHTML(cl, A.chat.map(m => m.sys ? `<div class="msg sys">${esc(m.text)}</div>` : `<div class="msg">${avatarHTML(m.avatar, m.color, 26)}<div class="mt"><div class="mn" style="color:${esc(m.color)}">${esc(m.name)}</div>${esc(m.text)}</div></div>`).join('') || '<div class="msg sys">Say hi</div>');
   if (atBottom) cl.scrollTop = cl.scrollHeight;
   const g = game(), ll = $('logList');
   const lb = ll.scrollHeight - ll.scrollTop - ll.clientHeight < 40;
@@ -3203,12 +3262,12 @@ function onFx(e) {
     case 'reveal': SFX.play('allin'); banner('ALL IN!', '#ff4d5a'); break;
     case 'win': {
       SFX.play('pot');
-      if (g) for (const w of e.who || []) setTimeout(() => fly($('center'), seatEl(w), '🪙', '', 600), 200);
+      if (g) for (const w of e.who || []) setTimeout(() => fly($('center'), seatEl(w), CHIP_IC, '', 600), 200);
       if (g && (e.who || []).includes(g.me)) setTimeout(() => SFX.play('win'), 300);
       break;
     }
     case 'bust': SFX.play('out'); pop(seatEl(e.who), '<span style="font-size:26px;color:#ff4d5a">BUSTED</span>'); break;
-    case 'blinds': toast(`⏫ Blinds go up to ${e.sb}/${e.sb * 2}`); break;
+    case 'blinds': toast(`Blinds go up to ${e.sb}/${e.sb * 2}`); break;
     case 'show': SFX.play('flip'); break;
     case 'gameover': setTimeout(() => { SFX.play('win'); confetti(); }, 500); break;
     case 'yourturn': {
@@ -3258,7 +3317,7 @@ function clientRecv(m) {
     case 'state': {
       const first = !A.v;
       if (first && m.hv && /^\d+$/.test(String(m.hv)) && /^\d+$/.test(String(GE.VERSION)) && String(m.hv) !== String(GE.VERSION)) {
-        toast(+m.hv > +GE.VERSION ? '🔄 The host has a newer version. Reload the page to update.' : "🔄 The host is on an older version. Some things may not match until they reload.", 'err', 6000);
+        toast(+m.hv > +GE.VERSION ? 'The host has a newer version. Reload the page to update.' : "The host is on an older version. Some things may not match until they reload.", 'err', 6000);
       }
       A.v = m; A.vAt = performance.now(); A.code = m.code || A.code;
       if (m.gameNo !== A.lastGameNo && m.phase === 'game') { A.lastGameNo = m.gameNo; A.sel = null; A.pre = null; A.endHidden = false; A.reveal = null; }
@@ -3475,8 +3534,8 @@ function checkUpdate() {
     if (A.updSnooze && Date.now() - A.updSnooze < 15 * 60000) return;
     const here = location.href.toLowerCase().indexOf(SITE.replace(/\/?$/, '').toLowerCase()) === 0;
     const u = $('update');
-    u.innerHTML = here ? '<span>🔄 A new version is ready.</span><button class="btn small primary" data-act="reload">Reload</button><button class="btn small ghost" data-act="updlater">Later</button>'
-      : `<span>🔄 A newer version is online.</span><a class="btn small primary" href="${esc(SITE)}holdem.html" target="_blank" rel="noopener">Open it</a><button class="btn small ghost" data-act="updlater">Later</button>`;
+    u.innerHTML = here ? '<span>A new version is ready.</span><button class="btn small primary" data-act="reload">Reload</button><button class="btn small ghost" data-act="updlater">Later</button>'
+      : `<span>A newer version is online.</span><a class="btn small primary" href="${esc(SITE)}holdem.html" target="_blank" rel="noopener">Open it</a><button class="btn small ghost" data-act="updlater">Later</button>`;
     u.classList.remove('hidden');
   }).catch(() => {});
 }

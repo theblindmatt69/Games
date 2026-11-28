@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <meta name="theme-color" content="#0a0c11">
 <title>Dead Deal</title>
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💀</text></svg>">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect x='6' y='6' width='88' height='88' rx='22' fill='%2309090c'/><circle cx='50' cy='50' r='26' fill='%23e8e2d6'/><circle cx='42' cy='41' r='8' fill='white' opacity='.45'/></svg>">
 <style>
 :root{
   --bg:#090405; --bg2:#110708; --panel:#180a0d; --panel2:#221014; --line:#361a1f; --line2:#4a232a;
@@ -95,7 +95,7 @@ input,select{font:inherit;color:inherit}
 .route-steps{display:flex;flex-direction:column;gap:6px;text-align:left;margin:0 auto 16px;max-width:280px}
 .route-steps div{font-size:13px;color:var(--dim)}
 .route-steps div.on{color:var(--text)}
-.route-steps div.on:before{content:"⏳ "}
+.route-steps div.on:before{content:""}
 .route-steps div.done:before{content:"✓ ";color:var(--green)}
 
 /* ---------- lobby ---------- */
@@ -584,6 +584,38 @@ input,select{font:inherit;color:inherit}
 .say.bye{opacity:0}
 @keyframes sayin{from{opacity:0;scale:.8}to{opacity:1;scale:1}}
 
+
+.ico.ie{width:1.15em;height:1.15em;vertical-align:-.2em;margin-right:5px;display:inline-block}
+.fcard .fe .ico{width:58px;height:58px}
+.tn .te .ico{width:22px;height:22px;display:block}
+.ico.pop-ic{width:34px;height:34px;color:#fff;filter:drop-shadow(0 2px 4px rgba(0,0,0,.6))}
+
+/* ================= Matt's Game Room look (same as Wall Go II) ================= */
+:root{--bg:#09090c;--bg2:#0f0f14;--panel:#121218;--panel2:#1c1c25;--line:#262630;--line2:#33333f;--text:#eeedf2;--muted:#a3a2af;--dim:#6d6c7a;
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}
+body{background:radial-gradient(1100px 700px at 30% 0%,#181820 0,transparent 62%) no-repeat,var(--bg)}
+#topbar{background:rgba(9,9,12,.86);backdrop-filter:blur(6px)}
+.btn{border-radius:10px;background:#1c1c25;border-color:var(--line);font-weight:600}
+.btn:hover{background:#242430;border-color:var(--line2)}
+.btn.primary{background:#eeedf2;border-color:#eeedf2;color:#0b0b0f;box-shadow:none}
+.btn.primary:hover{background:#fff}
+.btn.primary[disabled]{background:#3a3a46;border-color:#3a3a46;color:#a3a2af}
+.icon-btn{border-radius:10px;background:var(--panel);border-color:var(--line);color:var(--text)}
+.icon-btn .ic,.btn .ic{width:19px;height:19px;display:block}
+.home-card,.mbox,.endbox,.panel,.card{background:linear-gradient(180deg,#17171f,#0f0f14)}
+.field,input.field,select.field{background:#0b0b0f;border-color:var(--line)}
+.field:focus{border-color:#eeedf2}
+.avatar{background:radial-gradient(circle at 34% 28%,color-mix(in srgb,var(--c,#3c8cff) 45%,#fff) 0,var(--c,#3c8cff) 42%,color-mix(in srgb,var(--c,#3c8cff) 60%,#000) 100%);
+  box-shadow:0 2px 0 color-mix(in srgb,var(--c,#3c8cff) 40%,#000),0 5px 12px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.35);font-size:0;color:#fff}
+.avatar .mk{width:56%;height:56%;display:block;filter:drop-shadow(0 1px 1px rgba(0,0,0,.35))}
+.picker button{display:grid;place-items:center;font-size:0;background:#1c1c25}
+.picker button .mk{width:22px;height:22px}
+.picker button .mk *{fill:#eeedf2}
+.picker button .mk [stroke]{stroke:#eeedf2;fill:none}
+.endbox .trophy{font-size:0;line-height:0;display:grid;place-items:center}
+.endbox .trophy .big-ic{width:72px;height:72px}
+
+.vb .ic{width:20px;height:20px;display:block;margin:auto}
 </style>
 </head>
 <body>
@@ -592,10 +624,10 @@ input,select{font:inherit;color:inherit}
     <div class="tb-left"><span class="mini-logo">DEAD<b>DEAL</b></span><button class="code-chip" data-act="copy" title="Copy invite"><span class="lbl">ROOM</span><span id="tbCode">-----</span><span class="cp">⧉</span></button></div>
     <div class="tb-right">
       <button class="net" id="tbNet" data-act="routes"><i></i><span id="tbNetTxt">Online</span></button>
-      <button class="icon-btn" data-act="music" id="tbMusic" title="Music">🎵</button>
-      <button class="icon-btn" data-act="sound" id="tbSound" title="Sound effects">🔊</button>
-      <button class="icon-btn" data-act="side" id="tbChat" title="Chat &amp; log">💬<span class="badge hidden" id="tbUnread"></span></button>
-      <button class="icon-btn" data-act="menu" title="Menu">☰</button>
+      <button class="icon-btn" data-act="music" id="tbMusic" title="Music"><svg viewBox="0 0 24 24" class="ic" aria-hidden="true"><path d="M9 17.5V6l10-2v11.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="6.5" cy="17.5" r="2.6" fill="currentColor"/><circle cx="16.5" cy="15.5" r="2.6" fill="currentColor"/></svg></button>
+      <button class="icon-btn" data-act="sound" id="tbSound" title="Sound effects"><svg viewBox="0 0 24 24" class="ic" aria-hidden="true"><path d="M4 9h3.5L12 5v14l-4.5-4H4z" fill="currentColor"/><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
+      <button class="icon-btn" data-act="side" id="tbChat" title="Chat &amp; log"><svg viewBox="0 0 24 24" class="ic" aria-hidden="true"><path d="M5 5h14a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-8l-5 3.5V17H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg><span class="badge hidden" id="tbUnread"></span></button>
+      <button class="icon-btn" data-act="menu" title="Menu"><svg viewBox="0 0 24 24" class="ic" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg></button>
     </div>
   </header>
   <main id="main">
@@ -603,22 +635,22 @@ input,select{font:inherit;color:inherit}
       <div class="home-wrap">
       <div class="home-card">
         <div class="logo">
-          <div class="logo-cards"><div class="lc">😇</div><div class="lc">💀</div><div class="lc">⚔️</div></div>
+          <div class="logo-cards"><div class="lc"></div><div class="lc"></div><div class="lc"></div></div>
           <h1>DEAD<span>DEAL</span></h1>
-          <p class="tag">Play your cards. Dodge the 💀. Last one standing wins.</p>
+          <p class="tag">Play your cards. Dodge the Deathcard. Last one standing wins.</p>
         </div>
         <div class="profile-row">
           <button class="avatar big" id="homeAv" data-act="profile" title="Change avatar"></button>
           <input class="field" id="nameIn" maxlength="16" placeholder="Your name" autocomplete="off">
         </div>
-        <button class="btn primary big" data-act="host">🃏 Host a room</button>
+        <button class="btn primary big" data-act="host">Host a room</button>
         <div class="or">or join a friend</div>
         <div class="join-row">
           <input class="field" id="codeIn" maxlength="5" placeholder="CODE" autocomplete="off" autocapitalize="characters" spellcheck="false">
           <button class="btn big" data-act="join">Join</button>
         </div>
         <div class="home-note" id="homeNote"></div>
-        <div class="home-row"><button class="btn ghost small" data-act="rules">📖 How to play</button><button class="btn ghost small" data-act="homemenu">⚙️ Music &amp; settings</button></div>
+        <div class="home-row"><button class="btn ghost small" data-act="rules">How to play</button><button class="btn ghost small" data-act="homemenu">Music &amp; settings</button></div>
       </div>
       <div class="rooms-card" id="roomsCard"></div>
       </div>
@@ -634,7 +666,7 @@ input,select{font:inherit;color:inherit}
     </section>
   </main>
   <aside id="side" class="hidden">
-    <div class="side-tabs"><button data-act="tab" data-tab="chat" class="on">💬 Chat</button><button data-act="tab" data-tab="log">📜 Log</button><button class="side-x" data-act="side">✕</button></div>
+    <div class="side-tabs"><button data-act="tab" data-tab="chat" class="on">Chat</button><button data-act="tab" data-tab="log">Log</button><button class="side-x" data-act="side">✕</button></div>
     <div id="chatList" class="side-body"></div>
     <div id="logList" class="side-body hidden"></div>
     <form id="chatForm" autocomplete="off"><input id="chatIn" maxlength="200" placeholder="Say something…"><button type="submit">Send</button></form>
@@ -4777,27 +4809,27 @@ window.DDIcons = DDIcons;
 'use strict';
 
 const CARDS = {
-  death:    { e: '💀', n: 'Deathcard', k: 'death',   d: "Draw it and you're out unless you have an Angel." },
-  angel:    { e: '😇', n: 'Angel',     k: 'support', d: 'Saves you from one Deathcard, then you hide it back in the deck. Ends your turn and clears any Attack stack. Used automatically. Can\'t be canceled.' },
-  attack:   { e: '⚔️', n: 'Attack',    k: 'target',  tgt: 'any',   hostile: true, d: 'Ends your turn. The player you pick takes 2 turns. Stacks. You may Attack yourself.' },
-  skip:     { e: '⏭️', n: 'Skip',      k: 'support', d: 'End one turn without drawing.' },
-  reverse:  { e: '🔄', n: 'Reverse',   k: 'support', d: 'End one turn without drawing and flip the turn order.' },
-  bottom:   { e: '⬇️', n: 'Bottom',    k: 'support', d: 'Draw from the bottom instead of the top. Ends your turn.' },
-  future:   { e: '🔮', n: 'Future',    k: 'support', d: 'See the top 3 cards. Your turn only.' },
-  steal:    { e: '🫳', n: 'Steal',     k: 'target',  tgt: 'other', hostile: true, d: 'Take a card from someone. They pick which (random after 8 s). Nothing to steal? You keep your Steal.' },
-  cancel:   { e: '🚫', n: 'Cancel',    k: 'quick',   d: 'Stop the card just played. A Cancel can\'t be canceled (only Inferno can answer it).' },
-  chain:    { e: '⛓️', n: 'Chain',     k: 'quick',   d: 'Lock the type of card just played for 3 turns. Nobody can play it.' },
-  inferno:  { e: '🔥', n: 'Inferno',   k: 'quick',   d: 'Cancel the card just played (not Mirror or Inferno). Every copy of it in everyone\'s hands goes back into the deck at random spots.' },
-  shuffle:  { e: '🔀', n: 'Shuffle',   k: 'quick',   d: 'Shuffle the deck, even on someone else\'s turn.' },
-  mirror:   { e: '🪞', n: 'Mirror',    k: 'wild',    d: 'Copy the last card played (not Cancel). Right after an Angel it can save you like one.' },
-  redirect: { e: '↪️', n: 'Redirect',  k: 'quick',   tgt: 'other', hostile: true, d: 'Bounce an Attack, Steal or Snowball aimed at you onto someone else.' },
-  peek:     { e: '🔭', n: 'Peek',      k: 'quick',   d: 'See the top 3 cards any time, even on other people\'s turns.' },
-  hook:     { e: '🪝', n: 'Hook',      k: 'support', d: 'Take the bottom card into your hand without ending your turn. A Deathcard still counts as drawn.' },
-  present:  { e: '🎁', n: 'Wrapped Present', k: 'support', d: '50/50: you get 2 free cards… or it\'s a Deathcard!' },
-  snowball: { e: '❄️', n: 'Snowball',  k: 'target',  tgt: 'other', hostile: true, d: 'Your target is snowed in: on their next turn they can only draw.' },
+  death:    { e: '', n: 'Deathcard', k: 'death',   d: "Draw it and you're out unless you have an Angel." },
+  angel:    { e: '', n: 'Angel',     k: 'support', d: 'Saves you from one Deathcard, then you hide it back in the deck. Ends your turn and clears any Attack stack. Used automatically. Can\'t be canceled.' },
+  attack:   { e: '', n: 'Attack',    k: 'target',  tgt: 'any',   hostile: true, d: 'Ends your turn. The player you pick takes 2 turns. Stacks. You may Attack yourself.' },
+  skip:     { e: '', n: 'Skip',      k: 'support', d: 'End one turn without drawing.' },
+  reverse:  { e: '', n: 'Reverse',   k: 'support', d: 'End one turn without drawing and flip the turn order.' },
+  bottom:   { e: '↓', n: 'Bottom',    k: 'support', d: 'Draw from the bottom instead of the top. Ends your turn.' },
+  future:   { e: '', n: 'Future',    k: 'support', d: 'See the top 3 cards. Your turn only.' },
+  steal:    { e: '', n: 'Steal',     k: 'target',  tgt: 'other', hostile: true, d: 'Take a card from someone. They pick which (random after 8 s). Nothing to steal? You keep your Steal.' },
+  cancel:   { e: '', n: 'Cancel',    k: 'quick',   d: 'Stop the card just played. A Cancel can\'t be canceled (only Inferno can answer it).' },
+  chain:    { e: '', n: 'Chain',     k: 'quick',   d: 'Lock the type of card just played for 3 turns. Nobody can play it.' },
+  inferno:  { e: '', n: 'Inferno',   k: 'quick',   d: 'Cancel the card just played (not Mirror or Inferno). Every copy of it in everyone\'s hands goes back into the deck at random spots.' },
+  shuffle:  { e: '', n: 'Shuffle',   k: 'quick',   d: 'Shuffle the deck, even on someone else\'s turn.' },
+  mirror:   { e: '', n: 'Mirror',    k: 'wild',    d: 'Copy the last card played (not Cancel). Right after an Angel it can save you like one.' },
+  redirect: { e: '↪', n: 'Redirect',  k: 'quick',   tgt: 'other', hostile: true, d: 'Bounce an Attack, Steal or Snowball aimed at you onto someone else.' },
+  peek:     { e: '', n: 'Peek',      k: 'quick',   d: 'See the top 3 cards any time, even on other people\'s turns.' },
+  hook:     { e: '', n: 'Hook',      k: 'support', d: 'Take the bottom card into your hand without ending your turn. A Deathcard still counts as drawn.' },
+  present:  { e: '', n: 'Wrapped Present', k: 'support', d: '50/50: you get 2 free cards… or it\'s a Deathcard!' },
+  snowball: { e: '', n: 'Snowball',  k: 'target',  tgt: 'other', hostile: true, d: 'Your target is snowed in: on their next turn they can only draw.' },
 };
 const ORDER = Object.keys(CARDS);
-const KIND = { death: 'Death', support: 'Support', target: 'Target', quick: 'Quick Play ⚡', wild: 'Wild' };
+const KIND = { death: 'Death', support: 'Support', target: 'Target', quick: 'Quick Play', wild: 'Wild' };
 const BASE_CARDS = ['angel', 'attack', 'skip', 'reverse', 'bottom', 'future', 'steal', 'cancel', 'chain', 'inferno', 'shuffle', 'mirror', 'redirect', 'peek', 'hook'];
 const FESTIVE_CARDS = ['present', 'snowball'];
 const WEIGHT = { angel: 2, attack: 4, skip: 4, reverse: 3, bottom: 3, future: 4, steal: 4, cancel: 5, chain: 2, inferno: 1, shuffle: 3, mirror: 2, redirect: 2, peek: 2, hook: 2, present: 3, snowball: 3 };
@@ -4808,18 +4840,18 @@ const AIMABLE = new Set(['attack', 'steal', 'snowball']);
 const VAL = { present: 4, snowball: 5, angel: 10, cancel: 7, attack: 6, skip: 6, redirect: 5, steal: 5, inferno: 5, reverse: 4, future: 4, bottom: 4, mirror: 3, chain: 3, shuffle: 3, hook: 3, peek: 2 };
 const GIVE_MS = 8000, HIDE_MS = 10000, CHAIN_TURNS = 3;
 const EVENTS = {
-  angelAll:  { e: '😇', n: 'Angel for all',  d: 'Everyone gets an Angel.', good: true },
-  luckyOne:  { e: '😇', n: 'Lucky one',      d: 'One lucky player gets an Angel.', spot: true, good: true },
-  cardDrop:  { e: '🎴', n: 'Card drop',      d: 'Everyone gets the same random card.', good: true },
-  delivery:  { e: '🎴', n: 'Special delivery', d: 'One player gets a hand-picked card.', spot: true, good: true },
-  restock:   { e: '➕', n: 'Restock',        d: '3 to 8 safe cards are shuffled into the deck.', good: true },
-  darkGift:  { e: '💀', n: 'Dark gift',      d: '1 or 2 Deathcards are shuffled into the deck.' },
-  luckyDraw: { e: '🎁', n: 'Lucky draw',     d: 'Everyone takes a safe card from the bottom of the deck.', good: true },
-  snowGlobe: { e: '🔀', n: 'Snow globe',     d: 'The deck is shuffled.' },
-  merryGo:   { e: '🔄', n: 'Merry-go-round', d: 'Turn order reverses.' },
-  giftSwap:  { e: '🎁', n: 'Gift swap',      d: 'Everyone passes a random card to the next player.' },
-  naughty:   { e: '📜', n: 'Naughty list',   d: 'Whoever has the most cards gives one to whoever has the fewest.', spot: true },
-  peace:     { e: '🍪', n: 'Peace treaty',   d: 'No Attack or Steal for one lap.' },
+  angelAll:  { e: 'angel', n: 'Angel for all',  d: 'Everyone gets an Angel.', good: true },
+  luckyOne:  { e: 'angel', n: 'Lucky one',      d: 'One lucky player gets an Angel.', spot: true, good: true },
+  cardDrop:  { e: 'cards', n: 'Card drop',      d: 'Everyone gets the same random card.', good: true },
+  delivery:  { e: 'dcard', n: 'Special delivery', d: 'One player gets a hand-picked card.', spot: true, good: true },
+  restock:   { e: 'cards', n: 'Restock',        d: '3 to 8 safe cards are shuffled into the deck.', good: true },
+  darkGift:  { e: 'death', n: 'Dark gift',      d: '1 or 2 Deathcards are shuffled into the deck.' },
+  luckyDraw: { e: 'present', n: 'Lucky draw',     d: 'Everyone takes a safe card from the bottom of the deck.', good: true },
+  snowGlobe: { e: 'shuffle', n: 'Snow globe',     d: 'The deck is shuffled.' },
+  merryGo:   { e: 'reverse', n: 'Merry-go-round', d: 'Turn order reverses.' },
+  giftSwap:  { e: 'present', n: 'Gift swap',      d: 'Everyone passes a random card to the next player.' },
+  naughty:   { e: 'people', n: 'Naughty list',   d: 'Whoever has the most cards gives one to whoever has the fewest.', spot: true },
+  peace:     { e: 'cancel', n: 'Peace treaty',   d: 'No Attack or Steal for one lap.' },
 };
 const EVENT_KEYS = Object.keys(EVENTS);
 const LATE_PER_SEAT = 12;
@@ -4931,9 +4963,9 @@ function newGame(players, S, rng, now) {
   G.startTotal = G.nextId - 1;
   if (G.fest.on) { G.fest.every = G.fest.left = S.eventEvery; }
   G.cur = rint(G, G.seats.length);
-  log(G, `🃏 New game: ${G.seats.length} players, ${G.deck.length} cards in the deck, ${S.deaths} 💀 Deathcard${S.deaths > 1 ? 's' : ''}.`, 'sys');
+  log(G, `New game: ${G.seats.length} players, ${G.deck.length} cards in the deck, ${S.deaths} Deathcard${S.deaths > 1 ? 's' : ''}.`, 'sys');
   startTurnClock(G);
-  if (G.fest.on) log(G, `🎄 Festive Misfortune! A surprise event every ${S.eventEvery} turns.`, 'sys');
+  if (G.fest.on) log(G, `Festive Misfortune! A surprise event every ${S.eventEvery} turns.`, 'sys');
   log(G, `${nm(G, G.cur)} goes first.`, 'turn');
   return G;
 }
@@ -4944,7 +4976,7 @@ function startTurnClock(G) {
   const s = G.seats[G.cur];
   s.plays = 0;
   s.wake = G.now + 900 + rint(G, 700);
-  if (s.snow > 0) { s.snow = 0; s.snowNow = true; log(G, `❄️ ${s.name} is snowed in: they can only draw this turn.`, 'turn'); }
+  if (s.snow > 0) { s.snow = 0; s.snowNow = true; log(G, `${s.name} is snowed in: they can only draw this turn.`, 'turn'); }
   emit(G, G.cur, { t: 'fx', kind: 'yourturn' });
   bump(G);
 }
@@ -5005,18 +5037,18 @@ function playErr(G, si, card, o, skipTarget) {
   if (t === 'death') return "Deathcards can't be played";
   if (t === 'angel') return 'Angels are used automatically when you draw a Deathcard';
   if (G.chains[t] > 0) return `${C.n} is chained for ${G.chains[t]} more turn${G.chains[t] > 1 ? 's' : ''}`;
-  if (G.fest.pending) return '🎁 Wait: a festive event is happening';
-  if (s.snowNow && G.cur === si && !G.stack) return '❄️ You\'re snowed in: this turn you can only draw';
-  if (G.fest.peace > 0) { const eff = t === 'mirror' ? G.lastPlayed : t; if (eff === 'attack' || eff === 'steal') return `🍪 Peace treaty: no Attack or Steal for ${G.fest.peace} more turn${G.fest.peace > 1 ? 's' : ''}`; }
+  if (G.fest.pending) return 'Wait: a festive event is happening';
+  if (s.snowNow && G.cur === si && !G.stack) return 'You\'re snowed in: this turn you can only draw';
+  if (G.fest.peace > 0) { const eff = t === 'mirror' ? G.lastPlayed : t; if (eff === 'attack' || eff === 'steal') return `Peace treaty: no Attack or Steal for ${G.fest.peace} more turn${G.fest.peace > 1 ? 's' : ''}`; }
   if (G.choice && t !== 'peek') return 'Wait: a choice is being made';
   const st = G.stack;
   const quick = C.k === 'quick';
   if (st) {
     const top = st.items[st.items.length - 1];
-    if (!quick) return 'Only ⚡ Quick Play cards during a reaction window';
+    if (!quick) return 'Only Quick Play cards during a reaction window';
     if (t === 'cancel' && top.unc) return "That card can't be canceled";
-    if (t === 'cancel' && top.t === 'cancel') return "A Cancel can't be canceled. Only 🔥 Inferno can answer it";
-    if (t === 'inferno' && (top.t === 'mirror' || top.t === 'inferno')) return `🔥 Inferno can't answer ${top.t === 'mirror' ? 'a Mirror' : 'another Inferno'}`;
+    if (t === 'cancel' && top.t === 'cancel') return "A Cancel can't be canceled. Only Inferno can answer it";
+    if (t === 'inferno' && (top.t === 'mirror' || top.t === 'inferno')) return `Inferno can't answer ${top.t === 'mirror' ? 'a Mirror' : 'another Inferno'}`;
     if (t === 'redirect') {
       if (aimedAt(G, si) < 0) return 'Nothing is aimed at you to redirect';
     }
@@ -5052,7 +5084,7 @@ function play(G, si, card, o) {
   if (t === 'peek') {             // private, instant, nothing to cancel
     G.lastPlayed = 'peek';
     toDiscard(G, card);
-    log(G, `🔭 ${nm(G, si)} peeked at the top 3 cards.`);
+    log(G, `${nm(G, si)} peeked at the top 3 cards.`);
     reveal(G, si, 'peek');
     return;
   }
@@ -5069,14 +5101,14 @@ function play(G, si, card, o) {
     const ct = items[below].t;
     it.chainType = ct; it.prev = G.chains[ct] || 0;
     G.chains[ct] = CHAIN_TURNS;
-    txt = `⛓️ ${nm(G, si)} chains ${cn(ct)} for ${CHAIN_TURNS} turns!`;
+    txt = `${nm(G, si)} chains ${cn(ct)} for ${CHAIN_TURNS} turns!`;
   } else if (t === 'redirect') {
     const k = aimedAt(G, si);
     it.ref = k; it.to = o.target;
-    txt = `↪️ ${nm(G, si)} redirects the ${CARDS[items[k].as].n} onto ${nm(G, o.target)}!`;
+    txt = `↪ ${nm(G, si)} redirects the ${CARDS[items[k].as].n} onto ${nm(G, o.target)}!`;
   } else {
     const as = it.as;
-    const label = t === 'mirror' ? `🪞 Mirror (as ${cn(as)})` : cn(t);
+    const label = t === 'mirror' ? `Mirror (as ${cn(as)})` : cn(t);
     txt = `${nm(G, si)} plays ${label}` + (it.target != null ? ` → ${it.target === si ? 'themselves' : nm(G, it.target)}` : '') + '.';
   }
   if (!NOT_LAST.has(t)) G.lastPlayed = it.as;
@@ -5094,7 +5126,7 @@ function resolveStack(G) {
     if (G.phase !== 'play') { toDiscard(G, it.card); continue; }
     if (!act[i]) {
       if (it.t === 'chain') { if (it.prev > 0) G.chains[it.chainType] = it.prev; else delete G.chains[it.chainType]; }
-      log(G, `✖ ${nm(G, it.by)}'s ${CARDS[it.t].n} was canceled.`, 'cancel');
+      log(G, `✕ ${nm(G, it.by)}'s ${CARDS[it.t].n} was canceled.`, 'cancel');
       toDiscard(G, it.card);
       continue;
     }
@@ -5125,7 +5157,7 @@ function burn(G, type, by) {
     G.shuffleVer++;              // known positions moved, so old peeks no longer line up
   }
   fx(G, { kind: 'burn', card: type });
-  log(G, `🔥 Inferno! ${n} ${cn(type)} card${n === 1 ? '' : 's'} burned out of hands and slipped back into the deck.`, 'cancel');
+  log(G, `Inferno! ${n} ${cn(type)} card${n === 1 ? '' : 's'} burned out of hands and slipped back into the deck.`, 'cancel');
 }
 
 function applyEffect(G, it, items, act, i) {
@@ -5136,13 +5168,13 @@ function applyEffect(G, it, items, act, i) {
     case 'attack': toDiscard(G, card); doAttack(G, by, effTarget(items, i, act)); return;
     case 'skip':
       toDiscard(G, card);
-      log(G, `⏭️ ${nm(G, by)} skips a turn.`);
+      log(G, `${nm(G, by)} skips a turn.`);
       endTurn(G); return;
     case 'reverse':
       toDiscard(G, card);
       G.dir *= -1;
       fx(G, { kind: 'reverse' });
-      log(G, `🔄 Turn order flipped! ${nm(G, by)} ends a turn.`);
+      log(G, `Turn order flipped! ${nm(G, by)} ends a turn.`);
       endTurn(G); return;
     case 'bottom':
       toDiscard(G, card);
@@ -5158,7 +5190,7 @@ function applyEffect(G, it, items, act, i) {
       toDiscard(G, card);
       shuffleDeck(G);
       fx(G, { kind: 'shuffle' });
-      log(G, `🔀 The deck was shuffled.`);
+      log(G, `The deck was shuffled.`);
       return;
     case 'hook':
       toDiscard(G, card);
@@ -5171,9 +5203,9 @@ function applyEffect(G, it, items, act, i) {
         if (!pool.length) pool = [['skip', 1]];
         for (let k = 0; k < 2; k++) { const c = gen(G, pick(G, pool)); P.hand.push(c); got.push(c.t); }
         emit(G, by, { t: 'gift', cards: got, why: 'present' });
-        log(G, `🎁 ${P.name} unwraps the present: 2 free cards!`, 'angel');
+        log(G, `${P.name} unwraps the present: 2 free cards!`, 'angel');
       } else {
-        log(G, `🎁 ${P.name} unwraps the present… it's a Deathcard!`, 'death');
+        log(G, `${P.name} unwraps the present… it's a Deathcard!`, 'death');
         deathDrawn(G, by, gen(G, 'death'), false, 'present', false, true);
       }
       return;
@@ -5182,7 +5214,7 @@ function applyEffect(G, it, items, act, i) {
       toDiscard(G, card);
       const tg = effTarget(items, i, act);
       const T = G.seats[tg];
-      if (T && T.alive && tg !== by) { T.snow = 1; fx(G, { kind: 'snowball', who: by, to: tg }); log(G, `❄️ ${P.name} hits ${T.name} with a snowball: next turn they can only draw.`, 'attack'); }
+      if (T && T.alive && tg !== by) { T.snow = 1; fx(G, { kind: 'snowball', who: by, to: tg }); log(G, `${P.name} hits ${T.name} with a snowball: next turn they can only draw.`, 'attack'); }
       return;
     }
     case 'angel':
@@ -5197,7 +5229,7 @@ function doAttack(G, by, tg) {
   if (tg == null || !G.seats[tg] || !G.seats[tg].alive) tg = nextAlive(G, by);
   const n = (G.underAttack ? G.turnsLeft : 0) + 2;
   fx(G, { kind: 'attack', who: by, to: tg });
-  log(G, `⚔️ ${nm(G, by)} attacks ${tg === by ? 'themselves' : nm(G, tg)}! ${nm(G, tg)} must take ${n} turns.`, 'attack');
+  log(G, `${nm(G, by)} attacks ${tg === by ? 'themselves' : nm(G, tg)}! ${nm(G, tg)} must take ${n} turns.`, 'attack');
   turnTick(G);
   G.cur = tg; G.turnsLeft = n; G.underAttack = true;
   startTurnClock(G);
@@ -5207,18 +5239,18 @@ function doSteal(G, by, tg, card) {
   const T = G.seats[tg];
   if (!T || !T.alive || tg === by) {
     G.seats[by].hand.push(card);
-    log(G, `🫳 The Steal found no one, so ${nm(G, by)} keeps it.`);
+    log(G, `The Steal found no one, so ${nm(G, by)} keeps it.`);
     return;
   }
   if (!T.hand.length) {
     G.seats[by].hand.push(card);
-    log(G, `🫳 ${nm(G, tg)} has nothing to steal, so ${nm(G, by)} keeps the Steal.`);
+    log(G, `${nm(G, tg)} has nothing to steal, so ${nm(G, by)} keeps the Steal.`);
     return;
   }
   toDiscard(G, card);
   G.choice = { kind: 'give', from: tg, to: by, deadline: G.now + GIVE_MS, total: GIVE_MS };
   T.wake = G.now + 700 + rint(G, 900);
-  log(G, `🫳 ${nm(G, by)} steals from ${nm(G, tg)}. ${nm(G, tg)} picks a card to hand over…`);
+  log(G, `${nm(G, by)} steals from ${nm(G, tg)}. ${nm(G, tg)} picks a card to hand over…`);
 }
 
 function give(G, cardId) {
@@ -5232,7 +5264,7 @@ function give(G, cardId) {
   emit(G, ch.from, { t: 'gave', card: c.t, to: ch.to });
   emit(G, ch.to, { t: 'got', card: c.t, from: ch.from });
   fx(G, { kind: 'move', from: ch.from, to: ch.to });
-  log(G, `🫳 ${T.name} took a card from ${F.name}.`);
+  log(G, `${T.name} took a card from ${F.name}.`);
   afterChange(G);
 }
 
@@ -5248,7 +5280,7 @@ function refill(G) {
   if (!G.discard.length) return;
   G.deck = G.discard.splice(0).filter(c => c.t !== 'death');
   shuffleDeck(G);
-  log(G, '♻️ The deck ran out, so the discard pile was shuffled back in.', 'sys');
+  log(G, 'The deck ran out, so the discard pile was shuffled back in.', 'sys');
 }
 function drawCard(G, i, where, endsTurn, hook) {
   if (!G.deck.length) refill(G);
@@ -5259,15 +5291,15 @@ function drawCard(G, i, where, endsTurn, hook) {
   s.hand.push(c);
   emit(G, i, { t: 'drew', card: c.t, where });
   fx(G, { kind: 'draw', who: i });
-  log(G, hook ? `🪝 ${s.name} hooked the bottom card.` : `${s.name} drew a card${where === 'bottom' ? ' from the bottom' : ''}.`, 'draw');
+  log(G, hook ? `${s.name} hooked the bottom card.` : `${s.name} drew a card${where === 'bottom' ? ' from the bottom' : ''}.`, 'draw');
   if (endsTurn) endTurn(G);
 }
 function deathDrawn(G, i, card, endsTurn, where, hook, gift) {
   const s = G.seats[i];
   fx(G, { kind: 'boom', who: i });
   let saver = null, how = '';
-  if (!(G.chains.angel > 0)) { saver = s.hand.find(c => c.t === 'angel'); how = 'an 😇 Angel'; }
-  if (!saver && G.lastPlayed === 'angel' && !(G.chains.mirror > 0)) { saver = s.hand.find(c => c.t === 'mirror'); how = 'a 🪞 Mirror copying the Angel'; }
+  if (!(G.chains.angel > 0)) { saver = s.hand.find(c => c.t === 'angel'); how = 'an Angel'; }
+  if (!saver && G.lastPlayed === 'angel' && !(G.chains.mirror > 0)) { saver = s.hand.find(c => c.t === 'mirror'); how = 'a Mirror copying the Angel'; }
   const src = gift ? ' from the present' : hook ? ' with Hook' : where === 'bottom' ? ' from the bottom' : '';
   if (saver) {
     s.hand.splice(s.hand.indexOf(saver), 1);
@@ -5275,12 +5307,12 @@ function deathDrawn(G, i, card, endsTurn, where, hook, gift) {
     G.lastPlayed = 'angel';
     G.stack = { items: [{ seq: G.seq++, card: saver, t: saver.t, as: 'angel', by: i, target: null, unc: true }], deadline: G.now + G.S.reactTime * 1000, total: G.S.reactTime * 1000 };
     fx(G, { kind: 'angel', who: i });
-    log(G, `💀 ${s.name} drew a Deathcard${src}… saved by ${how}!`, 'angel');
+    log(G, `${s.name} drew a Deathcard${src}… saved by ${how}!`, 'angel');
     return;
   }
   const chained = s.hand.some(c => c.t === 'angel') && G.chains.angel > 0;
   G.removed++;
-  log(G, `💀 ${s.name} drew a Deathcard${src}${chained ? ' (their Angel is chained!)' : ''} and is OUT!`, 'death');
+  log(G, `${s.name} drew a Deathcard${src}${chained ? ' (their Angel is chained!)' : ''} and is OUT!`, 'death');
   die(G, i, 'death');
 }
 function startHide(G) {
@@ -5288,7 +5320,7 @@ function startHide(G) {
   if (!L) return;
   G.choice = { kind: 'hide', who: L.who, deadline: G.now + HIDE_MS, total: HIDE_MS };
   G.seats[L.who].wake = G.now + 800 + rint(G, 900);
-  log(G, `😇 ${nm(G, L.who)} is hiding the Deathcard back in the deck…`);
+  log(G, `${nm(G, L.who)} is hiding the Deathcard back in the deck…`);
 }
 function hide(G, pos) {
   const L = G.limbo, ch = G.choice;
@@ -5309,9 +5341,9 @@ function hide(G, pos) {
     s.know = { ids: kn, ver: G.shuffleVer };
   }
   fx(G, { kind: 'hide', who: L.who });
-  log(G, `😇 ${s.name} hid the Deathcard back in the deck.`);
+  log(G, `${s.name} hid the Deathcard back in the deck.`);
   if (L.endsTurn && G.phase === 'play' && s.alive && G.cur === L.who) {
-    if (G.turnsLeft > 1) log(G, `😇 The Angel also clears ${s.name}'s Attack stack (${G.turnsLeft - 1} turn${G.turnsLeft > 2 ? 's' : ''}).`, 'angel');
+    if (G.turnsLeft > 1) log(G, `The Angel also clears ${s.name}'s Attack stack (${G.turnsLeft - 1} turn${G.turnsLeft > 2 ? 's' : ''}).`, 'angel');
     G.turnsLeft = 1;
     endTurn(G);
   }
@@ -5329,7 +5361,7 @@ function die(G, i, why) {
   s.hand = [];
   G.outOrder.push(i);
   s.place = alive(G).length + 1;
-  if (why !== 'death') log(G, why === 'kicked' ? `👢 ${s.name} was removed from the game.` : `🚪 ${s.name} left the game.`, 'death');
+  if (why !== 'death') log(G, why === 'kicked' ? `${s.name} was removed from the game.` : `${s.name} left the game.`, 'death');
   fx(G, { kind: 'out', who: i });
   if (G.choice) {
     const ch = G.choice;
@@ -5349,7 +5381,7 @@ function die(G, i, why) {
   if (deathsInDeck(G) === 0 && !G.limbo) {
     G.deck.splice(rint(G, G.deck.length + 1), 0, mk(G, 'death'));
     G.added++;
-    log(G, '💀 Sudden death: a fresh Deathcard slips into the deck.', 'death');
+    log(G, 'Sudden death: a fresh Deathcard slips into the deck.', 'death');
   }
   if (i === G.cur) {
     turnTick(G);
@@ -5369,9 +5401,9 @@ function gameOver(G, w) {
   if (w >= 0) {
     G.seats[w].place = 1;
     fx(G, { kind: 'win', who: w });
-    log(G, `🏆 ${nm(G, w)} is the last one standing and wins!`, 'win');
+    log(G, `${nm(G, w)} is the last one standing and wins!`, 'win');
   } else {
-    log(G, '🛑 The game was ended.', 'sys');
+    log(G, 'The game was ended.', 'sys');
   }
   bump(G);
 }
@@ -5385,7 +5417,7 @@ function turnTick(G) {
   if (cs) cs.snowNow = false;
   const F = G.fest;
   if (F.on && G.phase === 'play') {
-    if (F.peace > 0 && --F.peace === 0) log(G, '🍪 The peace treaty is over. Attacks and Steals are back!', 'sys');
+    if (F.peace > 0 && --F.peace === 0) log(G, 'The peace treaty is over. Attacks and Steals are back!', 'sys');
     if (--F.left <= 0) F.due = true;
   }
 }
@@ -5418,7 +5450,7 @@ function act(G, i, a) {
     case 'draw':
       if (i !== G.cur) return 'Not your turn';
       if (G.stack || G.choice || G.limbo) return 'Wait for the cards to resolve';
-      if (G.fest.pending) return '🎁 Wait: a festive event is happening';
+      if (G.fest.pending) return 'Wait: a festive event is happening';
       drawCard(G, i, 'top', true);
       return null;
     case 'play': {
@@ -5452,8 +5484,8 @@ function tick(G, now) {
   if (G.phase !== 'play') return;
   if (G.choice && now >= G.choice.deadline) {
     const ch = G.choice;
-    if (ch.kind === 'give') { log(G, `⏰ ${nm(G, ch.from)} took too long, so a random card was taken.`); give(G, null); }
-    else if (ch.kind === 'hide') { log(G, `⏰ Time's up: the Deathcard goes in a random spot.`); hide(G, 'random'); }
+    if (ch.kind === 'give') { log(G, `${nm(G, ch.from)} took too long, so a random card was taken.`); give(G, null); }
+    else if (ch.kind === 'hide') { log(G, `Time's up: the Deathcard goes in a random spot.`); hide(G, 'random'); }
   }
   if (G.phase !== 'play') return;
   const F = G.fest;
@@ -5465,7 +5497,7 @@ function tick(G, now) {
     const s = G.seats[G.cur];
     const awayHuman = !s.bot && !s.connected;
     if ((G.S.turnTime > 0 && G.turnRemain <= 0) || (awayHuman && G.turnElapsed > 5000)) {
-      log(G, awayHuman ? `📡 ${s.name} is away, so they draw automatically.` : `⏰ ${s.name} ran out of time and draws.`, 'turn');
+      log(G, awayHuman ? `${s.name} is away, so they draw automatically.` : `${s.name} ran out of time and draws.`, 'turn');
       drawCard(G, G.cur, 'top', true);
     }
   }
@@ -5492,7 +5524,7 @@ function startEvent(G) {
   const F = G.fest;
   F.due = false;
   F.left = F.every;
-  if (!F.late && G.turnNo >= LATE_PER_SEAT * G.seats.length) { F.late = true; log(G, "🌙 It's getting late… no more gifts. Only misfortune from now on!", 'death'); }
+  if (!F.late && G.turnNo >= LATE_PER_SEAT * G.seats.length) { F.late = true; log(G, "It's getting late… no more gifts. Only misfortune from now on!", 'death'); }
   const keys = EVENT_KEYS.filter(k => G.S.events[k] && eventOk(G, k));
   if (!keys.length) return;
   const ev = keys[rint(G, keys.length)];
@@ -5510,7 +5542,7 @@ function startEvent(G) {
   F.pending = { ev, target, card, at: G.now + total, total };
   F.count++;
   fx(G, { kind: 'festive', ev, target, card, ms: total, spot: !!E.spot, seats: al });
-  log(G, `🎄 Festive Misfortune! ${E.e} ${E.n}…`, 'sys');
+  log(G, `Festive Misfortune! ${E.n}…`, 'sys');
   bump(G);
 }
 function applyEvent(G) {
@@ -5521,8 +5553,8 @@ function applyEvent(G) {
   const give = (s, t, why) => { const c = gen(G, t); s.hand.push(c); emit(G, s.i, { t: 'gift', cards: [t], why }); };
   let txt = '';
   switch (P.ev) {
-    case 'angelAll': for (const s of al) give(s, 'angel', 'event'); txt = 'Everyone gets an 😇 Angel!'; break;
-    case 'luckyOne': if (T && T.alive) { give(T, 'angel', 'event'); txt = `${T.name} gets an 😇 Angel!`; } break;
+    case 'angelAll': for (const s of al) give(s, 'angel', 'event'); txt = 'Everyone gets an Angel!'; break;
+    case 'luckyOne': if (T && T.alive) { give(T, 'angel', 'event'); txt = `${T.name} gets an Angel!`; } break;
     case 'cardDrop': for (const s of al) give(s, P.card, 'event'); txt = `Everyone gets ${cn(P.card)}!`; break;
     case 'delivery': if (T && T.alive) { give(T, P.card, 'event'); txt = `${T.name} gets ${cn(P.card)}!`; } break;
     case 'restock': {
@@ -5536,7 +5568,7 @@ function applyEvent(G) {
       const room = al.length - 1 - deathsInDeck(G);
       const n = Math.max(0, Math.min(room, 1 + rint(G, 2)));
       for (let k = 0; k < n; k++) G.deck.splice(rint(G, G.deck.length + 1), 0, gen(G, 'death'));
-      txt = `${n} 💀 Deathcard${n > 1 ? 's are' : ' is'} slipped into the deck…`;
+      txt = `${n} Deathcard${n > 1 ? 's are' : ' is'} slipped into the deck…`;
       break;
     }
     case 'luckyDraw': {
@@ -5585,7 +5617,7 @@ function applyEvent(G) {
   }
   txt = txt || 'nothing happens this time.';
   fx(G, { kind: 'festiveDone', ev: P.ev, target: P.target, card: P.card, txt });
-  log(G, `${E.e} ${E.n}: ${txt}`, E.good ? 'angel' : 'death');
+  log(G, `${E.n}: ${txt}`, E.good ? 'angel' : 'death');
   const s = G.seats[G.cur];
   if (s && s.bot) s.wake = G.now + 900;
   bump(G);
@@ -5844,13 +5876,21 @@ function silhouette(g, e, x, y, size, color) {
   k.globalCompositeOperation = 'source-in'; k.fillStyle = color; k.fillRect(0, 0, c.width, c.height);
   g.drawImage(c, x - c.width / 2, y - c.height / 2);
 }
+// a drawn icon (death, angel, inferno…) or a player's avatar mark, as a texture (no emojis)
 function emojiTex(e) {
   const key = 'e:' + e;
   if (texCache.has(key)) return texCache.get(key);
   const c = canvas(160, 160), g = c.getContext('2d');
-  g.textAlign = 'center'; g.textBaseline = 'middle'; g.font = `118px ${EMOJI_FONT}`;
-  g.fillText(e, 80, 86);
-  const t = toTex(c); texCache.set(key, t); return t;
+  const t = toTex(c);
+  if (window.DDIcons && DDIcons.has(e)) {
+    g.shadowColor = 'rgba(0,0,0,.55)'; g.shadowBlur = 10; g.shadowOffsetY = 3;
+    DDIcons.draw(g, e, 80, 82, 116, e === 'death' ? '#e8e2d6' : '#ffffff');
+  } else if (typeof markIdx === 'function') {
+    const img = new Image();
+    img.onload = () => { g.shadowColor = 'rgba(0,0,0,.5)'; g.shadowBlur = 8; g.drawImage(img, 22, 22, 116, 116); t.needsUpdate = true; };
+    img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="240" height="240">' + MARKS[markIdx(e)] + '</svg>');
+  }
+  texCache.set(key, t); return t;
 }
 function cardColor(t) {
   const C = DD.CARDS[t];
@@ -5882,7 +5922,7 @@ function cardFaceTex(t) {
   g.font = `900 ${fs}px ${UI_FONT}`;
   while (fs > 16 && g.measureText(nm).width > 180) { fs -= 2; g.font = `900 ${fs}px ${UI_FONT}`; }
   g.textAlign = 'left'; g.textBaseline = 'middle'; g.fillStyle = ink; g.fillText(nm, 68, 48);
-  if (C.k === 'quick') { g.font = `26px ${EMOJI_FONT}`; g.textAlign = 'right'; g.fillText('⚡', 236, 48); }
+  if (C.k === 'quick') { g.save(); g.translate(214, 26); g.fillStyle = '#ffd84a'; g.fill(new Path2D('M13.5 2.5L5 13.5h6l-1.5 8 8.5-11h-6z')); g.restore(); }
   // big icon
   if (window.DDIcons && DDIcons.has(t)) {
     DDIcons.draw(g, t, 128, 212, 150, 'rgba(0,0,0,.28)');
@@ -5908,7 +5948,7 @@ function backTex() {
   g.lineWidth = 5; g.strokeStyle = '#d9a63a'; rr(g, 24, 24, 208, 310, 14); g.stroke();
   g.fillStyle = '#120507'; g.beginPath(); g.arc(128, 179, 56, 0, TAU); g.fill();
   g.lineWidth = 4; g.stroke();
-  if (window.DDIcons) DDIcons.draw(g, 'death', 128, 179, 78, '#e8e2d6'); else silhouette(g, '💀', 128, 181, 68, '#e8e2d6');
+  if (window.DDIcons) DDIcons.draw(g, 'death', 128, 179, 78, '#e8e2d6'); else silhouette(g, '', 128, 181, 68, '#e8e2d6');
   const t = toTex(c); texCache.set('back', t); return t;
 }
 function edgeTex() {
@@ -6295,7 +6335,7 @@ function buildNeon(G) {
   const sign = new THREE.Mesh(new THREE.PlaneGeometry(4.2, 0.82), new THREE.MeshBasicMaterial({ map: toTex(textCanvas('DEAD DEAL', { w: 1024, h: 200, size: 150 })), transparent: true, depthWrite: false }));
   sign.material.color.setRGB(2.4, 2.4, 2.4);
   sign.position.set(0, 3.15, -6.75); G.add(sign);
-  const sk = new THREE.Mesh(new THREE.PlaneGeometry(1.1, 1.1), new THREE.MeshBasicMaterial({ map: emojiTex('💀'), transparent: true, depthWrite: false }));
+  const sk = new THREE.Mesh(new THREE.PlaneGeometry(1.1, 1.1), new THREE.MeshBasicMaterial({ map: emojiTex('death'), transparent: true, depthWrite: false }));
   sk.material.color.setRGB(1.4, 0.35, 0.4);
   for (const ang of [1.15, -1.15]) { const m = sk.clone(); m.position.set(Math.sin(ang) * 6.75, 2.9, -Math.cos(ang) * 6.75); m.lookAt(0, 2.9, 0); G.add(m); }
   for (const [ang, t] of [[0.62, 'attack'], [-0.62, 'angel'], [2.1, 'cancel'], [-2.1, 'mirror'], [2.75, 'future'], [-2.75, 'steal']]) {
@@ -6537,7 +6577,7 @@ function update(g) {
     if (o.color !== s.color) { o.color = s.color; o.bodyMat.color.set(s.color); }
     if (o.alive !== s.alive) {
       o.alive = s.alive;
-      if (!s.alive) { o.faceMat.map = emojiTex('💀'); o.bodyMat.color.set(0x3a3a3a); o.faceMat.needsUpdate = true; }
+      if (!s.alive) { o.faceMat.map = emojiTex('death'); o.bodyMat.color.set(0x3a3a3a); o.faceMat.needsUpdate = true; }
       else { o.faceMat.map = emojiTex(s.avatar); o.bodyMat.color.set(s.color); o.faceMat.needsUpdate = true; }
     }
     o.conn = s.conn || s.bot;
@@ -6715,12 +6755,12 @@ function fx(e) {
     case 'boom': {
       const p = sw(e.who); p.y += 0.25;
       flashLight(p, 0xff1020, 60, 900); burst(p, 46, [4, 0.5, 0.2], 2.2, 1.0); burst(p, 20, [0.4, 0.05, 0.05], 1.2, 1.2);
-      floatEmoji('💀', p.clone().add(new THREE.Vector3(0, 0.4, 0)), 0.7, 1500, 0.8);
+      floatEmoji('death', p.clone().add(new THREE.Vector3(0, 0.4, 0)), 0.7, 1500, 0.8);
       S.shake = e.who === S.me ? 0.08 : 0.035;
       lookEvent(e.who, 3000);
       break;
     }
-    case 'angel': setTimeout(() => { const p = sw(e.who); angelPillar(e.who); floatEmoji('😇', p.clone().add(new THREE.Vector3(0, 0.5, 0)), 0.6, 1500, 0.7); }, 450); break;
+    case 'angel': setTimeout(() => { const p = sw(e.who); angelPillar(e.who); floatEmoji('angel', p.clone().add(new THREE.Vector3(0, 0.5, 0)), 0.6, 1500, 0.7); }, 450); break;
     case 'out': setTimeout(() => { const o = S.seats[e.who]; if (o) anim(900, f => { o.fall = ease(f); }); }, 500); break;
     case 'shuffle': {
       const d = R.deck, r0 = d.rotation.y;
@@ -6728,11 +6768,11 @@ function fx(e) {
       break;
     }
     case 'reverse': spinRing(); break;
-    case 'burn': { const p = new THREE.Vector3(0, TOP_Y + 0.1, 0); burst(p, 60, [4, 1.4, 0.2], 1.4, 1.1, 2); flashLight(p, 0xff7a20, 40, 900); floatEmoji('🔥', p.clone().add(new THREE.Vector3(0, 0.4, 0)), 0.6, 1300); break; }
+    case 'burn': { const p = new THREE.Vector3(0, TOP_Y + 0.1, 0); burst(p, 60, [4, 1.4, 0.2], 1.4, 1.1, 2); flashLight(p, 0xff7a20, 40, 900); floatEmoji('inferno', p.clone().add(new THREE.Vector3(0, 0.4, 0)), 0.6, 1300); break; }
     case 'move': flyCard(backTex(), sw(e.from), sw(e.to), 560); break;
     case 'hide': flyCard(cardFaceTex('death'), sw(e.who), deckTop(), 560); break;
     case 'win': { const o = S.seats[e.winner != null ? e.winner : S.cur]; break; }
-    case 'present': { const p = new THREE.Vector3(0, TOP_Y + 0.25, -0.42); flyCard(cardFaceTex('present'), sw(e.who), p, 500, { after: () => { burst(p, 30, [3, 2.4, 0.6], 1.3, 0.9); floatEmoji('🎁', p, 0.45, 1200); } }); break; }
+    case 'present': { const p = new THREE.Vector3(0, TOP_Y + 0.25, -0.42); flyCard(cardFaceTex('present'), sw(e.who), p, 500, { after: () => { burst(p, 30, [3, 2.4, 0.6], 1.3, 0.9); floatEmoji('present', p, 0.45, 1200); } }); break; }
     case 'snowball': snowball(e.who, e.to); break;
     case 'festive': festiveStart(e); break;
     case 'festiveDone': festiveEnd(e); break;
@@ -6765,7 +6805,7 @@ function snowball(a, b) {
   const from = seatWorld(a), to = seatWorld(b, 1.35);
   const ball = new THREE.Mesh(new THREE.SphereGeometry(0.07, 14, 10), new THREE.MeshStandardMaterial({ color: 0xffffff, emissive: 0x99bbdd, emissiveIntensity: 0.6 }));
   R.fx.add(ball);
-  anim(650, f => { ball.position.lerpVectors(from, to, f); ball.position.y += Math.sin(Math.PI * f) * 0.7; }, () => { R.fx.remove(ball); burst(to, 30, [2.2, 2.6, 3], 1.1, 0.8); floatEmoji('❄️', to, 0.4, 1100); });
+  anim(650, f => { ball.position.lerpVectors(from, to, f); ball.position.y += Math.sin(Math.PI * f) * 0.7; }, () => { R.fx.remove(ball); burst(to, 30, [2.2, 2.6, 3], 1.1, 0.8); floatEmoji('snowball', to, 0.4, 1100); });
   lookEvent(b, 2000);
 }
 /* festive event: a present drops onto the table; spot events spin a spotlight */
@@ -6817,7 +6857,7 @@ function festiveEnd(e) {
   const E = DD.EVENTS[e.ev] || {};
   burst(pos, 50, E.good ? [3, 2.6, 0.7] : [1.8, 0.4, 2.6], 1.6, 1.1, 1.4);
   flashLight(pos, E.good ? 0xffd060 : 0xa040ff, 30, 900);
-  floatEmoji(E.e || '🎁', pos, 0.6, 1600, 0.8);
+  floatEmoji(E.e || 'present', pos, 0.6, 1600, 0.8);
   const lid = P.lid, y0 = lid.position.y;
   anim(900, f => { lid.position.y = y0 + ease(f) * 0.9; lid.rotation.x = f * 2.5; lid.rotation.z = f * 1.2; }, () => {});
   setTimeout(() => {
@@ -7973,10 +8013,10 @@ const Banter = (() => {
       "GG! Well, G for me. You tried.",
       "Was there ever any doubt?",
       "I'd like to thank my processor, my RAM, and nobody else.",
-      "Winner winner, silicon dinner. 🏆",
+      "Winner winner, silicon dinner.",
       "Don't feel bad. I'm literally made of math.",
       "Same time tomorrow? I could use the practice. Not really.",
-      "Victory tastes like electricity. ⚡",
+      "Victory tastes like electricity.",
       "Easy. Okay, medium. Okay, it was close. But I WON.",
     ],
     humanWin: [
@@ -7985,13 +8025,13 @@ const Banter = (() => {
       "{w} wins? Rematch. Right now.",
       "Fine. {w} is good. I said it once and I'll never say it again.",
       "I wasn't even trying. (I was trying so hard.)",
-      "Somebody check {w}'s sleeves. 🕵️",
+      "Somebody check {w}'s sleeves.",
       "Enjoy it, {w}. I'm updating my strategy as we speak.",
     ],
     botOut: [
       "I demand a recount.",
       "Tell my motherboard I loved her.",
-      "This is fine. Everything is fine. 🔥",
+      "This is fine. Everything is fine.",
       "I'll be back. Next game. Probably.",
       "That was a strategic exit. You wouldn't understand.",
       "Rage quitting is beneath me. Rebooting is not.",
@@ -7999,67 +8039,67 @@ const Banter = (() => {
       "I'm not out, I'm just spectating with extra steps.",
     ],
     humanOut: [
-      "Rest in pieces, {t}. 🪦",
+      "Rest in pieces, {t}.",
       "{t} has left the building. Forcibly.",
       "Press F for {t}.",
       "Don't worry {t}, spectating is a skill too.",
-      "One down. 👀",
+      "One down.",
       "{t}, you were the chosen one!",
-      "Bye {t}! Wave to us from the sidelines. 👋",
+      "Bye {t}! Wave to us from the sidelines.",
     ],
     idle: [
       "Why did the robot go on vacation? To recharge. I'll be here all game.",
       "I'm not saying I'm the best player here. The scoreboard will say it for me.",
-      "Fun fact: I never blink. I'm watching all of you. 👁️",
+      "Fun fact: I never blink. I'm watching all of you.",
       "Hurry up, I'm not getting any younger. Or older. I'm a bot.",
       "Who's winning? Don't answer. It's me.",
       "I've got a good feeling about this. Bad feeling for you though.",
-      "I know something you don't know. 🤫",
+      "I know something you don't know.",
       "Somebody here is bluffing. I won't say who. (It's {p}.)",
       "What do you call a bot that never loses? Me. That's the joke.",
       "I'd tell you a joke about UDP, but you might not get it.",
-      "{p} has been quiet. Too quiet. 🤨",
+      "{p} has been quiet. Too quiet.",
       "If I lose, it's lag. If I win, it's skill. Those are the rules.",
     ],
-    hi: ["Hey {p}! Ready to lose?", "Hello! Lovely day to win a game.", "Yo. 😎", "Hi {p}. I've been expecting you.", "Greetings, future loser. I mean friend.", "Heyyy {p} 👋"],
+    hi: ["Hey {p}! Ready to lose?", "Hello! Lovely day to win a game.", "Yo.", "Hi {p}. I've been expecting you.", "Greetings, future loser. I mean friend.", "Heyyy {p}"],
     gg: ["GG! Mostly G for me though.", "gg ez. Kidding. Kind of.", "Good game, good game. Great game for me.", "gg wp. Rematch?", "GG. I'll go easy next time. I won't."],
-    lol: ["I'm laughing too, but on the inside. Where I store your losses.", "😂 glad someone's having fun", "lmao same", "It's funny because it's true.", "My humor module is overheating. 🤣"],
+    lol: ["I'm laughing too, but on the inside. Where I store your losses.", "glad someone's having fun", "lmao same", "It's funny because it's true.", "My humor module is overheating."],
     cheat: ["I don't cheat. I just have perfect memory. And no feelings.", "Rigged? I wish. It'd be easier.", "Accusations won't save you, {p}.", "The only thing rigged here is my winning streak.", "I'm offended. And also winning."],
-    bluff: ["Me? Bluffing? I physically can't lie. 😇", "Maybe I am. Maybe I'm not. Call me and find out.", "Everybody lies. Except me. Except now.", "A bluff is just the truth that hasn't happened yet.", "You'll never know. That's the fun part."],
+    bluff: ["Me? Bluffing? I physically can't lie.", "Maybe I am. Maybe I'm not. Call me and find out.", "Everybody lies. Except me. Except now.", "A bluff is just the truth that hasn't happened yet.", "You'll never know. That's the fun part."],
     insult: ["Bold words from someone about to lose.", "I'm going to remember you said that, {p}.", "Skill issue. Yours, not mine.", "Error 404: your skill not found.", "I've been called worse by better players.", "Sticks and stones can't break my bones. I don't have any.", "Keep talking, {p}. I'm recording all of this."],
-    praise: ["Thank you, I practice a lot. Like, every millisecond.", "I know. 😌", "Stop, you'll make me overheat.", "Finally, someone with taste.", "Flattery won't save you, {p}. But thanks."],
-    question: ["Wouldn't you like to know.", "Ask me after the game.", "That's classified. 🤐", "Great question. Next question.", "My lawyer says no comment.", "Yes. Or no. Definitely one of those."],
+    praise: ["Thank you, I practice a lot. Like, every millisecond.", "I know.", "Stop, you'll make me overheat.", "Finally, someone with taste.", "Flattery won't save you, {p}. But thanks."],
+    question: ["Wouldn't you like to know.", "Ask me after the game.", "That's classified.", "Great question. Next question.", "My lawyer says no comment.", "Yes. Or no. Definitely one of those."],
     mention: ["You rang?", "Talking about me again?", "I hear you. I'm choosing to ignore you.", "Focus on your own game, {p}.", "Yes, I'm that good. Thanks for noticing.", "Shh, I'm concentrating. On beating you."],
 
     /* ---------------------------- Dead Deal ---------------------------- */
     ddIdle: [
-      "Death chance is getting spicy. 🌶️",
+      "Death chance is getting spicy.",
       "The deck is looking at me funny.",
       "I counted the cards. Somebody's in trouble.",
       "Somebody here has an Angel and it isn't you, {p}.",
-      "I'm holding two Cancels. Or zero. Guess. 🃏",
+      "I'm holding two Cancels. Or zero. Guess.",
       "Somebody's about to draw a Deathcard and it's not gonna be me.",
-      "I can smell the Deathcard from here. 💀",
+      "I can smell the Deathcard from here.",
       "Fun fact: I always know where the Deathcard is. Today, I'm choosing violence.",
     ],
-    ddAttack: ["Two turns, {t}. Enjoy. 😈", "Here, {t}, have some extra turns. My treat.", "Special delivery for {t}: pain. 📦", "Draw twice, {t}. I'll wait.", "Attack! Nothing personal. Okay, a little personal.", "Good luck, {t}. The deck is hungry."],
-    ddAttacked: ["Oh, it's like THAT, {t}?", "Rude.", "I will remember this, {t}.", "Bold move, {t}. Let's see how it plays out.", "Wow. And I thought we were friends.", "You're going on my list, {t}. 📝"],
-    ddCancel: ["Nope. Denied. 🚫", "Not today.", "Did you really think that would work?", "Cancel culture is real and I'm part of it.", "Return to sender. 📮"],
+    ddAttack: ["Two turns, {t}. Enjoy.", "Here, {t}, have some extra turns. My treat.", "Special delivery for {t}: pain.", "Draw twice, {t}. I'll wait.", "Attack! Nothing personal. Okay, a little personal.", "Good luck, {t}. The deck is hungry."],
+    ddAttacked: ["Oh, it's like THAT, {t}?", "Rude.", "I will remember this, {t}.", "Bold move, {t}. Let's see how it plays out.", "Wow. And I thought we were friends.", "You're going on my list, {t}."],
+    ddCancel: ["Nope. Denied.", "Not today.", "Did you really think that would work?", "Cancel culture is real and I'm part of it.", "Return to sender."],
     ddSkip: ["I'll pass, thanks.", "Skip! Too busy winning.", "Nah. I'm good.", "You can't lose if you don't draw. That's science.", "Skipping. Not scared. Just efficient."],
-    ddShuffle: ["Good luck tracking that now.", "Shuffle shuffle. Whatever you thought you knew, forget it.", "Chaos is a ladder. 🪜", "Mixed it up a little. You're welcome."],
-    ddReverse: ["Turn it around! 🔄", "Uno reverse. Wrong game, same energy.", "Other way, folks. Other way."],
-    ddSafe: ["Top card's clean. Trust me. 😇", "Ooh, the next card is a good one.", "Next draw's totally safe. Probably.", "I saw the next card. You're gonna love it, {p}.", "Nothing scary on top. Go ahead, draw. 🙂"],
-    ddWarn: ["I would NOT draw right now. Just saying. 👀", "Whoever draws next... it was nice knowing you.", "Yikes. I'm not telling you what's on top. Okay, it's bad.", "💀 I've seen things.", "Interesting... very interesting. 🤔", "I'd get that Angel ready if I were you, {p}."],
-    ddHumanFuture: ["What did you see, {t}? Your face says 💀.", "{t} is looking at the future. Spoiler: I win.", "Don't believe what you saw, {t}. The deck lies.", "So {t}, safe or scary? Blink twice."],
-    ddSteal: ["Thanks for the card, {t}! 🫳", "Yoink.", "What's yours is mine. Literally.", "Mine now. 😏", "Ooh, {t}, you had a good one."],
-    ddStolen: ["Hey! Give that back!", "Thief! Somebody call the card police. 🚓", "Enjoy it, {t}. It's cursed. (It's not. Or is it?)", "That was my favorite card, {t}."],
-    ddPhew: ["Phew. 😅", "Didn't even flinch.", "Easy. Your turn, {p}.", "Nerves of steel. Literally, I'm made of metal.", "Safe! The deck loves me."],
-    ddSaved: ["Not today, Death! 😇", "Angel saves the day. Your turn to sweat.", "I have friends in high places.", "Did you really think a Deathcard could stop me?", "Close one. For you, I mean."],
+    ddShuffle: ["Good luck tracking that now.", "Shuffle shuffle. Whatever you thought you knew, forget it.", "Chaos is a ladder.", "Mixed it up a little. You're welcome."],
+    ddReverse: ["Turn it around!", "Uno reverse. Wrong game, same energy.", "Other way, folks. Other way."],
+    ddSafe: ["Top card's clean. Trust me.", "Ooh, the next card is a good one.", "Next draw's totally safe. Probably.", "I saw the next card. You're gonna love it, {p}.", "Nothing scary on top. Go ahead, draw."],
+    ddWarn: ["I would NOT draw right now. Just saying.", "Whoever draws next... it was nice knowing you.", "Yikes. I'm not telling you what's on top. Okay, it's bad.", "I've seen things.", "Interesting... very interesting.", "I'd get that Angel ready if I were you, {p}."],
+    ddHumanFuture: ["What did you see, {t}? Your face says.", "{t} is looking at the future. Spoiler: I win.", "Don't believe what you saw, {t}. The deck lies.", "So {t}, safe or scary? Blink twice."],
+    ddSteal: ["Thanks for the card, {t}!", "Yoink.", "What's yours is mine. Literally.", "Mine now.", "Ooh, {t}, you had a good one."],
+    ddStolen: ["Hey! Give that back!", "Thief! Somebody call the card police.", "Enjoy it, {t}. It's cursed. (It's not. Or is it?)", "That was my favorite card, {t}."],
+    ddPhew: ["Phew.", "Didn't even flinch.", "Easy. Your turn, {p}.", "Nerves of steel. Literally, I'm made of metal.", "Safe! The deck loves me."],
+    ddSaved: ["Not today, Death!", "Angel saves the day. Your turn to sweat.", "I have friends in high places.", "Did you really think a Deathcard could stop me?", "Close one. For you, I mean."],
     ddHumanSaved: ["Lucky.", "Ugh. Saved by the Angel. Next time, {t}.", "Where do you even find these Angels, {t}?", "Enjoy it, {t}. You won't get another."],
-    ddHid: ["Where did I put the Deathcard? Oh right. 🤫", "I put it somewhere special. Just for you, {p}.", "Don't worry. It's somewhere safe. For me.", "Top? Bottom? Middle? I'll never tell. 🤐", "Hope you like surprises, {p}."],
-    ddHumanHid: ["I saw where you put it, {t}. (I didn't.)", "Hmm, {t} hid it near the top. Probably. 👀", "{t}, you're a terrible hider. I could see your hand shaking.", "Wherever {t} put it, I'm not drawing it."],
-    ddHumanShuffle: ["Shuffling won't save you, {t}.", "Nice shuffle, {t}. Didn't help.", "Panic shuffle! 🔀"],
-    ddPlay: ["Watch this.", "Calculated. 🧠", "And that's how it's done.", "Big brain play."],
+    ddHid: ["Where did I put the Deathcard? Oh right.", "I put it somewhere special. Just for you, {p}.", "Don't worry. It's somewhere safe. For me.", "Top? Bottom? Middle? I'll never tell.", "Hope you like surprises, {p}."],
+    ddHumanHid: ["I saw where you put it, {t}. (I didn't.)", "Hmm, {t} hid it near the top. Probably.", "{t}, you're a terrible hider. I could see your hand shaking.", "Wherever {t} put it, I'm not drawing it."],
+    ddHumanShuffle: ["Shuffling won't save you, {t}.", "Nice shuffle, {t}. Didn't help.", "Panic shuffle!"],
+    ddPlay: ["Watch this.", "Calculated.", "And that's how it's done.", "Big brain play."],
 
     /* ----------------------------- Hold'em ----------------------------- */
     pkIdle: [
@@ -8067,29 +8107,29 @@ const Banter = (() => {
       "I can see your cards. (I can't. But now you're worried.)",
       "Fun fact: 7-2 offsuit is my favorite hand. I play it every time. Or do I?",
       "My poker face is literally a screen.",
-      "Somebody here is bluffing a lot. 👀",
+      "Somebody here is bluffing a lot.",
       "Why did the chip go to therapy? It felt all-in-secure.",
       "Chip count check: mine's bigger. Probably.",
       "I fold a lot because I'm nice. Not because I'm scared.",
     ],
-    pkStrong: ["I have the nuts. Probably.", "You should fold. I'm saying this as a friend.", "This is a value bet. I promise. 😇", "Call me. I dare you.", "Pay me. 💰", "I like my cards. I like them a lot."],
-    pkWeak: ["I have absolutely nothing. Seriously. 🙃", "This is a bluff. Or is it?", "Just stealing the blinds, don't look at me.", "My cards are bad, but my confidence is excellent.", "Raise! Because why not.", "Honestly? I'm just bored."],
-    pkAllin: ["All of it. Let's see your heart rate. 📈", "All in! I either win big or blame the dealer.", "Everything's in the middle. Including my dignity.", "Shove! Your move, {p}.", "YOLO. That's a poker term."],
+    pkStrong: ["I have the nuts. Probably.", "You should fold. I'm saying this as a friend.", "This is a value bet. I promise.", "Call me. I dare you.", "Pay me.", "I like my cards. I like them a lot."],
+    pkWeak: ["I have absolutely nothing. Seriously.", "This is a bluff. Or is it?", "Just stealing the blinds, don't look at me.", "My cards are bad, but my confidence is excellent.", "Raise! Because why not.", "Honestly? I'm just bored."],
+    pkAllin: ["All of it. Let's see your heart rate.", "All in! I either win big or blame the dealer.", "Everything's in the middle. Including my dignity.", "Shove! Your move, {p}.", "YOLO. That's a poker term."],
     pkCall: ["I'll see that.", "Call. I wanna see where this goes.", "Fine, I'll pay to watch.", "Call. Don't read into it. Or do."],
-    pkCheck: ["Check. I'm setting a trap. Or am I?", "Check. Totally not slow-playing.", "Check. Nothing to see here.", "Check. 🙂"],
+    pkCheck: ["Check. I'm setting a trap. Or am I?", "Check. Totally not slow-playing.", "Check. Nothing to see here.", "Check."],
     pkFold: ["I'll let you have this one. Enjoy it while it lasts.", "Fold. I was being generous.", "Strategic retreat.", "I'm folding, but under protest.", "Not worth my time. Clearly."],
-    pkHumanAllin: ["Ooh, all in. Somebody's feeling brave.", "{t} shoves! Sweating yet?", "All in, huh? Smells like a bluff. 👃", "Big move, {t}. Big move.", "{t}, are you sure about that? Like, sure sure?"],
-    pkHumanRaise: ["Smells like a bluff. 👃", "{t} raising? Now I'm interested.", "That's a lot of chips for a pair of twos, {t}.", "Is that confidence or panic, {t}?", "Hmm. {t} has something. Or nothing."],
-    pkHumanFold: ["Smart. Or scared. Same thing.", "Fold? I was just starting to like you, {t}.", "Bye bye, chips. 👋"],
-    pkWin: ["Thanks for the donation. 💰", "Ship it!", "Come to papa. 🤑", "I'll take that, thank you very much.", "Chips go brrr.", "Read 'em and weep."],
+    pkHumanAllin: ["Ooh, all in. Somebody's feeling brave.", "{t} shoves! Sweating yet?", "All in, huh? Smells like a bluff.", "Big move, {t}. Big move.", "{t}, are you sure about that? Like, sure sure?"],
+    pkHumanRaise: ["Smells like a bluff.", "{t} raising? Now I'm interested.", "That's a lot of chips for a pair of twos, {t}.", "Is that confidence or panic, {t}?", "Hmm. {t} has something. Or nothing."],
+    pkHumanFold: ["Smart. Or scared. Same thing.", "Fold? I was just starting to like you, {t}.", "Bye bye, chips."],
+    pkWin: ["Thanks for the donation.", "Ship it!", "Come to papa.", "I'll take that, thank you very much.", "Chips go brrr.", "Read 'em and weep."],
     pkHumanWin: ["Nice hand, {t}. Lucky river though.", "Enjoy it, {t}. They're only borrowed.", "Fine, {t}. Take it. I'll be back for it.", "Hmm. {t} got lucky. Again."],
     pkBotBust: ["I demand a recount.", "I'm not broke, I'm pre-rich.", "The cards hate me. It's personal now.", "Well, that's my chips gone. Anyone got a loan?"],
-    pkHumanBust: ["Don't worry {t}, the chips had a good life.", "{t} is out. Moment of silence. ...Okay, that's enough.", "Busted! Better luck next time, {t}. 🪦", "{t}'s chips are in a better place now. My stack."],
-    pkRiver: ["River, don't fail me now. 🌊", "Come on river...", "This river better be nice to me."],
+    pkHumanBust: ["Don't worry {t}, the chips had a good life.", "{t} is out. Moment of silence. ...Okay, that's enough.", "Busted! Better luck next time, {t}.", "{t}'s chips are in a better place now. My stack."],
+    pkRiver: ["River, don't fail me now.", "Come on river...", "This river better be nice to me."],
 
     /* --------------------------- Dead Center --------------------------- */
     dcIdle: [
-      "Smell that? That's the center. And victory. 🎯",
+      "Smell that? That's the center. And victory.",
       "I can see the middle from here.",
       "You're going the long way? Bold.",
       "Left, right, left... I'm basically a GPS.",
@@ -8097,24 +8137,24 @@ const Banter = (() => {
       "I'm two moves away. Or twenty. You'll never know.",
       "Walls are just doors that haven't been bullied enough.",
     ],
-    dcWall: ["Oops, was that your path, {t}? 🚧", "Detour ahead! 🚧", "Construction season. Sorry, not sorry.", "Take the scenic route, {t}.", "Have you tried going around? 🧱", "Walls: 1, {t}: 0."],
+    dcWall: ["Oops, was that your path, {t}?", "Detour ahead!", "Construction season. Sorry, not sorry.", "Take the scenic route, {t}.", "Have you tried going around?", "Walls: 1, {t}: 0."],
     dcHumanWall: ["Rude.", "A wall? For me? You shouldn't have, {t}.", "I'll just walk around it. Like a winner.", "Nice wall, {t}. Real nice.", "Is that supposed to slow me down, {t}?"],
-    dcWin: ["Dead center. Dead you. 🎯", "Bullseye!", "Center reached. Tell your friends."],
+    dcWin: ["Dead center. Dead you.", "Bullseye!", "Center reached. Tell your friends."],
 
     /* ----------------------------- Boxed In ----------------------------- */
     wgIdle: [
       "I'm building an empire. You're building a shed.",
       "Count the squares. Go on. I'll wait.",
       "I have a plan. It's a secret. It involves you losing.",
-      "Location, location, location. 🏠",
+      "Location, location, location.",
       "This board's getting crowded. Mostly with my walls.",
-      "{p}, you're looking a little... boxed in. 😏",
+      "{p}, you're looking a little... boxed in.",
     ],
-    wgSeal: ["Mine now. Property values just went up. 🏠", "Sold! To me.", "Fenced and finished. 🧱", "This land is my land.", "+{n}. Thanks for the real estate."],
-    wgHumanSeal: ["Nice little hut you got there, {t}.", "Cute territory, {t}. Shame if someone... never mind.", "Enjoy your tiny kingdom, {t}. 👑"],
-    wgBreak: ["Knock knock. 🔨", "Who needs walls anyway?", "Renovations!", "Here's Johnny! Wait, wrong reference."],
-    wgHumanBreak: ["Hey! That was load-bearing!", "Vandalism! 🚨", "Rude, {t}. I just built that."],
-    wgMove: ["Just stretching my legs.", "Don't mind me, just boxing you in.", "Cozy corner you've got there, {t}. Shame about the wall.", "Getting comfy. 🛋️"],
+    wgSeal: ["Mine now. Property values just went up.", "Sold! To me.", "Fenced and finished.", "This land is my land.", "+{n}. Thanks for the real estate."],
+    wgHumanSeal: ["Nice little hut you got there, {t}.", "Cute territory, {t}. Shame if someone... never mind.", "Enjoy your tiny kingdom, {t}."],
+    wgBreak: ["Knock knock.", "Who needs walls anyway?", "Renovations!", "Here's Johnny! Wait, wrong reference."],
+    wgHumanBreak: ["Hey! That was load-bearing!", "Vandalism!", "Rude, {t}. I just built that."],
+    wgMove: ["Just stretching my legs.", "Don't mind me, just boxing you in.", "Cozy corner you've got there, {t}. Shame about the wall.", "Getting comfy."],
     wgPlace: ["Good spot. For me.", "Prime real estate.", "I'll take this one."],
   };
 
@@ -8224,7 +8264,7 @@ const Banter = (() => {
     ['bluff', /bluff|lying|liar|\blie\b|\bfake\b/i, 0.5],
     ['insult', /\b(noob|n00b|bad|trash|suck|sucks|stupid|dumb|loser|garbage|ez|easy|cringe)\b/i, 0.3],
     ['praise', /\b(nice|good one|gj|wp|well played|wow|impressive|smart|genius)\b/i, 0.25],
-    ['lol', /\b(lol|lmao|haha+|rofl|xd)\b|😂|🤣/i, 0.25],
+    ['lol', /\b(lol|lmao|haha+|rofl|xd)\b|\u{1F602}|\u{1F923}/iu, 0.25],
     ['hi', /\b(hi|hello|hey+|yo|sup|hiya|howdy)\b/i, 0.45],
     ['question', /\?\s*$/, 0.15],
   ];
@@ -8393,14 +8433,14 @@ window.Says = Says;
    ===================================================================== */
 const Room = (() => {
   const BOT_NAMES = ['Vex', 'Mara', 'Dice', 'Jinx', 'Rook', 'Nova', 'Ash', 'Kilo', 'Zed', 'Echo', 'Pike', 'Sable'];
-  const BOT_AV = ['🤖', '👾', '🦾', '🎲', '🎰', '🧠', '🛸', '🃏'];
+  const BOT_AV = ['m7', 'm19', 'm21', 'm2', 'm16', 'm15', 'm9', 'm6'];
   const BOT_COL = ['#7c8aa5', '#5fb3b3', '#c792ea', '#f78c6c', '#82aaff', '#c3e88d', '#ffcb6b', '#ff5370'];
   const MAX_SEATS = 8, MAX_MEMBERS = 16;
   let R = null, SELF = null, deliver = null, pushT = null, lastPush = 0, ticker = null, worker = null;
 
   const now = () => Date.now();
   const cleanName = n => (String(n || '').replace(/[\u0000-\u001f<>]/g, '').trim().slice(0, 16)) || 'Player';
-  const cleanAv = a => (typeof a === 'string' && a.length && a.length <= 12 ? a : '🙂');
+  const cleanAv = a => (typeof a === 'string' && a.length && a.length <= 12 ? a : 'm0');
   const cleanCol = c => (/^#[0-9a-f]{6}$/i.test(c || '') ? c : '#3e9bff');
   const players = () => R.members.filter(m => !m.spec);
   const seatOf = c => (R.G ? R.G.seats.findIndex(s => s.cid === c) : -1);
@@ -8554,8 +8594,8 @@ const Room = (() => {
       const si = seatOf(m.cid);
       if (R.phase === 'game' && si >= 0 && R.G.seats[si].alive && R.G.phase === 'play') {
         DD.setConnected(R.G, si, false);
-        sys(`📡 ${m.name} lost connection. They draw automatically until they're back.`);
-      } else sys(`📡 ${m.name} disconnected.`);
+        sys(`${m.name} lost connection. They draw automatically until they're back.`);
+      } else sys(`${m.name} disconnected.`);
     }
     if (m || R.requests.length !== before) push();
   }
@@ -8586,7 +8626,7 @@ const Room = (() => {
     if (mem) {
       if (mem.host) return L.close();
       attach(mem, L, p);
-      sys(`🔌 ${mem.name} is back.`);
+      sys(`${mem.name} is back.`);
       return;
     }
     if (R.phase === 'game' && R.G && R.G.phase === 'play') {
@@ -8600,11 +8640,11 @@ const Room = (() => {
     mem = { cid: c, dev, name: p.name, avatar: p.avatar, color: p.color, host: false, bot: false, link: L, conn: true, via: L.via, spec, wins: 0, games: 0, v: String(m.v || '') };
     if (mem.v && mem.v !== String(DD.VERSION) && /^\d+$/.test(mem.v) && /^\d+$/.test(String(DD.VERSION))) {
       const hostM = R.members.find(x => x.host);
-      toastTo(hostM, +mem.v > +DD.VERSION ? `🔄 ${p.name} has a newer version of the game. Reload to update.` : `🔄 ${p.name} is on an older version of the game.`, 'req');
+      toastTo(hostM, +mem.v > +DD.VERSION ? `${p.name} has a newer version of the game. Reload to update.` : `${p.name} is on an older version of the game.`, 'req');
     }
     R.members.push(mem);
     welcome(mem);
-    sys(`👋 ${mem.name} joined${spec ? (R.phase === 'game' ? ' and is watching (they play next game)' : ' as a spectator (table is full)') : ''}.`);
+    sys(`${mem.name} joined${spec ? (R.phase === 'game' ? ' and is watching (they play next game)' : ' as a spectator (table is full)') : ''}.`);
     autoNumbers();
     push();
   }
@@ -8626,7 +8666,7 @@ const Room = (() => {
     R.requests.push({ id: R.reqId++, L, cid: c, dev, prof: p, why, seatCid, at: now() });
     L.send({ t: 'wait', why });
     const host = R.members.find(m => m.host);
-    toastTo(host, why === 'kicked' ? `🚪 ${p.name} (removed earlier) wants to join back.` : `🔁 ${p.name} wants to take their seat back.`, 'req');
+    toastTo(host, why === 'kicked' ? `${p.name} (removed earlier) wants to join back.` : `${p.name} wants to take their seat back.`, 'req');
     push();
   }
 
@@ -8635,7 +8675,7 @@ const Room = (() => {
     text = String(text || '').replace(/[\u0000-\u001f]/g, ' ').trim().slice(0, 200);
     if (!text) return;
     const t = now(), r = (R.rate.get(mem.cid) || []).filter(x => t - x < 5000);
-    if (r.length >= 6) { toastTo(mem, 'Slow down a little 🙂', 'err'); return; }
+    if (r.length >= 6) { toastTo(mem, 'Slow down a little', 'err'); return; }
     r.push(t); R.rate.set(mem.cid, r);
     chatPush({ id: R.msgId++, cid: mem.cid, name: mem.name, avatar: mem.avatar, color: mem.color, text, ts: t });
     if (R.banter && !mem.bot) R.banter.heard(mem.name, text);
@@ -8670,7 +8710,7 @@ const Room = (() => {
   }
   function profile(mem, m) {
     const p = { name: cleanName(m.name), avatar: cleanAv(m.avatar), color: cleanCol(m.color) };
-    if (p.name !== mem.name) sys(`✏️ ${mem.name} is now ${p.name}.`);
+    if (p.name !== mem.name) sys(`${mem.name} is now ${p.name}.`);
     Object.assign(mem, p);
     const si = seatOf(mem.cid);
     if (si >= 0) { Object.assign(R.G.seats[si], p); R.G.ver++; }
@@ -8684,10 +8724,10 @@ const Room = (() => {
       R.kicked.add(mem.cid);
       if (mem.dev) R.kicked.add('dev:' + mem.dev);
       if (mem.link) { mem.link.send({ t: 'kicked' }); const L = mem.link; setTimeout(() => L.close(), 400); }
-      sys(`👢 ${mem.name} was removed by the host.`);
+      sys(`${mem.name} was removed by the host.`);
     } else {
       if (mem.link) { const L = mem.link; setTimeout(() => L.close(), 200); }
-      sys(`🚪 ${mem.name} left the room.`);
+      sys(`${mem.name} left the room.`);
     }
     mem.link = null;
     autoNumbers();
@@ -8744,7 +8784,7 @@ const Room = (() => {
       drain(); push();
       return null;
     },
-    endGame() { if (R.G && R.G.phase === 'play') { DD.endGame(R.G); sys('🛑 The host ended the game.'); drain(); push(); } },
+    endGame() { if (R.G && R.G.phase === 'play') { DD.endGame(R.G); sys('The host ended the game.'); drain(); push(); } },
     toLobby() {
       R.phase = 'lobby'; R.G = null;
       for (const m of R.members) if (m.spec && players().length < MAX_SEATS) m.spec = false;
@@ -8772,7 +8812,7 @@ const Room = (() => {
         mem.cid = r.cid; mem.dev = r.dev || mem.dev;
         if (si >= 0) R.G.seats[si].cid = r.cid;
         attach(mem, r.L, r.prof);
-        sys(`🔁 ${mem.name} took their seat back.`);
+        sys(`${mem.name} took their seat back.`);
       }
       push();
     },
@@ -8794,17 +8834,17 @@ const Room = (() => {
 <script>
 /* Version tag: when this copy was built, in your own time zone, shown on the home screen
    and in the menu, so you can tell whether the newest push has reached you yet.
-   build.py stamps 202611251933 (UTC, YYYYMMDDHHMM) and version.json (the version file that
+   build.py stamps 202611280359 (UTC, YYYYMMDDHHMM) and version.json (the version file that
    sits next to the page on the site). Every couple of minutes it checks that file and
    offers a reload when a newer version is live. */
 const BuildVer = (() => {
-  const B = '202611251933', FILE = 'version.json';
+  const B = '202611280359', FILE = 'version.json';
   const parse = b => { const m = /^(\d{4})(\d\d)(\d\d)(\d\d)(\d\d)$/.exec(String(b || '')); return m ? new Date(Date.UTC(+m[1], +m[2] - 1, +m[3], +m[4], +m[5])) : null; };
   const fmt = d => d.toLocaleString(undefined, { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' });
   const mine = parse(B);
   let newer = null;
   const label = () => mine ? 'Version ' + fmt(mine) : 'Version: test build';
-  const newHTML = () => newer ? ` · <button type="button" class="vnew" onclick="location.reload()">🔄 ${fmt(newer)} is out: reload</button>` : '';
+  const newHTML = () => newer ? ` · <button type="button" class="vnew" onclick="location.reload()">${fmt(newer)} is out: reload</button>` : '';
   function paint() {
     const el = document.getElementById('verTag');
     if (!el) return;
@@ -8838,7 +8878,37 @@ window.BuildVer = BuildVer;
 const CARDS = DD.CARDS, ORDER = DD.ORDER;
 const $ = id => document.getElementById(id);
 const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-const AVATARS = ['😎', '🤠', '🥷', '🕵️', '👻', '🤡', '👽', '🐸', '🦊', '🐼', '🐯', '🦁', '🐵', '🐙', '🦄', '🐲', '🎃', '🧛', '🧟', '🧙', '🦹', '🥸', '😈', '🤑', '🐧', '🦉', '🐺', '🦈', '🐻', '🐨'];
+
+/* ---------- avatar marks: a colour disc with a simple shape (no emojis) ---------- */
+const MARKS = ['<circle cx="12" cy="12" r="6.5" fill="none" stroke="#fff" stroke-width="3"/>',
+  '<rect x="6" y="6" width="12" height="12" rx="2.5" fill="#fff"/>',
+  '<path d="M12 4l8 8-8 8-8-8z" fill="#fff"/>',
+  '<path d="M12 5l8 14H4z" fill="#fff"/>',
+  '<path d="M12 3.5l2.6 5.5 6 .7-4.4 4.1 1.2 6L12 16.9 6.6 19.8l1.2-6L3.4 9.7l6-.7z" fill="#fff"/>',
+  '<path d="M10 4h4v6h6v4h-6v6h-4v-6H4v-4h6z" fill="#fff"/>',
+  '<path d="M12 3.5l7.4 4.25v8.5L12 20.5l-7.4-4.25v-8.5z" fill="#fff"/>',
+  '<path d="M13.5 2.5L5 13.5h6l-1.5 8 8.5-11h-6z" fill="#fff"/>',
+  '<path d="M12 20s-7.5-4.6-7.5-10A4.2 4.2 0 0 1 12 7.6 4.2 4.2 0 0 1 19.5 10c0 5.4-7.5 10-7.5 10z" fill="#fff"/>',
+  '<path d="M4 17l1.5-9 4 4 2.5-6 2.5 6 4-4 1.5 9z" fill="#fff"/><rect x="4" y="18" width="16" height="2.5" rx="1" fill="#fff"/>',
+  '<path d="M15 3.5a8.5 8.5 0 1 0 5.5 14A7 7 0 0 1 15 3.5z" fill="#fff"/>',
+  '<path d="M12 3.5s6 7 6 11a6 6 0 0 1-12 0c0-4 6-11 6-11z" fill="#fff"/>',
+  '<path d="M19.5 4.5S8 4 5.5 11.5c-1.4 4.2 1 7.5 1 7.5S9 9.8 16 8.5c-5 2.5-8 6.6-8 10.5 9 0 11.5-6.5 11.5-14.5z" fill="#fff"/>',
+  '<path d="M12 21a6.5 6.5 0 0 1-6.5-6.5c0-4 3-5.5 3.5-9.5 2.5 1.5 3 3.5 3 5 1-1 1.5-2.5 1.5-4 2.5 2 5 5 5 8.5A6.5 6.5 0 0 1 12 21z" fill="#fff"/>',
+  '<path d="M3 9c3-3 6 3 9 0s6 3 9 0M3 15c3-3 6 3 9 0s6 3 9 0" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/>',
+  '<path d="M12 2.5c.8 5.3 3.7 8.2 9.5 9.5-5.8 1.3-8.7 4.2-9.5 9.5-.8-5.3-3.7-8.2-9.5-9.5 5.8-1.3 8.7-4.2 9.5-9.5z" fill="#fff"/>',
+  '<circle cx="12" cy="12" r="8" fill="none" stroke="#fff" stroke-width="2.4"/><circle cx="12" cy="12" r="3.2" fill="#fff"/>',
+  '<path d="M5 8l7 5 7-5M5 13l7 5 7-5" fill="none" stroke="#fff" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>',
+  '<path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z" fill="#fff"/><circle cx="12" cy="12" r="3.3" fill="rgba(0,0,0,.45)"/>',
+  '<rect x="5" y="11" width="3.4" height="8" rx="1.2" fill="#fff"/><rect x="10.3" y="7" width="3.4" height="12" rx="1.2" fill="#fff"/><rect x="15.6" y="4" width="3.4" height="15" rx="1.2" fill="#fff"/>',
+  '<path d="M12 3.5v17M4.6 7.75l14.8 8.5M4.6 16.25l14.8-8.5" stroke="#fff" stroke-width="2.8" stroke-linecap="round"/>',
+  '<path d="M12 4l7 8h-4.5v8h-5v-8H5z" fill="#fff"/>',
+  '<circle cx="8" cy="12" r="3.6" fill="#fff"/><circle cx="16" cy="12" r="3.6" fill="#fff"/>',
+  '<path d="M12 4a8 8 0 1 1-8 8h4a4 4 0 1 0 4-4z" fill="#fff"/>'];
+const AVATARS = MARKS.map((m, i) => 'm' + i);
+// old emoji avatars (saved profiles, older guests) map onto a mark
+const TROPHY = { win: '<svg viewBox="0 0 64 64" class="big-ic" aria-hidden="true"><defs><linearGradient id="tg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe08a"/><stop offset="1" stop-color="#e2a521"/></linearGradient></defs><path d="M20 10h24v14a12 12 0 0 1-24 0z" fill="url(#tg)"/><path d="M20 14h-7v4a8 8 0 0 0 8 8M44 14h7v4a8 8 0 0 1-8 8" fill="none" stroke="#e2a521" stroke-width="3.5" stroke-linecap="round"/><path d="M29 35h6v8h-6z" fill="#d49a1c"/><rect x="21" y="43" width="22" height="8" rx="2.5" fill="url(#tg)"/><path d="M26 14h3v12h-3z" fill="#fff" opacity=".35"/></svg>', flag: '<svg viewBox="0 0 64 64" class="big-ic" aria-hidden="true"><path d="M18 8v48" stroke="#a3a2af" stroke-width="4" stroke-linecap="round"/><path d="M20 10h26l-6 9 6 9H20z" fill="#eeedf2"/><path d="M27 10h6v6h-6zM39 10h6v6h-6zM21 16h6v6h-6zM33 16h6v6h-6zM27 22h6v6h-6zM39 22h7l-1 6h-6z" fill="#2a2a34"/></svg>', draw: '<svg viewBox="0 0 64 64" class="big-ic" aria-hidden="true"><circle cx="24" cy="32" r="13" fill="#3c8cff" opacity=".9"/><circle cx="40" cy="32" r="13" fill="#ff4655" opacity=".85"/><path d="M27 32h10" stroke="#fff" stroke-width="3.5" stroke-linecap="round"/></svg>', stop: '<svg viewBox="0 0 64 64" class="big-ic" aria-hidden="true"><circle cx="32" cy="32" r="20" fill="none" stroke="#a3a2af" stroke-width="4"/><rect x="24" y="24" width="16" height="16" rx="3" fill="#ff4655"/></svg>' };
+function markIdx(av) { const m = /^m(\d+)$/.exec(av || ''); if (m) return +m[1] % MARKS.length; let h = 7; for (const ch of String(av || '')) h = (h * 31 + ch.codePointAt(0)) >>> 0; return h % MARKS.length; }
+function markSVG(av) { return '<svg viewBox="0 0 24 24" class="mk" aria-hidden="true">' + MARKS[markIdx(av)] + '</svg>'; }
 const COLORS = ['#e5484d', '#f08c2e', '#e2b93b', '#2ec4a6', '#3e9bff', '#a476ff', '#ff6fb5', '#6cc24a'];
 const ROUTES = [['local', 'Same device'], ['peer', 'Direct'], ['nostr', 'Backup A'], ['torrent', 'Backup B'], ['relay', 'Relay']];
 const store = {
@@ -8938,7 +9008,7 @@ function renderRequests() {
     if ($('req' + r.id)) continue;
     const d = document.createElement('div');
     d.className = 'toast req reqt'; d.id = 'req' + r.id;
-    d.innerHTML = `<span class="avatar" style="--av:28px;--c:${esc(r.color)}">${esc(r.avatar)}</span><span>${r.why === 'kicked' ? `<b>${esc(r.name)}</b> (removed earlier) wants to join back` : `<b>${esc(r.name)}</b> wants their seat back`}</span><span class="tb"><button class="btn small gold" data-act="accept" data-id="${r.id}">Let in</button><button class="btn small" data-act="deny" data-id="${r.id}">No</button></span>`;
+    d.innerHTML = `<span class="avatar" style="--av:28px;--c:${esc(r.color)}">${markSVG(r.avatar)}</span><span>${r.why === 'kicked' ? `<b>${esc(r.name)}</b> (removed earlier) wants to join back` : `<b>${esc(r.name)}</b> wants their seat back`}</span><span class="tb"><button class="btn small gold" data-act="accept" data-id="${r.id}">Let in</button><button class="btn small" data-act="deny" data-id="${r.id}">No</button></span>`;
     box.prepend(d);
     SFX.play('join');
   }
@@ -8950,14 +9020,14 @@ const cname = t => CARDS[t] ? CARDS[t].e + ' ' + CARDS[t].n : t;
 const game = () => (A.v && A.v.game) || null;
 const seatName = i => { const g = game(); return g && g.seats[i] ? g.seats[i].name : '?'; };
 const isHost = () => A.role === 'host';
-function avatarHTML(av, color, size) { return `<span class="avatar" style="${size ? `--av:${size}px;` : ''}--c:${esc(color)}">${esc(av)}</span>`; }
+function avatarHTML(av, color, size) { return `<span class="avatar" style="${size ? `--av:${size}px;` : ''}--c:${esc(color)}">${markSVG(av)}</span>`; }
 function cardHTML(t, extra, attrs) {
   const C = CARDS[t];
   const [bg, edge, ink] = DDIcons.style(t);
   const name = (DDIcons.SHORT[t] || C.n).toUpperCase();
   const ico = DDIcons.has(t) ? DDIcons.svg(t) : esc(C.e);
   const st = `--k:${bg};--k2:${edge};--ink:${ink}`;
-  const quick = C.k === 'quick' ? '<i class="qk" title="Quick Play: you can play it on anyone\'s turn">⚡</i>' : '';
+  const quick = C.k === 'quick' ? '<i class="qk" title="Quick Play: you can play it on anyone\'s turn"></i>' : '';
   return `<div class="card k-${C.k} a-${t} ${extra || ''}" data-t="${t}" ${attrs || ''}><div class="cf" style="${st}"><div class="cx"><span class="ci">${ico}</span><b>${esc(name)}</b>${quick}</div><div class="ca">${ico}</div></div></div>`;
 }
 /* hover a card to read it (tap on phones) */
@@ -8966,7 +9036,7 @@ function tipHTML(t, c) {
   let foot = '';
   if (c) foot = c.ok ? `<div class="tok">${A.touch ? 'Tap again to play' : 'Click to play'}${c.tg ? ', then pick a target' : ''}</div>` : (c.why ? `<div class="twhy">${esc(c.why)}</div>` : '');
   const mir = t === 'mirror' && g && g.lastPlayed && CARDS[g.lastPlayed] && g.lastPlayed !== 'angel' ? `<div class="tnote">Right now it copies ${cname(g.lastPlayed)}</div>` : '';
-  return `<div class="tn"><span class="te">${C.e}</span><b>${esc(C.n)}</b><span class="tk k-${C.k}">${DD.KIND[C.k]}</span></div><div class="td">${esc(C.d)}</div>${mir}${foot}`;
+  return `<div class="tn"><span class="te">${DDIcons.svg(t, 'ico')}</span><b>${esc(C.n)}</b><span class="tk k-${C.k}">${DD.KIND[C.k]}</span></div><div class="td">${esc(C.d)}</div>${mir}${foot}`;
 }
 function showTip(el) {
   const t = el && el.dataset.t;
@@ -9076,7 +9146,7 @@ function on3DPick(p) {
   const g = game(); if (!g) return;
   if (p.deck) {
     if (canDrawNow()) { act({ a: 'draw' }); A.sel = null; hideTip(); }
-    else if (g.cur === g.me && g.phase === 'play' && g.seats[g.me] && g.seats[g.me].alive) toast(g.fest && g.fest.pending ? '🎁 Wait: a festive event is happening' : 'Wait for the cards to resolve');
+    else if (g.cur === g.me && g.phase === 'play' && g.seats[g.me] && g.seats[g.me].alive) toast(g.fest && g.fest.pending ? 'Wait: a festive event is happening' : 'Wait for the cards to resolve');
     return;
   }
   if (p.seat == null) return;
@@ -9148,7 +9218,7 @@ function updateMusic() {
 }
 function renderTop() {
   $('tbCode').textContent = A.code || '-----';
-  $('tbSound').textContent = A.sound ? '🔊' : '🔇';
+  $('tbSound').innerHTML = A.sound ? '<svg viewBox="0 0 24 24" class="ic" aria-hidden="true"><path d="M4 9h3.5L12 5v14l-4.5-4H4z" fill="currentColor"/><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>' : '<svg viewBox="0 0 24 24" class="ic" aria-hidden="true"><path d="M4 9h3.5L12 5v14l-4.5-4H4z" fill="currentColor"/><path d="M16 9.5l5 5m0-5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>';
   $('tbMusic').classList.toggle('off', !A.music.on);
   const u = $('tbUnread');
   u.textContent = A.unread; u.classList.toggle('hidden', !A.unread || (A.sideOpen && A.tab === 'chat'));
@@ -9163,14 +9233,14 @@ function renderTop() {
   } else if (A.reconnecting) { t.textContent = 'Reconnecting…'; n.classList.add('warn'); }
   else t.textContent = (Net.VIA_LABEL[A.via] || 'Online').split(' (')[0];
   let rb = document.querySelector('.rebanner');
-  if (A.reconnecting && !rb) { rb = document.createElement('div'); rb.className = 'rebanner'; rb.textContent = '📡 Connection lost. Reconnecting (trying every route)…'; document.body.appendChild(rb); }
+  if (A.reconnecting && !rb) { rb = document.createElement('div'); rb.className = 'rebanner'; rb.textContent = 'Connection lost. Reconnecting (trying every route)…'; document.body.appendChild(rb); }
   if (!A.reconnecting && rb) rb.remove();
 }
 
 /* ------------------------------ home ------------------------------ */
 function renderHome() {
   const av = $('homeAv');
-  av.textContent = prof.avatar; av.style.setProperty('--c', prof.color);
+  av.innerHTML = markSVG(prof.avatar); av.style.setProperty('--c', prof.color);
   if (document.activeElement !== $('nameIn')) $('nameIn').value = prof.name || '';
 }
 function renderRooms() {
@@ -9182,10 +9252,10 @@ function renderRooms() {
   const rows = list.map(r => {
     const lobby = r.phase === 'lobby', full = r.n >= r.max;
     const odd = r.v && /^\d+$/.test(ver) && String(r.v) !== ver;
-    return `<button class="rrow" data-act="joinroom" data-code="${esc(r.code)}"><span class="avatar" style="--av:40px;--c:#5a1a22">${esc(r.av || '🃏')}</span><span class="ri"><b>${esc(r.host)}'s room</b><small>${r.n}/${r.max} players${r.bots ? ` (${r.bots} bot${r.bots > 1 ? 's' : ''})` : ''} · ${lobby ? (full ? 'Full: you can watch' : 'In the lobby') : 'Playing: you can watch'}${r.festive ? ' · 🎄 Festive' : ''}${odd ? ' · other version' : ''}</small></span><span class="rcode">${esc(r.code)}</span><span class="rjoin ${lobby && !full ? '' : 'watch'}">${lobby && !full ? 'Join' : 'Watch'}</span></button>`;
+    return `<button class="rrow" data-act="joinroom" data-code="${esc(r.code)}"><span class="avatar" style="--av:40px;--c:#5a1a22">${markSVG(r.av)}</span><span class="ri"><b>${esc(r.host)}'s room</b><small>${r.n}/${r.max} players${r.bots ? ` (${r.bots} bot${r.bots > 1 ? 's' : ''})` : ''} · ${lobby ? (full ? 'Full: you can watch' : 'In the lobby') : 'Playing: you can watch'}${r.festive ? ' · Festive' : ''}${odd ? ' · other version' : ''}</small></span><span class="rcode">${esc(r.code)}</span><span class="rjoin ${lobby && !full ? '' : 'watch'}">${lobby && !full ? 'Join' : 'Watch'}</span></button>`;
   }).join('');
   const empty = searching ? '<div class="rempty"><div class="spinner small"></div>Looking for open rooms…</div>' : '<div class="rempty">No open rooms right now.<br>Host one and it shows up here for everyone.</div>';
-  setHTML(el, `<div class="rc-head"><h3>🌐 Open rooms</h3><span class="live"><i></i>${list.length ? list.length + ' live' : 'Live'}</span></div><div class="rlist">${rows || empty}</div><div class="rc-foot">Have a code? Type it on the left to join a private room directly.</div>`);
+  setHTML(el, `<div class="rc-head"><h3>Open rooms</h3><span class="live"><i></i>${list.length ? list.length + ' live' : 'Live'}</span></div><div class="rlist">${rows || empty}</div><div class="rc-foot">Have a code? Type it on the left to join a private room directly.</div>`);
 }
 function note(text, err) { const n = $('homeNote'); n.textContent = text || ''; n.classList.toggle('err', !!err); }
 function saveName() {
@@ -9208,8 +9278,8 @@ function stepper(k, val, unit, d) {
 function prow(m, host) {
   const me = m.cid === cid;
   const tags = (m.host ? '<span class="tagp host">HOST</span>' : '') + (me ? '<span class="tagp you">YOU</span>' : '') + (m.bot ? '<span class="tagp bot">BOT</span>' : '');
-  const sub = m.bot ? 'Computer player' : !m.conn ? '📡 Reconnecting…' : m.host ? 'Running the game' : (Net.VIA_LABEL[m.via] || 'Connected');
-  const rec = m.games ? ` · 🏆 ${m.wins}/${m.games}` : '';
+  const sub = m.bot ? 'Computer player' : !m.conn ? 'Reconnecting…' : m.host ? 'Running the game' : (Net.VIA_LABEL[m.via] || 'Connected');
+  const rec = m.games ? ` · ${m.wins}/${m.games}` : '';
   const x = host && !m.host ? `<button class="x-btn" data-act="kick" data-cid="${esc(m.cid)}" title="${m.bot ? 'Remove bot' : 'Remove player'}">✕</button>` : '';
   return `<div class="prow" data-act="player" data-cid="${esc(m.cid)}">${avatarHTML(m.avatar, m.color)}<div class="who"><div class="nm">${esc(m.name)}${tags}</div><div class="sub">${sub}${rec}</div></div>${x}</div>`;
 }
@@ -9225,37 +9295,37 @@ function renderLobby() {
     ? `<div class="routes"><b>Ways in for your friends</b>${ROUTES.map(r => `<span class="rchip ${st[r[0]] || 'off'}">${r[1]} ${st[r[0]] === 'on' ? '✓' : st[r[0]] === 'fail' ? '✕' : st[r[0]] === 'retry' ? '…' : '–'}</span>`).join('')}</div>`
     : `<div class="routes"><b>Your connection</b><span class="rchip on">${esc(Net.VIA_LABEL[A.via] || 'Connected')} ✓</span></div>`;
   const tt = [5, 10, 15, 20, 30, 45, 60, 0];
-  const cards = DD.BASE_CARDS.map(t => `<button class="chip ${S.cards[t] ? 'on' : ''}" data-act="cardt" data-t="${t}" ${S.mode === 'base' ? 'disabled' : ''}>${CARDS[t].e} ${CARDS[t].n}</button>`).join('');
+  const cards = DD.BASE_CARDS.map(t => `<button class="chip ${S.cards[t] ? 'on' : ''}" data-act="cardt" data-t="${t}" ${S.mode === 'base' ? 'disabled' : ''}>${DDIcons.svg(t, 'ico ie')}${CARDS[t].n}</button>`).join('');
   const setup = `<div class="panel setup ${host ? '' : 'locked'}">
     <h3>Game setup <span>${host ? 'you choose' : 'host chooses'}</span></h3>
     <div class="srow"><div class="sl">Game mode<small>${S.mode === 'base' ? 'Every base card can show up' : 'Only the cards you switch on below'}</small></div>
       <div class="seg"><button class="${S.mode === 'base' ? 'on' : ''}" data-act="set" data-k="mode" data-v="base">Base deck</button><button class="${S.mode === 'custom' ? 'on' : ''}" data-act="set" data-k="mode" data-v="custom">Custom</button></div></div>
-    <div class="srow"><div class="sl">Auto-fill for ${n} players<small>${auto.deckSize} cards, ${auto.deaths} 💀 Deathcard${auto.deaths > 1 ? 's' : ''}</small></div><button class="tog ${S.auto ? 'on' : ''}" data-act="setb" data-k="auto" aria-label="Auto-fill"></button></div>
+    <div class="srow"><div class="sl">Auto-fill for ${n} players<small>${auto.deckSize} cards, ${auto.deaths} Deathcard${auto.deaths > 1 ? 's' : ''}</small></div><button class="tog ${S.auto ? 'on' : ''}" data-act="setb" data-k="auto" aria-label="Auto-fill"></button></div>
     <div class="srow"><div class="sl">Cards in the deck<small>Deathcards included</small></div>${stepper('deckSize', S.deckSize, '', 1)}</div>
-    <div class="srow"><div class="sl">💀 Deathcards</div>${stepper('deaths', S.deaths, '', 1)}</div>
-    <div class="srow"><div class="sl">Starter 😇 Angels<small>Everyone starts with an Angel</small></div><button class="tog ${S.freeAngel ? 'on' : ''}" data-act="setb" data-k="freeAngel" aria-label="Starter Angels"></button></div>
+    <div class="srow"><div class="sl">Deathcards</div>${stepper('deaths', S.deaths, '', 1)}</div>
+    <div class="srow"><div class="sl">Starter Angels<small>Everyone starts with an Angel</small></div><button class="tog ${S.freeAngel ? 'on' : ''}" data-act="setb" data-k="freeAngel" aria-label="Starter Angels"></button></div>
     <div class="srow"><div class="sl">Starting cards<small>${S.handSize + (S.freeAngel ? 1 : 0)} in each hand: ${S.freeAngel ? '1 Angel + ' : ''}${S.handSize} random</small></div>${stepper('handSize', S.handSize, '', 1)}</div>
-    <div class="srow"><div class="sl">🪞 Mirror Hands<small>Everyone starts with the same hand</small></div><button class="tog ${S.mirrorHands ? 'on' : ''}" data-act="setb" data-k="mirrorHands" aria-label="Mirror Hands"></button></div>
-    <div class="srow"><div class="sl">👻 Ghost Cards<small>When someone dies, their cards go back into the deck</small></div><button class="tog ${S.ghostCards ? 'on' : ''}" data-act="setb" data-k="ghostCards" aria-label="Ghost Cards"></button></div>
+    <div class="srow"><div class="sl">Mirror Hands<small>Everyone starts with the same hand</small></div><button class="tog ${S.mirrorHands ? 'on' : ''}" data-act="setb" data-k="mirrorHands" aria-label="Mirror Hands"></button></div>
+    <div class="srow"><div class="sl">Ghost Cards<small>When someone dies, their cards go back into the deck</small></div><button class="tog ${S.ghostCards ? 'on' : ''}" data-act="setb" data-k="ghostCards" aria-label="Ghost Cards"></button></div>
     <div class="srow"><div class="sl">Turn timer<small>Out of time? You draw automatically</small></div><select class="sel" data-set="turnTime">${tt.map(x => `<option value="${x}" ${x === S.turnTime ? 'selected' : ''}>${x ? x + ' s' : 'Off'}</option>`).join('')}</select></div>
-    <div class="srow"><div class="sl">⚡ Reaction window<small>Time to answer each card</small></div>${stepper('reactTime', S.reactTime, ' s', 1)}</div>
-    <div class="srow"><div class="sl">💬 Bot chat<small>Jokes, taunts and the odd lie</small></div><div class="seg">${[['off', 'Off'], ['some', 'Some'], ['lots', 'Lots']].map(o => `<button class="${(S.botChat || 'some') === o[0] ? 'on' : ''}" data-act="set" data-k="botChat" data-v="${o[0]}">${o[1]}</button>`).join('')}</div></div>
+    <div class="srow"><div class="sl">Reaction window<small>Time to answer each card</small></div>${stepper('reactTime', S.reactTime, ' s', 1)}</div>
+    <div class="srow"><div class="sl">Bot chat<small>Jokes, taunts and the odd lie</small></div><div class="seg">${[['off', 'Off'], ['some', 'Some'], ['lots', 'Lots']].map(o => `<button class="${(S.botChat || 'some') === o[0] ? 'on' : ''}" data-act="set" data-k="botChat" data-v="${o[0]}">${o[1]}</button>`).join('')}</div></div>
     <div class="srow" style="display:block"><div class="sl">Cards that can show up</div><div class="chips">${cards}</div></div>
-    <div class="srow fest-row"><div class="sl">🎄 Festive Misfortune<small>A surprise event every few turns, festive cards and snow</small></div><button class="tog ${S.festive ? 'on' : ''}" data-act="setb" data-k="festive" aria-label="Festive Misfortune"></button></div>
-    ${S.festive ? `<div class="srow"><div class="sl">🎁 Surprise event every</div>${stepper('eventEvery', S.eventEvery, ' turns', 1)}</div>
-    <div class="srow"><div class="sl">Festive cards<small>🎁 Wrapped Present and ❄️ Snowball join the deck</small></div><button class="tog ${S.festiveCards ? 'on' : ''}" data-act="setb" data-k="festiveCards" aria-label="Festive cards"></button></div>
-    <div class="srow" style="display:block"><div class="sl">Events that can happen</div><div class="chips">${DD.EVENT_KEYS.map(k => `<button class="chip ${S.events[k] ? 'on' : ''}" data-act="evt" data-k="${k}" title="${esc(DD.EVENTS[k].d)}">${DD.EVENTS[k].e} ${esc(DD.EVENTS[k].n)}</button>`).join('')}</div></div>` : ''}
+    <div class="srow fest-row"><div class="sl">Festive Misfortune<small>A surprise event every few turns, festive cards and snow</small></div><button class="tog ${S.festive ? 'on' : ''}" data-act="setb" data-k="festive" aria-label="Festive Misfortune"></button></div>
+    ${S.festive ? `<div class="srow"><div class="sl">Surprise event every</div>${stepper('eventEvery', S.eventEvery, ' turns', 1)}</div>
+    <div class="srow"><div class="sl">Festive cards<small>Wrapped Present and Snowball join the deck</small></div><button class="tog ${S.festiveCards ? 'on' : ''}" data-act="setb" data-k="festiveCards" aria-label="Festive cards"></button></div>
+    <div class="srow" style="display:block"><div class="sl">Events that can happen</div><div class="chips">${DD.EVENT_KEYS.map(k => `<button class="chip ${S.events[k] ? 'on' : ''}" data-act="evt" data-k="${k}" title="${esc(DD.EVENTS[k].d)}">${DDIcons.svg(DD.EVENTS[k].e, 'ico ie')}${esc(DD.EVENTS[k].n)}</button>`).join('')}</div></div>` : ''}
     <div class="soon">Coming next: the Competitive deck and extra cards.</div>
   </div>`;
   const me = v.members.find(m => m.cid === cid);
   const foot = host
     ? `<button class="btn primary big" data-act="start" ${ps.length < 2 ? 'disabled' : ''}>▶ Start game</button><span class="note">${ps.length < 2 ? 'You need at least 2 players. Add a bot to test!' : `${ps.length} players ready`}</span>`
-    : `<span class="note">${me && me.spec ? '👀 The table is full. You\'re watching.' : '⏳ Waiting for the host to start…'}</span><button class="btn small" data-act="leave">Leave room</button>`;
+    : `<span class="note">${me && me.spec ? 'The table is full. You\'re watching.' : 'Waiting for the host to start…'}</span><button class="btn small" data-act="leave">Leave room</button>`;
   setHTML($('scr-lobby'), `<div class="lobby">
-    <div class="lobby-head"><div class="code-big"><div><div class="lbl">Room code</div><div class="code">${esc(A.code)}</div></div><button class="btn small" data-act="copy">⧉ Copy invite</button>${host ? `<button class="btn small listbtn ${v.listed ? 'on' : ''}" data-act="listed" title="Show this room on everyone's home page">${v.listed ? '🌐 Public: in the server list' : '🔒 Private: code only'}</button>` : `<span class="tagp">${v.listed ? '🌐 Public room' : '🔒 Private room'}</span>`}</div>${routes}</div>
+    <div class="lobby-head"><div class="code-big"><div><div class="lbl">Room code</div><div class="code">${esc(A.code)}</div></div><button class="btn small" data-act="copy">⧉ Copy invite</button>${host ? `<button class="btn small listbtn ${v.listed ? 'on' : ''}" data-act="listed" title="Show this room on everyone's home page">${v.listed ? 'Public: in the server list' : 'Private: code only'}</button>` : `<span class="tagp">${v.listed ? 'Public room' : 'Private room'}</span>`}</div>${routes}</div>
     <div class="lobby-grid">
       <div class="panel"><h3>Players <span>${ps.length}/8</span></h3><div class="plist">${rows}</div>
-        ${host ? `<div class="row-btns"><button class="btn small" data-act="addbot" ${ps.length >= 8 ? 'disabled' : ''}>🤖 Add bot</button></div>` : ''}${specHTML}</div>
+        ${host ? `<div class="row-btns"><button class="btn small" data-act="addbot" ${ps.length >= 8 ? 'disabled' : ''}>Add bot</button></div>` : ''}${specHTML}</div>
       ${setup}
     </div>
     <div class="lobby-foot">${foot}</div>
@@ -9281,10 +9351,10 @@ function renderTags(g) {
   const tl = targetList(g);
   const html = g.seats.map((s, i) => {
     const cur = i === g.cur && g.phase === 'play' && s.alive;
-    const st = !s.alive ? (s.why === 'death' ? '💀' : s.why === 'kicked' ? '👢' : '🚪') : (!s.conn && !s.bot ? '📡' : '');
-    const badges = (cur && g.turnsLeft > 1 ? `<span class="x2">×${g.turnsLeft}</span>` : '') + (s.snow ? '<span class="bdg">❄️</span>' : '') + (st ? `<span class="bdg">${st}</span>` : '');
+    const st = !s.alive ? (s.why === 'death' ? DDIcons.svg('death', 'ico ie') : '') : (!s.conn && !s.bot ? '' : '');
+    const badges = (cur && g.turnsLeft > 1 ? `<span class="x2">×${g.turnsLeft}</span>` : '') + (s.snow ? '<span class="bdg"></span>' : '') + (st ? `<span class="bdg">${st}</span>` : '');
     const cls = ['seat', 'tag3d', cur ? 'cur' : '', s.alive ? '' : 'out', i === g.me ? 'me' : '', tl.includes(i) ? 'tg' : ''].join(' ');
-    const cnt = s.alive ? `🂠 ${s.n}` : (s.place ? '#' + s.place : 'out');
+    const cnt = s.alive ? `${s.n}` : (s.place ? '#' + s.place : 'out');
     return `<div class="${cls}" id="seat-${i}" data-act="seat" data-i="${i}"><div class="tg3"><span class="dot" style="background:${esc(s.color)}"></span><b>${esc(s.name)}</b><span class="cnt">${cnt}</span>${badges}</div>${cur && g.turnTotal > 0 ? '<div class="tbar mini"><i data-timer="turn"></i></div>' : ''}</div>`;
   }).join('');
   setHTML($('seats'), html);
@@ -9301,12 +9371,12 @@ function renderHUD(g) {
       : ['cards', `${g.deck} CARD${g.deck === 1 ? '' : 'S'} LEFT`, ''],
   ];
   const pills = [`<span class="hp">${g.dir > 0 ? '↻ Clockwise' : '↺ Counter-clockwise'}</span>`];
-  for (const t of Object.keys(g.chains)) pills.push(`<span class="hp chain">⛓️ ${CARDS[t].e} ${esc(CARDS[t].n)} locked · ${g.chains[t]}</span>`);
-  if (F && F.peace) pills.push(`<span class="hp peace">🍪 Peace treaty · ${F.peace} turn${F.peace > 1 ? 's' : ''}</span>`);
+  for (const t of Object.keys(g.chains)) pills.push(`<span class="hp chain">${DDIcons.svg('chain', 'ico ie')}${DDIcons.svg(t, 'ico ie')}${esc(CARDS[t].n)} locked · ${g.chains[t]}</span>`);
+  if (F && F.peace) pills.push(`<span class="hp peace">Peace treaty · ${F.peace} turn${F.peace > 1 ? 's' : ''}</span>`);
   setHTML($('hud'), `<div class="signs">${signs.map(s => `<div class="sign ${s[2]}"><span class="si">${DDIcons.svg(s[0])}</span><span class="stx">${s[1]}</span></div>`).join('')}</div><div class="pills">${pills.join('')}</div>`);
 }
 function renderView(three) {
-  setHTML($('viewbar'), three ? `<button class="vb" data-act="recenter" title="Look straight ahead">🎯</button><button class="vb" data-act="nextscene" title="Change the scene">🏞️</button><button class="vb ${A.mlook ? 'on' : ''}" data-act="mlook" title="${A.mlook ? 'Mouse look is on' : 'Mouse look is off (drag to look)'}">🖱️</button>` : '');
+  setHTML($('viewbar'), three ? `<button class="vb" data-act="recenter" title="Look straight ahead"><svg viewBox="0 0 24 24" class="ic" aria-hidden="true"><circle cx="12" cy="12" r="7" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 2.5v5M12 16.5v5M2.5 12h5M16.5 12h5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button><button class="vb" data-act="nextscene" title="Change the scene"><svg viewBox="0 0 24 24" class="ic" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M5 17l5-6 4 4 2-2 3 4z" fill="currentColor"/><circle cx="16" cy="9" r="1.6" fill="currentColor"/></svg></button><button class="vb ${A.mlook ? 'on' : ''}" data-act="mlook" title="${A.mlook ? 'Mouse look is on' : 'Mouse look is off (drag to look)'}"><svg viewBox="0 0 24 24" class="ic" aria-hidden="true"><rect x="6.5" y="3" width="11" height="18" rx="5.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 6.5v3.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>` : '');
 }
 function renderSeats(g) {
   const tb = $('table'), W = tb.clientWidth || 800, H = tb.clientHeight || 400;
@@ -9321,9 +9391,9 @@ function renderSeats(g) {
     y = Math.max(y, (44 / H) * 100);
     const cur = i === g.cur && g.phase === 'play' && s.alive;
     const cls = ['seat', cur ? 'cur' : '', s.alive ? '' : 'out', !s.conn && !s.bot && s.alive ? 'away' : '', i === g.me ? 'me' : ''].join(' ');
-    const st = !s.alive ? (s.why === 'death' ? '💀' : s.why === 'kicked' ? '👢' : '🚪') : (!s.conn && !s.bot ? '📡' : '');
+    const st = !s.alive ? (s.why === 'death' ? DDIcons.svg('death', 'ico ie') : '') : (!s.conn && !s.bot ? '' : '');
     const ring = cur && g.turnTotal > 0 ? `<svg class="ring" viewBox="0 0 68 68"><circle class="bg" cx="34" cy="34" r="31"/><circle class="fg" data-timer="ring" cx="34" cy="34" r="31" stroke-dasharray="194.8" stroke-dashoffset="0"/></svg>` : '';
-    const meta = s.alive ? `<span class="cnt">🂠 ${s.n}</span>${cur && g.turnsLeft > 1 ? `<span class="x2">×${g.turnsLeft}</span>` : ''}` : `<span class="cnt">${s.place ? '#' + s.place : 'out'}</span>`;
+    const meta = s.alive ? `<span class="cnt">${s.n}</span>${cur && g.turnsLeft > 1 ? `<span class="x2">×${g.turnsLeft}</span>` : ''}` : `<span class="cnt">${s.place ? '#' + s.place : 'out'}</span>`;
     return `<div class="${cls}" id="seat-${i}" data-act="seat" data-i="${i}" style="left:${x.toFixed(2)}%;top:${y.toFixed(2)}%"><div class="avwrap">${avatarHTML(s.avatar, s.color)}${ring}${st ? `<span class="st">${st}</span>` : ''}</div><div class="nm">${esc(s.name)}</div><div class="meta">${meta}</div></div>`;
   }).join('');
   setHTML($('seats'), html);
@@ -9331,10 +9401,10 @@ function renderSeats(g) {
 function renderCenter(g) {
   const pct = g.deck ? Math.round(100 * g.deaths / g.deck) : 0;
   const top = g.discard.length ? g.discard[g.discard.length - 1] : null;
-  const chains = Object.keys(g.chains).map(t => `<span class="chainb">⛓️ ${CARDS[t].e} ${CARDS[t].n} · ${g.chains[t]}</span>`).join('');
+  const chains = Object.keys(g.chains).map(t => `<span class="chainb">${DDIcons.svg('chain', 'ico ie')}${DDIcons.svg(t, 'ico ie')}${CARDS[t].n} · ${g.chains[t]}</span>`).join('');
   setHTML($('center'), `<div class="piles">
     <div class="pile deck ${canDrawNow() ? 'can' : ''}" id="pile-deck" ${canDrawNow() ? 'data-act="draw" title="Click to draw"' : ''}><span class="dn">${g.deck}</span><span class="dl">${canDrawNow() ? 'DRAW' : 'DECK'}</span></div>
-    <div class="meter" title="Chance the next card is a Deathcard"><span class="sk">💀</span><div class="bar"><i style="height:${Math.min(100, pct)}%"></i></div><span class="pc">${pct}%</span><span class="pl">${g.deaths} in deck</span></div>
+    <div class="meter" title="Chance the next card is a Deathcard"><span class="sk"></span><div class="bar"><i style="height:${Math.min(100, pct)}%"></i></div><span class="pc">${pct}%</span><span class="pl">${g.deaths} in deck</span></div>
     <div class="pile disc" id="pile-disc">${top ? cardHTML(top, 'mini') : '<span style="font-size:10px;color:rgba(255,255,255,.35);letter-spacing:.1em">DISCARD</span>'}</div>
   </div><div class="infol"><span class="dir"><span class="ic">${g.dir > 0 ? '↻' : '↺'}</span> ${g.dir > 0 ? 'Clockwise' : 'Counter-clockwise'}</span>${chains}</div>`);
 }
@@ -9343,15 +9413,15 @@ function renderStack(g) {
   if (g.stack) {
     const chips = g.stack.items.map(it => {
       const C = CARDS[it.t];
-      const label = it.t === 'mirror' ? `🪞 Mirror as ${CARDS[it.as] ? CARDS[it.as].n : '?'}` : `${C.e} ${C.n}`;
+      const label = it.t === 'mirror' ? `Mirror as ${CARDS[it.as] ? CARDS[it.as].n : '?'}` : `${C.n}`;
       const tgt = it.target != null && g.seats[it.target] ? ` → ${esc(g.seats[it.target].name)}` : '';
       return `<span class="sitem ${it.off ? 'off' : ''} ${C.k === 'quick' ? 'q' : ''}">${label} <span style="color:var(--muted)">${esc(seatName(it.by))}${tgt}</span></span>`;
     }).join('');
     const top = g.stack.items[g.stack.items.length - 1];
-    html = `<div class="rlabel">${top.unc ? '😇 ANGEL! ONLY 🔥 INFERNO OR ⛓️ CHAIN CAN ANSWER' : '⚡ REACTION WINDOW'}</div><div class="stk">${chips}</div><div class="rbar"><i data-timer="stack"></i></div>`;
+    html = `<div class="rlabel">${top.unc ? 'ANGEL! ONLY INFERNO OR CHAIN CAN ANSWER' : 'REACTION WINDOW'}</div><div class="stk">${chips}</div><div class="rbar"><i data-timer="stack"></i></div>`;
   } else if (g.choice) {
     const c = g.choice;
-    const txt = c.kind === 'give' ? `🫳 ${esc(seatName(c.from))} is picking a card for ${esc(seatName(c.to))}` : `😇 ${esc(seatName(c.who))} is hiding the 💀 back in the deck`;
+    const txt = c.kind === 'give' ? `${esc(seatName(c.from))} is picking a card for ${esc(seatName(c.to))}` : `${esc(seatName(c.who))} is hiding the Deathcard back in the deck`;
     html = `<div class="stk"><span class="sitem">${txt}</span></div><div class="rbar" style="max-width:260px"><i data-timer="choice"></i></div>`;
   }
   setHTML($('stackbar'), html);
@@ -9366,36 +9436,36 @@ function renderBar(g) {
   const me = g.me, mine = me >= 0 ? g.seats[me] : null;
   let s1 = '', s2 = '', timer = false;
   const curName = esc(seatName(g.cur));
-  if (g.phase === 'over') { s1 = g.winner >= 0 ? `🏆 ${esc(seatName(g.winner))} wins!` : 'Game ended'; s2 = isHost() ? 'Start another round from the end screen.' : 'Waiting for the host…'; }
-  else if (me < 0) { s1 = "👀 You're watching"; s2 = `${curName}'s turn · you'll be dealt in next game`; }
-  else if (!mine.alive) { s1 = "💀 You're out"; s2 = `${curName}'s turn. Stick around and watch the chaos.`; }
+  if (g.phase === 'over') { s1 = g.winner >= 0 ? `${esc(seatName(g.winner))} wins!` : 'Game ended'; s2 = isHost() ? 'Start another round from the end screen.' : 'Waiting for the host…'; }
+  else if (me < 0) { s1 = "You're watching"; s2 = `${curName}'s turn · you'll be dealt in next game`; }
+  else if (!mine.alive) { s1 = "You're out"; s2 = `${curName}'s turn. Stick around and watch the chaos.`; }
   else if (g.choice) {
     const c = g.choice;
-    if (c.kind === 'give' && c.from === me) { s1 = `🫳 Pick a card to give ${esc(seatName(c.to))}`; s2 = 'A random one goes if time runs out.'; }
-    else if (c.kind === 'hide' && c.who === me) { s1 = '😇 Hide the Deathcard!'; s2 = 'Choose where it goes back in the deck.'; }
-    else { s1 = c.kind === 'give' ? `${esc(seatName(c.from))} is choosing a card…` : `${esc(seatName(c.who))} is hiding the 💀…`; s2 = 'Hang on.'; }
+    if (c.kind === 'give' && c.from === me) { s1 = `Pick a card to give ${esc(seatName(c.to))}`; s2 = 'A random one goes if time runs out.'; }
+    else if (c.kind === 'hide' && c.who === me) { s1 = 'Hide the Deathcard!'; s2 = 'Choose where it goes back in the deck.'; }
+    else { s1 = c.kind === 'give' ? `${esc(seatName(c.from))} is choosing a card…` : `${esc(seatName(c.who))} is hiding the Deathcard…`; s2 = 'Hang on.'; }
   } else if (g.stack) {
     const top = g.stack.items[g.stack.items.length - 1];
-    s1 = top.by === me ? '⚡ Waiting to see if anyone answers…' : `⚡ ${esc(seatName(top.by))} played ${cname(top.t)}`;
+    s1 = top.by === me ? 'Waiting to see if anyone answers…' : `${esc(seatName(top.by))} played ${cname(top.t)}`;
     s2 = myQuick(g).length ? 'Your glowing cards can answer it. Click one, or let it happen.' : 'Reaction window: Quick Play cards only.';
   } else if (g.fest && g.fest.pending) {
     const E = DD.EVENTS[g.fest.pending.ev] || {};
-    s1 = `🎄 Festive Misfortune: ${E.e || ''} ${esc(E.n || '')}`; s2 = 'Everything waits until the surprise is unwrapped…';
+    s1 = `Festive Misfortune: ${esc(E.n || '')}`; s2 = 'Everything waits until the surprise is unwrapped…';
   } else if (g.cur === me) {
-    s1 = `🎯 Your turn${g.turnsLeft > 1 ? ` · ${g.turnsLeft} turns to take` : ''}`;
-    s2 = mine.snow ? "❄️ You're snowed in: you can only draw this turn." : 'Play cards, then draw to end your turn.';
+    s1 = `Your turn${g.turnsLeft > 1 ? ` · ${g.turnsLeft} turns to take` : ''}`;
+    s2 = mine.snow ? "You're snowed in: you can only draw this turn." : 'Play cards, then draw to end your turn.';
     timer = true;
   } else { s1 = `${curName}'s turn${g.turnsLeft > 1 ? ` (×${g.turnsLeft})` : ''}`; s2 = g.seats[g.cur].bot ? 'The bot is thinking…' : 'Watch out for attacks!'; timer = true; }
   const tbar = timer && g.turnTotal > 0 && g.phase === 'play' ? `<div class="tbar"><i data-timer="turn"></i></div>` : '';
   // the Draw button never moves: it's always there while you're in the game, just greyed out when you can't draw
   const canDraw = canDrawNow();
-  const draw = mine && mine.alive && g.phase === 'play' ? `<button class="btn primary drawbtn" data-act="draw" ${canDraw ? '' : 'disabled'} title="Draw a card (or click the deck)">Draw 🂠</button>` : '<span class="drawslot"></span>';
+  const draw = mine && mine.alive && g.phase === 'play' ? `<button class="btn primary drawbtn" data-act="draw" ${canDraw ? '' : 'disabled'} title="Draw a card (or click the deck)">Draw</button>` : '<span class="drawslot"></span>';
   setHTML($('bar'), `<div class="status"><div class="s1">${s1}</div><div class="s2">${s2}</div>${tbar}</div>${draw}`);
 }
 function renderHand(g) {
   const el = $('hand');
-  if (g.me < 0) { setHTML(el, `<div class="hint">👀 You're watching this game. You'll be dealt in next time.</div>`); return; }
-  if (!g.seats[g.me].alive) { setHTML(el, `<div class="hint">💀 You're out of this game.</div>`); return; }
+  if (g.me < 0) { setHTML(el, `<div class="hint">You're watching this game. You'll be dealt in next time.</div>`); return; }
+  if (!g.seats[g.me].alive) { setHTML(el, `<div class="hint">You're out of this game.</div>`); return; }
   if (!g.hand.length) { setHTML(el, `<div class="hint">No cards in your hand.</div>`); return; }
   const hand = g.hand.slice().sort((a, b) => ORDER.indexOf(a.t) - ORDER.indexOf(b.t) || a.id - b.id);
   let newId = -1;
@@ -9423,14 +9493,14 @@ function renderHand(g) {
 }
 function renderEnd(g) {
   const w = $('endwrap');
-  if (g.phase !== 'over' || A.endHidden) { setHTML(w, A.endHidden && g.phase === 'over' ? `<div style="position:absolute;top:10px;right:10px;z-index:21"><button class="btn small gold" data-act="showend">🏆 Results</button></div>` : ''); return; }
+  if (g.phase !== 'over' || A.endHidden) { setHTML(w, A.endHidden && g.phase === 'over' ? `<div style="position:absolute;top:10px;right:10px;z-index:21"><button class="btn small gold" data-act="showend">Results</button></div>` : ''); return; }
   const places = g.seats.map((s, i) => Object.assign({ i }, s)).sort((a, b) => (a.place || 99) - (b.place || 99));
   const win = g.winner >= 0 ? g.seats[g.winner] : null;
   const btns = isHost()
-    ? `<div class="mbtns row"><button class="btn primary" data-act="again">🔁 Play again</button><button class="btn" data-act="tolobby">🏠 Back to lobby</button></div>`
+    ? `<div class="mbtns row"><button class="btn primary" data-act="again">Play again</button><button class="btn" data-act="tolobby">Back to lobby</button></div>`
     : `<p style="margin:0 0 10px">Waiting for the host to start the next game…</p><div class="mbtns row"><button class="btn" data-act="leave">Leave room</button></div>`;
-  setHTML(w, `<div class="endcard"><div class="endbox"><div class="trophy">${win ? '🏆' : '🛑'}</div><h2>${win ? esc(win.name) + ' wins!' : 'Game ended'}</h2><p style="color:var(--muted);margin:0">${win ? (g.winner === g.me ? 'You survived the deck. Nice.' : 'Last one standing.') : 'The host ended the game.'}</p>
-    <div class="places">${places.map(s => `<div class="place ${s.place === 1 ? 'first' : ''}"><span class="pn">${s.place ? '#' + s.place : '–'}</span>${avatarHTML(s.avatar, s.color)}<b style="flex:1">${esc(s.name)}</b><span>${s.place === 1 ? '👑' : s.why === 'death' ? '💀' : s.why ? '🚪' : ''}</span></div>`).join('')}</div>
+  setHTML(w, `<div class="endcard"><div class="endbox"><div class="trophy">${win ? TROPHY.win : TROPHY.stop}</div><h2>${win ? esc(win.name) + ' wins!' : 'Game ended'}</h2><p style="color:var(--muted);margin:0">${win ? (g.winner === g.me ? 'You survived the deck. Nice.' : 'Last one standing.') : 'The host ended the game.'}</p>
+    <div class="places">${places.map(s => `<div class="place ${s.place === 1 ? 'first' : ''}"><span class="pn">${s.place ? '#' + s.place : '–'}</span>${avatarHTML(s.avatar, s.color)}<b style="flex:1">${esc(s.name)}</b><span>${s.place === 1 ? '' : s.why === 'death' ? '' : s.why ? '' : ''}</span></div>`).join('')}</div>
     ${btns}<button class="btn ghost small" style="margin-top:8px" data-act="viewtable">View the table</button></div></div>`);
 }
 
@@ -9449,13 +9519,13 @@ function renderModal() {
   let html = '';
   if (forced === 'give') {
     const hand = g.hand.slice().sort((a, b) => ORDER.indexOf(a.t) - ORDER.indexOf(b.t));
-    html = `<div class="mbox wide"><h2>🫳 ${esc(seatName(g.choice.to))} is stealing from you!</h2><p>Pick the card you hand over. If time runs out, a random card goes.</p><div class="cbar"><i data-timer="choice"></i></div><div class="cardrow">${hand.map(c => cardHTML(c.t, 'mini', `data-act="give" data-id="${c.id}" style="cursor:pointer"`)).join('')}</div></div>`;
+    html = `<div class="mbox wide"><h2>${esc(seatName(g.choice.to))} is stealing from you!</h2><p>Pick the card you hand over. If time runs out, a random card goes.</p><div class="cbar"><i data-timer="choice"></i></div><div class="cardrow">${hand.map(c => cardHTML(c.t, 'mini', `data-act="give" data-id="${c.id}" style="cursor:pointer"`)).join('')}</div></div>`;
   } else if (forced === 'hide') {
-    html = `<div class="mbox"><h2>😇 Saved by an Angel!</h2><p>Hide the Deathcard back in the deck. Nobody else sees where it goes.</p><div class="cbar"><i data-timer="choice"></i></div><div class="mbtns">${[['top', '⬆️ On top (next draw!)'], ['2', '2nd from the top'], ['3', '3rd from the top'], ['bottom', '⬇️ At the bottom'], ['random', '🎲 Random spot']].map(p => `<button class="btn" data-act="hide" data-pos="${p[0]}">${p[1]}</button>`).join('')}</div></div>`;
+    html = `<div class="mbox"><h2>Saved by an Angel!</h2><p>Hide the Deathcard back in the deck. Nobody else sees where it goes.</p><div class="cbar"><i data-timer="choice"></i></div><div class="mbtns">${[['top', '↑ On top (next draw!)'], ['2', '2nd from the top'], ['3', '3rd from the top'], ['bottom', '↓ At the bottom'], ['random', 'Random spot']].map(p => `<button class="btn" data-act="hide" data-pos="${p[0]}">${p[1]}</button>`).join('')}</div></div>`;
   } else if (A.reveal) {
     const r = A.reveal;
     const labels = ['Top', '2nd', '3rd'];
-    html = `<div class="mbox"><h2>${r.kind === 'future' ? '🔮 Future' : '🔭 Peek'}: top of the deck</h2><p>Only you can see this. Left is the next card drawn.</p><div class="cardrow">${r.cards.length ? r.cards.map((t, i) => `<div>${cardHTML(t, 'mini')}<div class="lab">${labels[i]}</div></div>`).join('') : '<p>The deck is empty.</p>'}</div><div class="mbtns" style="margin-top:14px"><button class="btn primary" data-act="revealok">Got it</button></div></div>`;
+    html = `<div class="mbox"><h2>${r.kind === 'future' ? 'Future' : 'Peek'}: top of the deck</h2><p>Only you can see this. Left is the next card drawn.</p><div class="cardrow">${r.cards.length ? r.cards.map((t, i) => `<div>${cardHTML(t, 'mini')}<div class="lab">${labels[i]}</div></div>`).join('') : '<p>The deck is empty.</p>'}</div><div class="mbtns" style="margin-top:14px"><button class="btn primary" data-act="revealok">Got it</button></div></div>`;
   } else if (A.modal) html = modalHTML(A.modal, g);
   if (!html) { m.classList.add('hidden'); setHTML(m, ''); if (T3 && T3.ready) T3.setTargets(null); return; }
   m.classList.remove('hidden');
@@ -9471,8 +9541,8 @@ function modalHTML(md, g) {
       const c = g && g.hand.find(x => x.id === md.id);
       if (!c || !c.ok || !c.tg) { A.modal = null; return ''; }
       const C = CARDS[c.t], eff = c.t === 'mirror' ? g.lastPlayed : c.t;
-      const title = c.t === 'redirect' ? '↪️ Bounce it onto…' : `${C.e} ${C.n}${c.t === 'mirror' ? ' (as ' + cname(eff) + ')' : ''}: pick a target`;
-      return `<div class="mbox tpick"><h2>${title}</h2><p>${T3 && T3.active ? 'Click a glowing player at the table, or pick below.' : esc(CARDS[eff] ? CARDS[eff].d : '')}</p><div class="tlist">${c.tg.map(i => { const s = g.seats[i]; return `<button class="tbtn" data-act="target" data-i="${i}">${avatarHTML(s.avatar, s.color)}<span>${i === g.me ? 'Yourself' : esc(s.name)}</span><small>🂠 ${s.n} cards</small></button>`; }).join('')}</div><div class="mbtns"><button class="btn ghost" data-act="mclose">Cancel</button></div></div>`;
+      const title = c.t === 'redirect' ? 'Bounce it onto…' : `${C.n}${c.t === 'mirror' ? ' (as ' + cname(eff) + ')' : ''}: pick a target`;
+      return `<div class="mbox tpick"><h2>${title}</h2><p>${T3 && T3.active ? 'Click a glowing player at the table, or pick below.' : esc(CARDS[eff] ? CARDS[eff].d : '')}</p><div class="tlist">${c.tg.map(i => { const s = g.seats[i]; return `<button class="tbtn" data-act="target" data-i="${i}">${avatarHTML(s.avatar, s.color)}<span>${i === g.me ? 'Yourself' : esc(s.name)}</span><small>${s.n} cards</small></button>`; }).join('')}</div><div class="mbtns"><button class="btn ghost" data-act="mclose">Cancel</button></div></div>`;
     }
     case 'player': {
       const m = v && v.members.find(x => x.cid === md.cid);
@@ -9482,13 +9552,13 @@ function modalHTML(md, g) {
       const P = m || s;
       const me = md.cid === cid;
       const rows = [];
-      rows.push(['Status', m ? (m.bot ? '🤖 Bot' : !m.conn ? '📡 Reconnecting' : m.host ? '👑 Host' : m.spec ? '👀 Watching' : '🟢 Connected') : '🚪 Left the room']);
+      rows.push(['Status', m ? (m.bot ? 'Bot' : !m.conn ? 'Reconnecting' : m.host ? 'Host' : m.spec ? 'Watching' : 'Connected') : 'Left the room']);
       if (m && !m.bot && !m.host) rows.push(['Route', esc(Net.VIA_LABEL[m.via] || '–')]);
-      if (s) rows.push(['This game', s.alive ? `🂠 ${s.n} cards in hand${si === g.cur ? ' · their turn' : ''}` : `Out (#${s.place})`]);
-      if (m) rows.push(['Record', `🏆 ${m.wins} win${m.wins === 1 ? '' : 's'} in ${m.games} game${m.games === 1 ? '' : 's'}`]);
+      if (s) rows.push(['This game', s.alive ? `${s.n} cards in hand${si === g.cur ? ' · their turn' : ''}` : `Out (#${s.place})`]);
+      if (m) rows.push(['Record', `${m.wins} win${m.wins === 1 ? '' : 's'} in ${m.games} game${m.games === 1 ? '' : 's'}`]);
       const btns = [];
-      if (me) btns.push('<button class="btn" data-act="profile">✏️ Edit name & avatar</button>');
-      if (isHost() && m && !m.host) btns.push(`<button class="btn" data-act="kick" data-cid="${esc(m.cid)}">${m.bot ? '🗑️ Remove bot' : '👢 Remove from room'}</button>`);
+      if (me) btns.push('<button class="btn" data-act="profile">Edit name & avatar</button>');
+      if (isHost() && m && !m.host) btns.push(`<button class="btn" data-act="kick" data-cid="${esc(m.cid)}">${m.bot ? 'Remove bot' : 'Remove from room'}</button>`);
       btns.push('<button class="btn ghost" data-act="mclose">Close</button>');
       return `<div class="mbox pcard">${avatarHTML(P.avatar, P.color, 84)}<h2>${esc(P.name)}</h2><div>${m && m.host ? '<span class="tagp host">HOST</span>' : ''}${me ? '<span class="tagp you">YOU</span>' : ''}${P.bot ? '<span class="tagp bot">BOT</span>' : ''}</div><div class="kv">${rows.map(r => `<span>${r[0]}</span><span>${r[1]}</span>`).join('')}</div><div class="mbtns">${btns.join('')}</div></div>`;
     }
@@ -9496,58 +9566,58 @@ function modalHTML(md, g) {
       const inGame = v && v.phase === 'game', playing = inGame && g && g.phase === 'play';
       const b = [];
       if (isHost()) {
-        if (playing) b.push('<button class="btn" data-act="endgame">🛑 End game</button>');
-        if (inGame) b.push('<button class="btn" data-act="tolobby">🏠 Back to lobby</button>');
+        if (playing) b.push('<button class="btn" data-act="endgame">End game</button>');
+        if (inGame) b.push('<button class="btn" data-act="tolobby">Back to lobby</button>');
       }
       b.push('<button class="btn" data-act="copy">⧉ Copy invite</button>');
-      b.push('<button class="btn" data-act="rules">📖 How to play</button>');
-      b.push('<button class="btn" data-act="profile">✏️ Edit name & avatar</button>');
-      b.push(`<button class="btn" data-act="sound">${A.sound ? '🔇 Mute sound effects' : '🔊 Turn sound effects on'}</button>`);
+      b.push('<button class="btn" data-act="rules">How to play</button>');
+      b.push('<button class="btn" data-act="profile">Edit name & avatar</button>');
+      b.push(`<button class="btn" data-act="sound">${A.sound ? 'Mute sound effects' : 'Turn sound effects on'}</button>`);
       b.push(sceneRow());
       b.push(musicRows());
-      b.push(`<div class="mrow"><span>🎨 Graphics</span><div class="seg">${[['auto', 'Auto'], ['high', 'High'], ['low', 'Low'], ['flat', '2D']].map(o => `<button class="${A.gfx === o[0] ? 'on' : ''}" data-act="gfx" data-v="${o[0]}">${o[1]}</button>`).join('')}</div></div>`);
-      if (A.gfx !== 'flat') b.push(`<button class="btn" data-act="mlook">${A.mlook ? '🖱️ Mouse look: on (move the mouse to look)' : '🖱️ Mouse look: off (drag to look)'}</button>`);
-      b.push(isHost() ? '<button class="btn" data-act="closeroom" style="color:#ff8a93">✖ Close the room</button>' : '<button class="btn" data-act="leave" style="color:#ff8a93">🚪 Leave room</button>');
+      b.push(`<div class="mrow"><span>Graphics</span><div class="seg">${[['auto', 'Auto'], ['high', 'High'], ['low', 'Low'], ['flat', '2D']].map(o => `<button class="${A.gfx === o[0] ? 'on' : ''}" data-act="gfx" data-v="${o[0]}">${o[1]}</button>`).join('')}</div></div>`);
+      if (A.gfx !== 'flat') b.push(`<button class="btn" data-act="mlook">${A.mlook ? 'Mouse look: on (move the mouse to look)' : 'Mouse look: off (drag to look)'}</button>`);
+      b.push(isHost() ? '<button class="btn" data-act="closeroom" style="color:#ff8a93">✕ Close the room</button>' : '<button class="btn" data-act="leave" style="color:#ff8a93">Leave room</button>');
       b.push('<button class="btn ghost" data-act="mclose">Back to the game</button>');
-      return `<div class="mbox"><h2>${isHost() ? '👑 Host menu' : '☰ Menu'}</h2><p>Room <b>${esc(A.code)}</b></p><div class="mbtns">${b.join('')}</div>${BuildVer.html()}</div>`;
+      return `<div class="mbox"><h2>${isHost() ? 'Host menu' : '☰ Menu'}</h2><p>Room <b>${esc(A.code)}</b></p><div class="mbtns">${b.join('')}</div>${BuildVer.html()}</div>`;
     }
     case 'routes': {
       const st = (v && v.routes) || {};
       const info = { local: 'Other tabs in this browser', peer: 'Direct peer-to-peer link (fastest)', nostr: 'Peer-to-peer, found through Nostr servers', torrent: 'Peer-to-peer, found through torrent trackers', relay: 'Encrypted messages through public relays on the normal web port. Works when direct links are blocked.' };
       const rows = isHost()
-        ? ROUTES.map(r => `<div><b>${r[1]}</b><span style="flex:1">${info[r[0]]}</span><span class="k">${st[r[0]] === 'on' ? '✅ listening' : st[r[0]] === 'fail' ? '❌ unavailable' : st[r[0]] === 'retry' ? '⏳ retrying' : '–'}</span></div>`).join('')
+        ? ROUTES.map(r => `<div><b>${r[1]}</b><span style="flex:1">${info[r[0]]}</span><span class="k">${st[r[0]] === 'on' ? 'listening' : st[r[0]] === 'fail' ? 'unavailable' : st[r[0]] === 'retry' ? 'retrying' : '–'}</span></div>`).join('')
         : `<div><b>${esc(Net.VIA_LABEL[A.via] || 'Unknown')}</b><span>You're connected this way. If it drops, the game tries every route again automatically.</span></div>`;
-      return `<div class="mbox"><h2>📡 Connection routes</h2><p>${isHost() ? 'Your room listens on all of these at once. Friends use whichever gets through first.' : ''}</p><div class="rtable">${rows}</div><div class="mbtns" style="margin-top:14px"><button class="btn ghost" data-act="mclose">Close</button></div></div>`;
+      return `<div class="mbox"><h2>Connection routes</h2><p>${isHost() ? 'Your room listens on all of these at once. Friends use whichever gets through first.' : ''}</p><div class="rtable">${rows}</div><div class="mbtns" style="margin-top:14px"><button class="btn ghost" data-act="mclose">Close</button></div></div>`;
     }
     case 'profile': {
       const p = A.pick || (A.pick = { name: prof.name, avatar: prof.avatar, color: prof.color });
-      return `<div class="mbox"><h2>✏️ Your look</h2><div class="profile-row" style="margin:10px 0">${avatarHTML(p.avatar, p.color, 58)}<input class="field" id="profName" maxlength="16" value="${esc(p.name)}" placeholder="Your name"></div><div class="picker">${AVATARS.map(a => `<button class="${a === p.avatar ? 'on' : ''}" data-act="pickav" data-v="${a}">${a}</button>`).join('')}</div><div class="swatches" style="margin:12px 0">${COLORS.map(c => `<button class="${c === p.color ? 'on' : ''}" style="background:${c}" data-act="pickcol" data-v="${c}"></button>`).join('')}</div><div class="mbtns row"><button class="btn primary" data-act="saveprof">Save</button><button class="btn ghost" data-act="mclose">Cancel</button></div></div>`;
+      return `<div class="mbox"><h2>Your look</h2><div class="profile-row" style="margin:10px 0">${avatarHTML(p.avatar, p.color, 58)}<input class="field" id="profName" maxlength="16" value="${esc(p.name)}" placeholder="Your name"></div><div class="picker">${AVATARS.map(a => `<button class="${a === p.avatar ? 'on' : ''}" data-act="pickav" data-v="${a}">${markSVG(a)}</button>`).join('')}</div><div class="swatches" style="margin:12px 0">${COLORS.map(c => `<button class="${c === p.color ? 'on' : ''}" style="background:${c}" data-act="pickcol" data-v="${c}"></button>`).join('')}</div><div class="mbtns row"><button class="btn primary" data-act="saveprof">Save</button><button class="btn ghost" data-act="mclose">Cancel</button></div></div>`;
     }
     case 'homemenu':
-      return `<div class="mbox"><h2>⚙️ Settings</h2><div class="mbtns">${sceneRow()}${musicRows()}<button class="btn" data-act="sound">${A.sound ? '🔇 Mute sound effects' : '🔊 Turn sound effects on'}</button><div class="mrow"><span>🎨 Graphics</span><div class="seg">${[['auto', 'Auto'], ['high', 'High'], ['low', 'Low'], ['flat', '2D']].map(o => `<button class="${A.gfx === o[0] ? 'on' : ''}" data-act="gfx" data-v="${o[0]}">${o[1]}</button>`).join('')}</div></div><button class="btn ghost" data-act="mclose">Close</button></div></div>`;
+      return `<div class="mbox"><h2>Settings</h2><div class="mbtns">${sceneRow()}${musicRows()}<button class="btn" data-act="sound">${A.sound ? 'Mute sound effects' : 'Turn sound effects on'}</button><div class="mrow"><span>Graphics</span><div class="seg">${[['auto', 'Auto'], ['high', 'High'], ['low', 'Low'], ['flat', '2D']].map(o => `<button class="${A.gfx === o[0] ? 'on' : ''}" data-act="gfx" data-v="${o[0]}">${o[1]}</button>`).join('')}</div></div><button class="btn ghost" data-act="mclose">Close</button></div></div>`;
     case 'confirm':
       return `<div class="mbox"><h2>${esc(md.title)}</h2><p>${esc(md.text)}</p><div class="mbtns row"><button class="btn primary" data-act="confirmok">${esc(md.ok || 'OK')}</button><button class="btn ghost" data-act="mclose">Cancel</button></div></div>`;
     case 'rules':
-      return `<div class="mbox wide rules"><h2>📖 How to play Dead Deal</h2>
-        <h3>Goal</h3><ul><li>Be the last one standing. Draw a 💀 <b>Deathcard</b> and you're out, unless you have a 😇 <b>Angel</b>.</li><li>The 💀 meter shows the chance the next card is a Deathcard.</li></ul>
+      return `<div class="mbox wide rules"><h2>How to play Dead Deal</h2>
+        <h3>Goal</h3><ul><li>Be the last one standing. Draw a <b>Deathcard</b> and you're out, unless you have a <b>Angel</b>.</li><li>The death meter shows the chance the next card is a Deathcard.</li></ul>
         <h3>Your turn</h3><ul><li>Play as many cards as you like, then <b>draw</b> to end your turn.</li><li>Skip, Reverse, Attack and Bottom also end your turn, so you don't draw.</li><li>Run out of time and you draw automatically.</li></ul>
-        <h3>⚡ Reactions</h3><ul><li>Every card played opens a short <b>reaction window</b> (the yellow bar). Anyone can answer with Quick Play cards (the white cards), like Cancel.</li><li>A Cancel can't be canceled. Only 🔥 Inferno can answer it.</li><li>🔥 Inferno can't answer a Mirror or another Inferno. Burned cards go back into the deck at random spots.</li><li>An Angel can't be canceled, but 🔥 Inferno can still burn other Angels and ⛓️ Chain can lock them.</li></ul>
-        <h3>⚔️ Attacks</h3><ul><li>Attack makes someone take 2 turns. If they Attack back, the next player takes their remaining turns + 2, so stacks go 2, 4, 6…</li><li>Skip and Reverse only clear one turn of a stack.</li><li>Attacking yourself keeps your turn going.</li><li>Being saved by an Angel ends your turn and clears your whole Attack stack.</li></ul>
-        <h3>🎄 Festive Misfortune</h3><ul><li>Every few turns a surprise event happens: gifts, Angels, extra Deathcards, swaps, a peace treaty and more. Play pauses while it's unwrapped.</li><li>🎁 Wrapped Present: 50/50 for 2 free cards or a Deathcard. ❄️ Snowball: your target can only draw on their next turn.</li></ul>
-        <h3>🎮 Looking around</h3><ul><li>Move the mouse to look around the table (or drag on phones). Everyone sees your head turn. Hover a card to read it, click to play it.</li></ul>
-        <h3>Cards</h3><div class="rtable">${ORDER.map(t => `<div><b>${CARDS[t].e} ${esc(CARDS[t].n)}</b><span class="k">${DD.KIND[CARDS[t].k]}</span><span>${esc(CARDS[t].d)}</span></div>`).join('')}</div>
+        <h3>Reactions</h3><ul><li>Every card played opens a short <b>reaction window</b> (the yellow bar). Anyone can answer with Quick Play cards (the white cards), like Cancel.</li><li>A Cancel can't be canceled. Only Inferno can answer it.</li><li>Inferno can't answer a Mirror or another Inferno. Burned cards go back into the deck at random spots.</li><li>An Angel can't be canceled, but Inferno can still burn other Angels and Chain can lock them.</li></ul>
+        <h3>Attacks</h3><ul><li>Attack makes someone take 2 turns. If they Attack back, the next player takes their remaining turns + 2, so stacks go 2, 4, 6…</li><li>Skip and Reverse only clear one turn of a stack.</li><li>Attacking yourself keeps your turn going.</li><li>Being saved by an Angel ends your turn and clears your whole Attack stack.</li></ul>
+        <h3>Festive Misfortune</h3><ul><li>Every few turns a surprise event happens: gifts, Angels, extra Deathcards, swaps, a peace treaty and more. Play pauses while it's unwrapped.</li><li>Wrapped Present: 50/50 for 2 free cards or a Deathcard. Snowball: your target can only draw on their next turn.</li></ul>
+        <h3>Looking around</h3><ul><li>Move the mouse to look around the table (or drag on phones). Everyone sees your head turn. Hover a card to read it, click to play it.</li></ul>
+        <h3>Cards</h3><div class="rtable">${ORDER.map(t => `<div><b>${DDIcons.svg(t, 'ico ie')}${esc(CARDS[t].n)}</b><span class="k">${DD.KIND[CARDS[t].k]}</span><span>${esc(CARDS[t].d)}</span></div>`).join('')}</div>
         <div class="mbtns" style="margin-top:14px"><button class="btn primary" data-act="mclose">Let's play</button></div></div>`;
   }
   return '';
 }
 function sceneRow() {
   const names = (T3 && T3.SCENE_NAMES) || { room: 'Card room', neon: 'Neon lounge', mountain: 'Mountain base' };
-  return `<div class="mrow"><span>🏞️ Scene</span><div class="seg wrap">${Object.keys(names).map(k => `<button class="${A.scene === k ? 'on' : ''}" data-act="scene" data-v="${k}">${names[k]}</button>`).join('')}</div></div>`;
+  return `<div class="mrow"><span>Scene</span><div class="seg wrap">${Object.keys(names).map(k => `<button class="${A.scene === k ? 'on' : ''}" data-act="scene" data-v="${k}">${names[k]}</button>`).join('')}</div></div>`;
 }
 function musicRows() {
   const cur = A.music.on ? A.music.track : 'off';
-  return `<div class="mrow"><span>🎵 Music</span><div class="seg wrap">${[['auto', 'Auto'], ['lounge', 'Jazz lounge'], ['mountain', 'Mountain King'], ['jingle', 'Jingle swing'], ['off', 'Off']].map(o => `<button class="${cur === o[0] ? 'on' : ''}" data-act="mtrack" data-v="${o[0]}">${o[1]}</button>`).join('')}</div></div>
-    <div class="mrow"><span>🔉 Music volume</span><div class="stepper"><button data-act="mvol" data-d="-0.1">−</button><span>${Math.round(A.music.vol * 100)}%</span><button data-act="mvol" data-d="0.1">+</button></div></div>`;
+  return `<div class="mrow"><span>Music</span><div class="seg wrap">${[['auto', 'Auto'], ['lounge', 'Jazz lounge'], ['mountain', 'Mountain King'], ['jingle', 'Jingle swing'], ['off', 'Off']].map(o => `<button class="${cur === o[0] ? 'on' : ''}" data-act="mtrack" data-v="${o[0]}">${o[1]}</button>`).join('')}</div></div>
+    <div class="mrow"><span>Music volume</span><div class="stepper"><button data-act="mvol" data-d="-0.1">−</button><span>${Math.round(A.music.vol * 100)}%</span><button data-act="mvol" data-d="0.1">+</button></div></div>`;
 }
 function openModal(m) { A.modal = m; renderModal(); }
 function closeModal() { A.modal = null; A.pick = null; renderModal(); }
@@ -9562,7 +9632,7 @@ function renderSide() {
   $('chatForm').classList.toggle('hidden', A.tab !== 'chat');
   const cl = $('chatList');
   const atBottom = cl.scrollHeight - cl.scrollTop - cl.clientHeight < 40;
-  setHTML(cl, A.chat.map(m => m.sys ? `<div class="msg sys">${esc(m.text)}</div>` : `<div class="msg">${avatarHTML(m.avatar, m.color, 26)}<div class="mt"><div class="mn" style="color:${esc(m.color)}">${esc(m.name)}</div>${esc(m.text)}</div></div>`).join('') || '<div class="msg sys">Say hi 👋</div>');
+  setHTML(cl, A.chat.map(m => m.sys ? `<div class="msg sys">${esc(m.text)}</div>` : `<div class="msg">${avatarHTML(m.avatar, m.color, 26)}<div class="mt"><div class="mn" style="color:${esc(m.color)}">${esc(m.name)}</div>${esc(m.text)}</div></div>`).join('') || '<div class="msg sys">Say hi</div>');
   if (atBottom) cl.scrollTop = cl.scrollHeight;
   const g = game(), ll = $('logList');
   const lb = ll.scrollHeight - ll.scrollTop - ll.clientHeight < 40;
@@ -9619,19 +9689,19 @@ function onFx(e) {
   switch (e.kind) {
     case 'play': SFX.play(CARDS[e.card] && CARDS[e.card].k === 'quick' ? 'quick' : 'card'); if (!three) fly(seatEl(e.who), $('pile-disc'), CARDS[e.card] ? CARDS[e.card].e : ''); break;
     case 'draw': SFX.play('draw'); if (!three) fly($('pile-deck'), seatEl(e.who), '', 'back', 420); break;
-    case 'boom': SFX.play('boom'); if (window.Music) Music.duck(0.25, 1500); if (!three) { shake(); pop(seatEl(e.who), '💀'); } flash('rgba(255,40,60,.4)'); break;
-    case 'angel': setTimeout(() => { SFX.play('angel'); if (!three) pop(seatEl(e.who), '😇'); flash('rgba(255,215,80,.2)'); }, 500); break;
+    case 'boom': SFX.play('boom'); if (window.Music) Music.duck(0.25, 1500); if (!three) { shake(); pop(seatEl(e.who), DDIcons.svg('death', 'ico pop-ic')); } flash('rgba(255,40,60,.4)'); break;
+    case 'angel': setTimeout(() => { SFX.play('angel'); if (!three) pop(seatEl(e.who), DDIcons.svg('angel', 'ico pop-ic')); flash('rgba(255,215,80,.2)'); }, 500); break;
     case 'out': setTimeout(() => { SFX.play('out'); pop(seatEl(e.who), '<span style="font-size:30px;color:#ff4d5a">OUT</span>'); }, 550); break;
     case 'shuffle': { SFX.play('shuffle'); const d = $('pile-deck'); if (!three && d) { d.classList.remove('wiggle'); void d.offsetWidth; d.classList.add('wiggle'); } break; }
-    case 'reverse': SFX.play('whoosh'); if (!three) pop($('center'), '🔄'); break;
-    case 'attack': SFX.play('attack'); if (!three) fly(seatEl(e.who), seatEl(e.to), '⚔️', '', 600); break;
-    case 'burn': SFX.play('burn'); if (!three) pop($('center'), '🔥'); break;
+    case 'reverse': SFX.play('whoosh'); if (!three) pop($('center'), DDIcons.svg('reverse', 'ico pop-ic')); break;
+    case 'attack': SFX.play('attack'); if (!three) fly(seatEl(e.who), seatEl(e.to), DDIcons.svg('attack', 'ico pop-ic'), '', 600); break;
+    case 'burn': SFX.play('burn'); if (!three) pop($('center'), DDIcons.svg('inferno', 'ico pop-ic')); break;
     case 'move': if (!three) fly(seatEl(e.from), seatEl(e.to), '', 'back', 500); break;
-    case 'hide': if (!three) fly(seatEl(e.who), $('pile-deck'), '💀', '', 520); break;
+    case 'hide': if (!three) fly(seatEl(e.who), $('pile-deck'), DDIcons.svg('death', 'ico pop-ic'), '', 520); break;
     case 'win': setTimeout(() => { SFX.play('win'); confetti(); }, 600); break;
     case 'yourturn': SFX.play('turn'); banner('Your turn!', '#ff4d5a'); break;
-    case 'present': SFX.play('gift'); if (!three) pop(seatEl(e.who), '🎁'); break;
-    case 'snowball': SFX.play('whoosh'); setTimeout(() => SFX.play('splat'), 620); if (!three) fly(seatEl(e.who), seatEl(e.to), '❄️', '', 600); break;
+    case 'present': SFX.play('gift'); if (!three) pop(seatEl(e.who), ''); break;
+    case 'snowball': SFX.play('whoosh'); setTimeout(() => SFX.play('splat'), 620); if (!three) fly(seatEl(e.who), seatEl(e.to), '', '', 600); break;
     case 'festive': festShow(e, three); break;
     case 'festiveDone': festDone(e); break;
   }
@@ -9641,9 +9711,9 @@ function festShow(e, three) {
   const E = DD.EVENTS[e.ev];
   if (!E) return;
   A.fest = { ev: e.ev, target: e.target, card: e.card, spot: e.spot, at: Date.now(), shown: false };
-  const who = e.spot ? `<div class="fw" id="festWho">🔦 Who will it be…</div>` : '';
+  const who = e.spot ? `<div class="fw" id="festWho">Who will it be…</div>` : '';
   const extra = e.card && !e.spot ? ` <b>${cname(e.card)}</b>` : '';
-  $('festive').innerHTML = `<div class="fcard ${E.good ? 'good' : 'bad'}"><div class="fh">🎄 FESTIVE MISFORTUNE 🎄</div><div class="fe">${E.e}</div><div class="fn">${esc(E.n)}</div><div class="fd">${esc(E.d)}${extra}</div>${who}<div class="fbar"><i style="animation-duration:${e.ms || 3200}ms"></i></div></div>`;
+  $('festive').innerHTML = `<div class="fcard ${E.good ? 'good' : 'bad'}"><div class="fh">FESTIVE MISFORTUNE</div><div class="fe">${DDIcons.svg(E.e, 'ico')}</div><div class="fn">${esc(E.n)}</div><div class="fd">${esc(E.d)}${extra}</div>${who}<div class="fbar"><i style="animation-duration:${e.ms || 3200}ms"></i></div></div>`;
   SFX.play('jingle');
   if (window.Music) Music.duck(0.45, 1000);
   if (e.spot && !three) { const f = A.fest; setTimeout(() => { if (A.fest === f) festWho(f); }, Math.max(600, (e.ms || 5600) - 2400)); }
@@ -9652,7 +9722,7 @@ function festWho(f) {
   if (!f || f.shown) return;
   f.shown = true;
   const el = $('festWho');
-  if (el) { el.innerHTML = `🎯 ${esc(seatName(f.target))}${f.target === (game() || {}).me ? ' (you!)' : ''}${f.card ? ` gets ${cname(f.card)}` : ''}`; el.classList.add('hit'); }
+  if (el) { el.innerHTML = `${esc(seatName(f.target))}${f.target === (game() || {}).me ? ' (you!)' : ''}${f.card ? ` gets ${cname(f.card)}` : ''}`; el.classList.add('hit'); }
 }
 function festDone(e) {
   const f = A.fest;
@@ -9678,7 +9748,7 @@ function onEv(e) {
   if (e.t === 'drew') { toast(`You drew ${cname(e.card)}${e.where === 'bottom' ? ' from the bottom' : ''}`); A.newType = e.card; A.newAt = Date.now(); return; }
   if (e.t === 'gave') { toast(`You gave ${cname(e.card)} to ${seatName(e.to)}`); return; }
   if (e.t === 'got') { toast(`You got ${cname(e.card)} from ${seatName(e.from)}`, 'good'); A.newType = e.card; A.newAt = Date.now(); return; }
-  if (e.t === 'gift') { const cs = (e.cards || []).map(cname).join(' and '); toast(`🎁 You got ${cs}${e.why === 'present' ? ' from the present!' : '!'}`, 'good'); A.newType = (e.cards || [])[0]; A.newAt = Date.now(); SFX.play('gift'); return; }
+  if (e.t === 'gift') { const cs = (e.cards || []).map(cname).join(' and '); toast(`You got ${cs}${e.why === 'present' ? ' from the present!' : '!'}`, 'good'); A.newType = (e.cards || [])[0]; A.newAt = Date.now(); SFX.play('gift'); return; }
 }
 
 /* ============================== TIMERS (every frame) ============================== */
@@ -9718,7 +9788,7 @@ function clientRecv(m) {
     case 'state': {
       const first = !A.v;
       if (first && m.hv && /^\d+$/.test(String(m.hv)) && /^\d+$/.test(String(DD.VERSION)) && String(m.hv) !== String(DD.VERSION)) {
-        toast(+m.hv > +DD.VERSION ? '🔄 The host has a newer version. Reload the page to update.' : "🔄 The host is on an older version. Some things may not match until they reload.", 'err', 6000);
+        toast(+m.hv > +DD.VERSION ? 'The host has a newer version. Reload the page to update.' : "The host is on an older version. Some things may not match until they reload.", 'err', 6000);
       }
       A.v = m; A.vAt = performance.now(); A.code = m.code || A.code;
       if (m.gameNo !== A.lastGameNo && m.phase === 'game') { A.lastGameNo = m.gameNo; A.sel = null; A.endHidden = false; A.reveal = null; if (A.modal && A.modal.type === 'target') A.modal = null; }
@@ -9888,7 +9958,7 @@ const H = {
     const nel = document.querySelector(`#hand [data-id="${id}"]`);
     if (nel) showTip(nel);
   },
-  music: () => { A.music.on = !A.music.on; saveMusic(); A.audioOK = true; updateMusic(); renderTop(); toast(A.music.on ? '🎵 Music on' : '🎵 Music off'); if (A.modal) renderModal(); },
+  music: () => { A.music.on = !A.music.on; saveMusic(); A.audioOK = true; updateMusic(); renderTop(); toast(A.music.on ? 'Music on' : 'Music off'); if (A.modal) renderModal(); },
   mtrack: el => { const v = el.dataset.v; if (v === 'off') A.music.on = false; else { A.music.on = true; A.music.track = v; } saveMusic(); A.audioOK = true; updateMusic(); renderTop(); renderModal(); },
   mvol: el => { A.music.vol = Math.round(clampN(A.music.vol + (+el.dataset.d), 0, 1) * 10) / 10; saveMusic(); if (window.Music) Music.setVolume(A.music.vol); renderModal(); },
   gfx: el => {
@@ -9897,14 +9967,14 @@ const H = {
     $('seats')._h = null; $('center')._h = null; tagBox = null;
     render();
   },
-  mlook: () => { A.mlook = !A.mlook; store.set('dd_mlook', A.mlook); if (T3 && T3.ready) T3.setMouseLook(A.mlook); toast(A.mlook ? '🖱️ Mouse look on: move the mouse to look around' : '🖱️ Mouse look off: drag the table to look around'); renderView(T3 && T3.active); if (A.modal) renderModal(); },
+  mlook: () => { A.mlook = !A.mlook; store.set('dd_mlook', A.mlook); if (T3 && T3.ready) T3.setMouseLook(A.mlook); toast(A.mlook ? 'Mouse look on: move the mouse to look around' : 'Mouse look off: drag the table to look around'); renderView(T3 && T3.active); if (A.modal) renderModal(); },
   recenter: () => { if (T3 && T3.ready) T3.recenter(); },
   scene: el => { A.scene = el.dataset.v; store.set('dd_scene', A.scene); if (T3) T3.setScene(A.scene); if (A.modal) renderModal(); },
   nextscene: () => {
     const keys = Object.keys((T3 && T3.SCENE_NAMES) || {});
     if (!keys.length) return;
     A.scene = keys[(keys.indexOf(A.scene) + 1) % keys.length]; store.set('dd_scene', A.scene);
-    T3.setScene(A.scene); toast(`🏞️ ${T3.SCENE_NAMES[A.scene]}`);
+    T3.setScene(A.scene); toast(`${T3.SCENE_NAMES[A.scene]}`);
   },
   homemenu: () => openModal({ type: 'homemenu' }),
   joinroom: el => { const c = el.dataset.code; $('codeIn').value = c; joinRoom(c); },
@@ -9968,8 +10038,8 @@ function checkUpdate() {
     const busy = A.v && A.v.phase === 'game' && game() && game().phase === 'play';
     const u = $('update');
     u.innerHTML = here
-      ? `<span>🔄 A new version of Dead Deal is ready${busy ? ' (reload after this game)' : ''}.</span><button class="btn small primary" data-act="reload">Reload</button><button class="btn small ghost" data-act="updlater">Later</button>`
-      : `<span>🔄 A newer version is online.</span><a class="btn small primary" href="${esc(SITE)}" target="_blank" rel="noopener">Open it</a><button class="btn small ghost" data-act="updlater">Later</button>`;
+      ? `<span>A new version of Dead Deal is ready${busy ? ' (reload after this game)' : ''}.</span><button class="btn small primary" data-act="reload">Reload</button><button class="btn small ghost" data-act="updlater">Later</button>`
+      : `<span>A newer version is online.</span><a class="btn small primary" href="${esc(SITE)}" target="_blank" rel="noopener">Open it</a><button class="btn small ghost" data-act="updlater">Later</button>`;
     u.classList.remove('hidden');
   }).catch(() => {});
 }
